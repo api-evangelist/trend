@@ -1,7 +1,17 @@
 aid: trend
 name: Trend
-description: Trend is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Trend (branded "Trend by soona") is a user-generated content (UGC) platform
+  that connects brands with a network of vetted independent creators to produce
+  custom photo and video content — product and lifestyle photography, testimonial,
+  unboxing, and product-in-action videos — optimized for TikTok, Instagram,
+  Facebook, YouTube, and Amazon. Brands post a creative brief, hire creators from
+  a network of 3,700+, and receive full licensing and distribution rights to the
+  delivered content. Pricing is credit-based with no subscriptions or contracts.
+  Trend is part of soona.co. It was surfaced as a 500 Global portfolio company and
+  added to the API Evangelist network; enrichment found no public developer API,
+  documentation, or developer portal — the surface is a brand/creator web
+  application, not a programmable API.
 url: https://raw.githubusercontent.com/api-evangelist/trend/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,11 +19,30 @@ x-backed-by:
 - 500-global
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/62c13e3f6b73683c91c0df7c/649ae4e9626c096bdb7ca6ca_trend-by-soona-black.svg
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
+- User-Generated Content
+- Creator Economy
+- Content Marketing
+- Video Production
+- Photography
+- Marketing
+- eCommerce
 apis: []
 maintainers:
 - FN: Kin Lane
@@ -23,3 +52,24 @@ maintainers:
 common:
 - type: Website
   url: https://trend.io
+- type: Pricing
+  url: https://trend.io/pricing
+- type: SignUp
+  url: https://app.trend.io/sign-up
+- type: Login
+  url: https://app.trend.io/
+- type: Support
+  url: https://support.soona.co/trend-ugc
+- type: Blog
+  url: https://trend.io/blog
+- type: PrivacyPolicy
+  url: https://soona.co/privacy-policy
+- type: TermsOfService
+  url: https://soona.co/terms
+- type: DomainSecurity
+  url: security/trend-domain-security.yml
+x-enrichment:
+  date: '2026-07-21'
+  status: minimal
+  artifacts_added: 1
+  pass: local-v1
