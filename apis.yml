@@ -9,31 +9,36 @@ description: >-
   a network of 3,700+, and receive full licensing and distribution rights to the
   delivered content. Pricing is credit-based with no subscriptions or contracts.
   Trend is part of soona.co. It was surfaced as a 500 Global portfolio company and
-  added to the API Evangelist network; enrichment found no public developer API,
-  documentation, or developer portal — the surface is a brand/creator web
-  application, not a programmable API.
+  added to the API Evangelist network. Trend publishes no developer program or
+  developer portal, but the platform's own NestJS backend at api.trend.io serves a
+  public, machine-readable OpenAPI 3.0 document at /docs-json covering 124
+  operations across brands, campaigns, creators, partnerships, content submission,
+  messaging, shipments, AI image generation, and Stripe credit purchases. The
+  Swagger UI at /docs is password-protected; the specification behind it is not.
 url: https://raw.githubusercontent.com/api-evangelist/trend/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: openapi-discovered
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: paid
+  onboarding: self-serve
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-08-13'
   method: derived
 image: https://cdn.prod.website-files.com/62c13e3f6b73683c91c0df7c/649ae4e9626c096bdb7ca6ca_trend-by-soona-black.svg
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-21'
+modified: '2026-08-13'
 tags:
 - Company
 - User-Generated Content
@@ -43,7 +48,51 @@ tags:
 - Photography
 - Marketing
 - eCommerce
-apis: []
+- Creator Marketplace
+- Influencer Marketing
+- AI Image Generation
+- Payments
+apis:
+- name: Trend API
+  description: >-
+    The Trend platform API — the NestJS backend behind app.trend.io and the Trend
+    creator app. It exposes 124 operations across brand accounts and approvals,
+    campaign creation/submission/relisting, creator profiles, portfolios and levels,
+    partnership applications and rehire invites, content submission/approval/revision,
+    brand↔creator messaging, product shipments, AI photo generation and
+    super-resolution, S3 pre-signed uploads, and Stripe credit-package checkout.
+    Authentication is a JWT bearer ("access-token"); 39 admin operations additionally
+    require a "trend-api-key" header. There is no published developer program, no
+    onboarding for third-party developers, and no rate-limit documentation — but the
+    OpenAPI is served publicly and unauthenticated at https://api.trend.io/docs-json.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - User-Generated Content
+  - Creator Economy
+  - Content Marketing
+  - Video Production
+  - Photography
+  - eCommerce
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: Overlay
+    url: overlays/trend-api-overlay.yaml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+  - type: MCPServer
+    url: mcp/trend-mcp.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -59,17 +108,47 @@ common:
 - type: Login
   url: https://app.trend.io/
 - type: Support
-  url: https://support.soona.co/trend-ugc
+  url: https://support.soona.co
 - type: Blog
   url: https://trend.io/blog
 - type: PrivacyPolicy
   url: https://soona.co/privacy-policy
 - type: TermsOfService
   url: https://soona.co/terms
+- type: GitHubOrganization
+  url: https://github.com/Trend-io
+- type: OpenAPI
+  url: openapi/trend-api-openapi.yml
+- type: APIReference
+  url: https://api.trend.io/docs-json
+- type: Authentication
+  url: authentication/trend-authentication.yml
+- type: Conventions
+  url: conventions/trend-conventions.yml
+- type: DataModel
+  url: data-model/trend-data-model.yml
+- type: ErrorCatalog
+  url: errors/trend-problem-types.yml
+- type: Conformance
+  url: conformance/trend-conformance.yml
+- type: Lifecycle
+  url: lifecycle/trend-lifecycle.yml
+- type: Plans
+  url: plans/trend-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/trend-rate-limits.yml
+- type: MCPServer
+  url: mcp/trend-mcp.yml
+- type: Overlay
+  url: overlays/trend-api-overlay.yaml
+- type: LLMsTxt
+  url: llms/trend-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
 - type: DomainSecurity
   url: security/trend-domain-security.yml
 x-enrichment:
-  date: '2026-07-21'
-  status: minimal
-  artifacts_added: 1
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 19
   pass: local-v1
