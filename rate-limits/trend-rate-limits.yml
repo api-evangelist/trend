@@ -1,0 +1,37 @@
+generated: '2026-08-13'
+method: probed
+source: live responses from https://api.trend.io (GET /, /docs-json, /payment/stripe/packages, /nope-not-here)
+limit_count: 0
+note: >-
+  Trend documents no rate limits anywhere. There is no developer portal, no API
+  reference prose and no published limits page, and the OpenAPI at
+  https://api.trend.io/docs-json declares no 429 response on any of its 124
+  operations (the only documented response codes across the whole spec are 200 and
+  201). Live unauthenticated responses were inspected for runtime signalling and
+  carry NO rate-limit headers of any family: no X-RateLimit-*, no RateLimit-* (RFC
+  9331 style), and no Retry-After. This is an honest zero, not an unchecked field —
+  an agent calling this API gets no runtime budget signal at all and can only detect
+  exhaustion, if it exists, by observing a failure.
+limits: []
+response_headers:
+  observed: []
+  x_ratelimit_family: absent
+  ratelimit_family: absent
+  retry_after: absent
+  detail: >-
+    Response headers observed on 200 and 404 responses are limited to
+    access-control-allow-origin, content-type, content-length, date, etag,
+    x-powered-by (Express), x-envoy-upstream-service-time and server (envoy). The
+    Envoy fronting layer is capable of rate limiting but advertises no budget to the
+    caller.
+exhaustion_status_code: undocumented
+evidence:
+- url: https://api.trend.io/
+  status: 200
+  detail: 'plain-text banner "Success! trend-api Version: 1.28.31"; no rate-limit headers'
+- url: https://api.trend.io/payment/stripe/packages
+  status: 200
+  detail: no rate-limit headers
+- url: https://api.trend.io/nope-not-here
+  status: 404
+  detail: no rate-limit headers; error envelope {"message","error","statusCode"}

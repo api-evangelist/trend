@@ -1,0 +1,139 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/trend-api-openapi.yml
+status: candidate
+note: >-
+  TREND SHIPS NO MCP SERVER. Nothing hosted, nothing on npm or PyPI, nothing in the
+  Trend-io GitHub organization (which holds only two hiring-exercise repos). The tool
+  list below is a CANDIDATE derived by API Evangelist from the provider's own
+  published OpenAPI — it is what an MCP server over this API would expose, not
+  something an agent can call today. Every tool maps to a real operationId in
+  openapi/trend-api-openapi.yml; nothing here is invented.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: derived
+  detail: >-
+    No endpoint and no package exist, so neither field is populated. Probes:
+    https://mcp.trend.io/mcp does not resolve (DNS failure); https://api.trend.io/mcp
+    returns HTTP 404. If a server were built, auth would be the API's own Firebase JWT
+    bearer plus, for admin tools, the trend-api-key header.
+probed:
+- url: https://mcp.trend.io/mcp
+  status: 0
+  detail: DNS does not resolve
+- url: https://api.trend.io/mcp
+  status: 404
+- url: https://api.github.com/orgs/Trend-io/repos
+  status: 200
+  detail: 2 repos, both hiring exercises; no MCP server
+candidate_tools:
+- name: list_creators
+  rest: CreatorController_findAll
+  method: GET
+  path: /creator
+  description: Search the creator network with page/perPage/sortBy pagination and profile filters.
+- name: get_creator
+  rest: CreatorController_findOne
+  method: GET
+  path: /creator/{id}
+  description: Retrieve one creator record by id.
+- name: get_public_creator_profile
+  rest: ProfileController_findOnePublicProfile
+  method: GET
+  path: /creator/profile/public/{id}
+  description: Public creator profile including ratings, reviews, Instagram stats and hire credit cost.
+- name: get_creator_portfolio
+  rest: PortfolioController_getCreatorPortfolio
+  method: GET
+  path: /creator/portfolio/{username}
+  description: Portfolio work samples for a creator by username.
+- name: get_campaign
+  rest: CampaignController_getCampaign
+  method: GET
+  path: /campaign/{campaignId}
+  description: Retrieve a campaign brief by id.
+- name: update_campaign_draft
+  rest: CampaignController_updateDraft
+  method: PATCH
+  path: /campaign/draft/{campaignId}
+  description: Edit an unsubmitted campaign draft.
+- name: submit_campaign
+  rest: CampaignController_submitCampaign
+  method: PATCH
+  path: /campaign/submit/{campaignId}
+  description: Submit a drafted campaign for listing to the creator network.
+- name: invite_creator_to_campaign
+  rest: CampaignController_inviteCreator
+  method: PATCH
+  path: /campaign/invite-creator/{campaignId}/{creatorId}
+  description: Invite a specific creator to a listed campaign.
+- name: approve_partnership
+  rest: CampaignController_approvePartnership
+  method: PATCH
+  path: /campaign/approve-partnership/{campaignId}/{partnershipId}
+  description: Approve a creator's application, hiring them and consuming credits.
+- name: list_campaign_submissions
+  rest: CampaignController_getCampaignSubmissions
+  method: GET
+  path: /campaign/submissions/{campaignId}
+  description: List submitted and approved content for a campaign.
+- name: get_content_collection
+  rest: ContentController_getContentCollectionPage
+  method: GET
+  path: /content/{campaignId}/{creatorId}
+  description: Retrieve delivered content for one campaign+creator pair.
+- name: approve_content
+  rest: ContentController_brandApproveContent
+  method: PATCH
+  path: /content/approve/{campaignId}/{creatorId}
+  description: Approve delivered content, releasing it to the brand.
+- name: request_content_revision
+  rest: ContentController_brandRequestRevision
+  method: PATCH
+  path: /content/request-revision/{contentCollectionId}
+  description: Send a revision request back to the creator.
+- name: send_message_to_creator
+  rest: MessageController_brandSendMessage
+  method: POST
+  path: /message/brand/{threadId}/send
+  description: Post a message into a brand↔creator thread.
+- name: create_shipment
+  rest: ShipmentController_createShipment
+  method: POST
+  path: /shipment/create
+  description: Register a product shipment to a hired creator with tracking number and carrier.
+- name: list_credit_packages
+  rest: StripeController_packageProductsList
+  method: GET
+  path: /payment/stripe/packages
+  description: List prepaid credit packages and prices. The one operation callable without credentials.
+- name: create_checkout_session
+  rest: StripeController_createUserPackageCheckout
+  method: POST
+  path: /payment/stripe/checkout/{productId}
+  description: Start a Stripe Checkout session to buy a credit package.
+- name: generate_ai_photos
+  rest: AIController_generatePhotos
+  method: POST
+  path: /ai/generate
+  description: Generate product scene photography from a prompt.
+- name: enhance_image_quality
+  rest: AIController_enhanceImageQuality
+  method: POST
+  path: /ai/fal/enhance
+  description: Run super-resolution enhancement on a generated image.
+- name: get_upload_url
+  rest: UploaderController_getPresignedUrl
+  method: POST
+  path: /upload/pre-signed-url
+  description: Mint an S3 pre-signed URL for a direct content upload.
+excluded_from_candidate:
+  count: 39
+  reason: >-
+    Administrative and system operations (/admin/*, /system/*, admin-prefixed
+    brand/campaign/creator routes) require the trend-api-key header and are internal
+    staff tooling. They are deliberately not proposed as agent tools.

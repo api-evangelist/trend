@@ -1,0 +1,82 @@
+generated: '2026-08-13'
+method: probed
+source: https://api.trend.io/payment/stripe/packages
+docs: https://www.trend.io/pricing
+note: >-
+  Trend sells creator credits in prepaid packages, not API plans — there is no
+  developer plan, no API pricing tier and no metered API billing, because there is
+  no developer program. The four packages below were read from a machine-readable
+  catalog endpoint on the Trend API itself (GET /payment/stripe/packages, HTTP 200
+  unauthenticated, application/json), and independently confirmed against the
+  published pricing page. Costs are returned in USD cents by the API and are
+  restated here in dollars. Each package maps to a Stripe product id, which the
+  API also exposes; those ids are the input to POST
+  /payment/stripe/checkout/{productId}.
+currency: USD
+billing_period: one-time
+plan_count: 4
+plans:
+- name: Starter
+  price: 550.00
+  price_minor_units: 55000
+  currency: USD
+  billing_period: one-time
+  included_quota: 60 creator credits — up to 6 videos or 15 photos
+  credits: 60
+  savings: 0.00
+  stripe_product_id: prod_Mu1ssX3JeRARfU
+  most_popular: false
+  expiration: credits expire 12 months after purchase
+- name: Essential
+  price: 1045.00
+  price_minor_units: 104500
+  currency: USD
+  billing_period: one-time
+  included_quota: 140 creator credits — up to 14 videos or 35 photos
+  credits: 140
+  savings: 239.00
+  stripe_product_id: prod_Mu37URlEPKpIsB
+  most_popular: false
+  expiration: credits expire 12 months after purchase
+- name: Growth
+  price: 1980.00
+  price_minor_units: 198000
+  currency: USD
+  billing_period: one-time
+  included_quota: 280 creator credits — up to 28 videos or 70 photos
+  credits: 280
+  savings: 588.00
+  stripe_product_id: prod_Mu3DDkdoRN3KNN
+  most_popular: true
+  expiration: credits expire 12 months after purchase
+- name: Scale
+  price: 3872.00
+  price_minor_units: 387200
+  currency: USD
+  billing_period: one-time
+  included_quota: 560 creator credits — up to 56 videos or 140 photos
+  credits: 560
+  savings: 1263.00
+  stripe_product_id: prod_LfbHrtTq8C4gNP
+  most_popular: false
+  expiration: credits expire 12 months after purchase
+overage: >-
+  None. There is no overage or subscription — brands buy another package when credits
+  run out. Trend's pricing page states "no subscription or platform fees".
+limits_attached_to_tier: >-
+  The only limit attached to a package is the credit balance itself. A single creator
+  hire consumes 20, 40 or 60 credits depending on the creator's level
+  (PublicProfileResponse.partnershipCreditCost in the OpenAPI carries the per-creator
+  cost). Credits expire 12 months after purchase.
+api_pricing:
+  developer_plans_published: false
+  detail: >-
+    Trend publishes no API access tier, no key pricing and no request quota. The API
+    is the platform's own application backend; access is a signed-in brand or creator
+    session, not a purchased developer plan.
+evidence:
+- url: https://api.trend.io/payment/stripe/packages
+  status: 200
+  content_type: application/json
+- url: https://www.trend.io/pricing
+  status: 200

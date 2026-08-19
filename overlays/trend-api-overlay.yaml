@@ -1,0 +1,57 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Trend API
+  version: 1.0.0
+extends: ../openapi/trend-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: >-
+  Enhancements applied by the API Evangelist enrichment pipeline over the provider's
+  own document, fetched verbatim from https://api.trend.io/docs-json on 2026-08-13
+  and preserved unmodified at openapi/_original/trend-openapi-original.json. This
+  overlay is the complete record of every difference between the two files.
+actions:
+- target: $
+  description: >-
+    Add the server the document omits. The provider ships `servers: []`. The host is
+    established by fetch plus self-identification — https://api.trend.io/docs-json
+    serves the document, and https://api.trend.io/ returns the plain-text banner
+    "Success! trend-api Version: 1.28.31", matching info.title "Trend API - 1.28.31".
+    No host was guessed.
+  update:
+    servers:
+    - url: https://api.trend.io
+      description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+- target: $.info
+  description: >-
+    PROPOSED, NOT APPLIED — recorded as a finding rather than written into the spec.
+    info.contact is an empty object, so a generated client has no support channel to
+    point at. Trend publishes no developer contact; support.soona.co is end-user
+    support for brands and creators.
+  x-status: proposed
+  x-finding: info.contact is empty; no developer contact channel is published.
+- target: $.paths..responses
+  description: >-
+    PROPOSED, NOT APPLIED. The document declares only 200 (88) and 201 (41) responses
+    across all 124 operations — zero 4xx and zero 5xx. Generated clients therefore
+    have no typed error path. The observed live envelopes (401, 404, and the NestJS
+    ValidationPipe 400) are catalogued in errors/trend-problem-types.yml instead of
+    being injected here, because inventing response objects the provider did not
+    declare would misrepresent the contract.
+  x-status: proposed
+  x-finding: No error responses are declared on any operation.
+- target: $.components.schemas.BrandSchema
+  description: >-
+    PROPOSED, NOT APPLIED. BrandSchema declares an empty properties object while
+    brandId is a path parameter on eight operations — the central buying entity has no
+    published shape. Recorded in data-model/trend-data-model.yml.
+  x-status: proposed
+  x-finding: BrandSchema has no properties.
+- target: $.tags
+  description: >-
+    PROPOSED, NOT APPLIED. The document declares no tags at all, so the 124 operations
+    cannot be grouped by resource and refine-openapis has nothing to split on. The
+    natural groupings visible in the path prefixes are auth, brand, campaign, content,
+    creator, message, partnership, payment, shipment, upload, ai, admin and system.
+  x-status: proposed
+  x-finding: No tags declared; operations are ungroupable.

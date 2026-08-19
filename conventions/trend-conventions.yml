@@ -1,0 +1,140 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/trend-api-openapi.yml + live responses from https://api.trend.io
+note: >-
+  Cross-cutting runtime semantics for the Trend API, derived from the published
+  OpenAPI 3.0 document and confirmed against live unauthenticated responses. Trend
+  publishes no developer prose, so nothing here comes from documentation — every
+  statement is read off the machine-readable contract or observed on the wire.
+authentication:
+  style: bearer JWT + admin API key header
+  schemes:
+  - name: access-token
+    type: http bearer
+    format: JWT
+    applies_to: global default security for all operations
+    detail: >-
+      Firebase-issued JWT. The auth controllers return Firebase sign-in responses
+      (FirebaseAuthSignInResponse, TrendCreatorAuthResponse, TrendBrandAuthResponse),
+      and User.firebaseUserId is the subject identifier throughout the model.
+  - name: admin-api-key
+    type: apiKey
+    in: header
+    parameter: trend-api-key
+    applies_to: 39 of 124 operations
+    detail: >-
+      Administrative and system operations (/admin/*, /system/*, and the
+      admin-prefixed brand/campaign/creator/content routes) require this header in
+      addition to, or instead of, the bearer token.
+  enforcement_observed:
+    detail: >-
+      Auth enforcement is per-route, not blanket. Some routes reject anonymous calls
+      with 401 (GET /creator/level/bonus-table), while others answer 200 without any
+      credential (GET /payment/stripe/packages, GET /creator/profile/id-list). An
+      integrator cannot assume the global `security` block in the spec is uniformly
+      applied.
+  cross_reference: authentication/trend-authentication.yml
+idempotency:
+  supported: false
+  detail: >-
+    No idempotency mechanism exists. The spec declares no Idempotency-Key header (no
+    header parameters are declared on any operation) and the string "idempoten" does
+    not appear anywhere in the contract. Unsafe operations that clearly want it —
+    POST /payment/stripe/checkout/{productId}, POST /brand/{brandId}/add-credits,
+    POST /content/submit/{partnershipId}, POST /shipment/create — carry no replay
+    protection, so a retried request after a timeout may double-apply.
+  header: null
+  scope: null
+  retention: null
+pagination:
+  style: page-number
+  params:
+  - name: page
+    in: query
+    type: number
+  - name: perPage
+    in: query
+    type: number
+  - name: sortBy
+    in: query
+    type: string
+  - name: returnAll
+    in: query
+    type: boolean
+    detail: bypasses pagination and returns the whole collection
+  - name: paginationFlags
+    in: query
+    type: boolean
+  - name: offset
+    in: query
+    type: number
+    detail: appears on a subset of collection routes alongside page/perPage
+  response_envelope:
+    schema: FindAllResponse
+    fields:
+    - documents
+    - total
+    - totalPages
+    - page
+    - perPage
+    - sortBy
+    - sortOrder
+    - paginationFlags
+  cursor_support: false
+  detail: >-
+    Page-number pagination only; no cursor or link-header navigation. Total count and
+    page count are returned in the body, not in headers.
+field_expansion:
+  supported: false
+  detail: No expand, include, fields or sparse-fieldset parameter is declared.
+metadata:
+  supported: false
+  detail: No customer-supplied metadata object is declared on any resource.
+request_id_tracing:
+  supported: false
+  request_header: null
+  response_header: null
+  detail: >-
+    No request-id is echoed. Responses carry only x-envoy-upstream-service-time,
+    which is a latency measurement, not a correlation id. There is nothing for a
+    caller to quote in a support ticket.
+versioning:
+  scheme: semver in the document, not in the URL
+  current_version: 1.28.31
+  in_url: false
+  in_header: false
+  detail: >-
+    info.version and info.title both carry the running build ("Trend API - 1.28.31"),
+    and the API root returns "Success! trend-api Version: 1.28.31". Paths are
+    unversioned (/campaign, /creator, /brand — there is no /v1 prefix; /v1 returns
+    404). Because the version tracks the deployed build rather than a contract
+    generation, a consumer has no stable version to pin to.
+  cross_reference: lifecycle/trend-lifecycle.yml
+error_envelope:
+  format: nestjs-default
+  rfc9457: false
+  content_type: application/json
+  shape:
+    message: string — human-readable message, or an array of validation strings
+    error: string — the HTTP reason phrase (e.g. "Not Found")
+    statusCode: number — the HTTP status, repeated in the body
+  example_observed: '{"message":"Cannot GET /nope-not-here","error":"Not Found","statusCode":404}'
+  detail: >-
+    The framework default envelope. It is not application/problem+json, carries no
+    type URI, no machine-stable error code and no remediation pointer, so an agent
+    can only branch on the HTTP status.
+  cross_reference: errors/trend-problem-types.yml
+rate_limit_signaling:
+  supported: false
+  detail: No X-RateLimit-*, RateLimit-* or Retry-After headers are returned.
+  cross_reference: rate-limits/trend-rate-limits.yml
+content_negotiation:
+  request: application/json
+  response: application/json; charset=utf-8
+  detail: >-
+    File delivery is not multipart — uploads go through S3 pre-signed URLs minted by
+    POST /upload/pre-signed-url and POST /upload/ai/pre-signed-url, so the binary
+    never transits the API.
+cors:
+  access_control_allow_origin: '*'
+  detail: Observed on both 200 and 404 responses from api.trend.io.

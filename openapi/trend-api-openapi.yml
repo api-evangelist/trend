@@ -1,0 +1,4346 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: HealthCheckController_healthCheck
+      parameters: []
+      responses:
+        '200':
+          description: Successful response from API with version number
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Health Check
+      security:
+      - {}
+  /auth/basic/signup:
+    post:
+      operationId: AuthController_basicSignUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: The user was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirebaseAuthSignInResponse'
+      tags:
+      - Basic Authentication (AI)
+      security:
+      - {}
+  /auth/basic/login:
+    post:
+      operationId: AuthController_basicLogin
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: Auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirebaseAuthSignInResponse'
+      tags:
+      - Basic Authentication (AI)
+      security:
+      - {}
+  /auth/logout:
+    post:
+      operationId: AuthController_logout
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Basic Authentication (AI)
+  /auth/update/password:
+    patch:
+      operationId: AuthController_patchPassword
+      parameters: []
+      responses:
+        '200':
+          description: Updated Firebase UserRecord
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRecord'
+      tags:
+      - Basic Authentication (AI)
+  /auth/update/permissions:
+    patch:
+      operationId: AuthController_patchPermissions
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePermissionsDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Basic Authentication (AI)
+      security:
+      - admin-api-key: []
+  /auth/brand/signup:
+    post:
+      operationId: BrandAuthController_signEmailOnly
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: The user & brand successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      tags:
+      - Brand Authentication
+      security:
+      - {}
+  /auth/brand/login:
+    post:
+      operationId: BrandAuthController_brandLogin
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: Brand auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      tags:
+      - Brand Authentication
+      security:
+      - {}
+  /auth/brand/login/google:
+    post:
+      operationId: BrandAuthController_brandLoginSSO
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '201':
+          description: Brand auth session successfully created.
+      tags:
+      - Brand Authentication
+  /auth/brand/custom-token:
+    post:
+      operationId: BrandAuthController_brandRefreshCustomToken
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Brand Authentication
+  /auth/brand/update:
+    patch:
+      operationId: BrandAuthController_adminPatchBrandEmail
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateBrandEmail'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Authentication
+      security:
+      - admin-api-key: []
+  /auth/brand/update/logged-in-after-approval:
+    patch:
+      operationId: BrandAuthController_updateLoggedInAfterApproval
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Authentication
+  /auth/brand/profile:
+    get:
+      operationId: BrandAuthController_brandProfile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+        '201':
+          description: Retrieve Brand Profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      tags:
+      - Brand Authentication
+  /auth/signup:
+    post:
+      operationId: CreatorAuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: The user was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUpResponse'
+      tags:
+      - Creator Authentication
+      security:
+      - {}
+  /auth/login:
+    post:
+      operationId: CreatorAuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: Auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendCreatorAuthResponse'
+      tags:
+      - Creator Authentication
+      security:
+      - {}
+  /auth/login/google:
+    post:
+      operationId: CreatorAuthController_googleLogin
+      parameters: []
+      responses:
+        '201':
+          description: Auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendAuthProfileResponse'
+      tags:
+      - Creator Authentication
+  /auth/profile:
+    get:
+      operationId: CreatorAuthController_getProfile
+      parameters: []
+      responses:
+        '200':
+          description: Retrieve Auth Profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendAuthProfileResponse'
+      tags:
+      - Creator Authentication
+  /auth/remove-my-user:
+    delete:
+      operationId: CreatorAuthController_removeUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Creator Authentication
+  /auth/update/email:
+    patch:
+      operationId: CreatorAuthController_patchEmail
+      parameters: []
+      responses:
+        '200':
+          description: Updated Mongo DB User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+      - Creator Authentication
+  /auth/soona/link-brand:
+    patch:
+      operationId: SoonaAuthController_linkBrandToSoonaAccount
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkSoonaAccountDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      operationId: SoonaAuthController_createLinkedBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLinkedBrandDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      security:
+      - {}
+  /auth/soona/account:
+    get:
+      operationId: SoonaAuthController_getSoonaAccount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+  /creator/profile:
+    get:
+      operationId: ProfileController_findOnePersonalProfile
+      parameters: []
+      responses:
+        '200':
+          description: 'Fetch data for creator personal profile: /profile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileDto'
+      tags:
+      - Creator
+      - Creator Profiles
+  /creator/profile/settings:
+    get:
+      operationId: ProfileController_findPersonalProfileSettings
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsDto'
+      tags:
+      - Creator
+      - Creator Profiles
+  /creator/profile/public/{id}:
+    get:
+      operationId: ProfileController_findOnePublicProfile
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicProfileResponse'
+      tags:
+      - Creator
+      - Creator Profiles
+      security:
+      - {}
+  /creator/profile/iframe/{firebaseUserId}:
+    get:
+      operationId: ProfileController_findOneIframeProfile
+      parameters:
+      - name: firebaseUserId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicProfileResponse'
+      tags:
+      - Creator
+      - Creator Profiles
+      security:
+      - {}
+  /creator/profile/id-list:
+    get:
+      operationId: ProfileController_getActiveCreatorsList
+      parameters: []
+      responses:
+        '200':
+          description: Active Creator IDs list for pre generating Iframe Profile
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      tags:
+      - Creator
+      - Creator Profiles
+      security:
+      - {}
+  /creator/profile/{creatorId}:
+    patch:
+      operationId: ProfileController_updateProfile
+      parameters:
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateProfileDto'
+      tags:
+      - Creator
+      - Creator Profiles
+  /creator/portfolio/{username}:
+    get:
+      operationId: PortfolioController_getCreatorPortfolio
+      parameters:
+      - name: username
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortfolioDto'
+      tags:
+      - Creator
+      - Creator Portfolio
+      security:
+      - {}
+  /creator/portfolio/add:
+    post:
+      operationId: PortfolioController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Creator
+      - Creator Portfolio
+  /creator/portfolio/remove:
+    delete:
+      operationId: PortfolioController_remove
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortfolioDto'
+      tags:
+      - Creator
+      - Creator Portfolio
+  /creator/portfolio/influencer/remove/{userId}:
+    delete:
+      operationId: PortfolioController_removeInfluencerPortfolioItem
+      parameters:
+      - name: userId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PortfolioDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PortfolioDto'
+      tags:
+      - Creator
+      - Creator Portfolio
+      security:
+      - admin-api-key: []
+  /creator/level:
+    get:
+      operationId: CreatorLevelController_getLevel
+      parameters: []
+      responses:
+        '200':
+          description: Get authenticated creators level
+  /creator/level/bonus-table:
+    get:
+      operationId: CreatorLevelController_getBonusLevels
+      parameters: []
+      responses:
+        '200':
+          description: Returns bonus levels for creators
+  /creator:
+    get:
+      operationId: CreatorController_findAll
+      parameters:
+      - name: page
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: perPage
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: sortBy
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: paginationFlags
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: returnAll
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: _id
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: userId
+        required: false
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: line1
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: line2
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: city
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: postalCode
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: state
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: country
+        in: query
+        schema:
+          type: string
+      - name: applicationStatus
+        required: false
+        in: query
+        schema:
+          enum:
+          - new
+          - submitted
+          - approved
+          - rejected
+          type: string
+      - name: payPalEmail
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: phoneNumber
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: socialCategories
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: contentCategories
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - required: true
+        name: instagram
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: youTube
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: tikTok
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: website
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: url
+        in: query
+        schema:
+          type: string
+      - required: true
+        name: type
+        in: query
+        schema:
+          enum:
+          - image
+          - video
+          type: string
+      - required: true
+        name: content
+        in: query
+        schema:
+          type: boolean
+      - required: true
+        name: social
+        in: query
+        schema:
+          type: boolean
+      - name: gender
+        required: false
+        in: query
+        schema:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+      - name: ageRange
+        required: false
+        in: query
+        schema:
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+          type: string
+      - name: username
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: about
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: equipment
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: environment
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: levelId
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: isOverdue
+        required: false
+        in: query
+        schema:
+          type: boolean
+      - name: overduePartnerships
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: contentDeliveryScore
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: contentDeliveryAverageDays
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: bypassIsOverdueFlag
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Matching User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindAllResponse'
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/findByUserEmail:
+    get:
+      operationId: CreatorController_findByUserEmail
+      parameters:
+      - name: email
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatorUserDto'
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/demographic-data:
+    get:
+      operationId: CreatorController_getCreatorDemographicData
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/admin/level/{creatorId}:
+    get:
+      operationId: CreatorController_getAdminLevel
+      parameters:
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get authenticated creators level
+      tags:
+      - Creator
+  /creator/{id}:
+    get:
+      operationId: CreatorController_findOne
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Creator'
+      tags:
+      - Creator
+    patch:
+      operationId: CreatorController_update
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCreatorDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Creator'
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/admin/approve:
+    patch:
+      operationId: CreatorController_approveCreator
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveCreatorDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/admin/reject:
+    patch:
+      operationId: CreatorController_rejectCreator
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/influencer/{uid}:
+    patch:
+      operationId: CreatorController_updateCreatorByInfluencerUid
+      parameters:
+      - name: uid
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCreatorDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCreatorResponse'
+      tags:
+      - Creator
+      security:
+      - admin-api-key: []
+  /creator/registration:
+    post:
+      operationId: CreatorController_postRegistration
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatorRegistrationDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreatorDto'
+      tags:
+      - Creator
+  /creator/hubspot/identification:
+    post:
+      operationId: CreatorController_createIdentification
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Creator
+  /brand/admin-approve:
+    patch:
+      operationId: BrandController_adminApproveBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveBrandDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/admin/reject/{brandId}:
+    patch:
+      operationId: BrandController_adminRejectBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/admin-update/{brandId}:
+    patch:
+      operationId: BrandController_adminUpdateBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/{brandId}/admin-update-credits:
+    post:
+      operationId: BrandController_adminAddCredits
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCreditsDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/update:
+    patch:
+      operationId: BrandController_updateBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand
+  /brand/{brandId}/favorite-creator:
+    post:
+      operationId: BrandController_favoriteCreator
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFavoriteCreatorDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/{brandId}/unfavorite-creator:
+    post:
+      operationId: BrandController_unFavoriteCreator
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFavoriteCreatorDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/hubspot/identification:
+    post:
+      operationId: BrandController_createIdentification
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/referral:
+    post:
+      operationId: BrandController_createReferral
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReferralDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/referrals:
+    get:
+      operationId: BrandController_getReferrals
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand
+  /admin/brand/approve:
+    patch:
+      operationId: BrandAdminController_adminApproveBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveBrandDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/reject:
+    patch:
+      operationId: BrandAdminController_adminRejectBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/revert-reject:
+    patch:
+      operationId: BrandAdminController_adminRevertRejectBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/update:
+    patch:
+      operationId: BrandAdminController_adminUpdateBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/add-credits:
+    post:
+      operationId: BrandAdminController_adminAddCredits
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCreditsDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/remove-credits:
+    post:
+      operationId: BrandAdminController_adminRemoveCredits
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCreditsDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand:
+    get:
+      operationId: BrandAdminController_getBrands
+      parameters:
+      - name: offset
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: orderDirection
+        required: false
+        in: query
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - name: filters
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /payment/stripe/session/{id}/payment-card:
+    get:
+      operationId: StripeController_stripeSessionCard
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCheckoutSessionResponse'
+      tags:
+      - Payment
+      security:
+      - {}
+  /payment/stripe/checkout/{productId}:
+    post:
+      operationId: StripeController_createUserPackageCheckout
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCheckoutSessionResponse'
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Payment
+  /payment/stripe/packages:
+    get:
+      operationId: StripeController_packageProductsList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PackageProduct'
+      tags:
+      - Payment
+      security:
+      - {}
+  /payment/stripe/events:
+    post:
+      operationId: StripeController_stripePaymentEvents
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Payment
+      security:
+      - {}
+  /payment/stripe/create-customer:
+    post:
+      operationId: StripeController_createCustomer
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Payment
+  /upload/pre-signed-url:
+    post:
+      operationId: UploaderController_getPresignedUrl
+      parameters:
+      - name: uploadType
+        required: true
+        in: query
+        schema:
+          enum:
+          - portfolio
+          - profilePicture
+          - contentSubmission
+          - thumbnail
+          - campaign
+          type: string
+      - name: fileName
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: creatorId
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: influencerUID
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: contentId
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: brandId
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponseDto'
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponseDto'
+      tags:
+      - Upload
+      security:
+      - {}
+  /upload/ai/pre-signed-url:
+    post:
+      operationId: UploaderController_getAIPresignedUrl
+      parameters:
+      - name: filename
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponseDto'
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponseDto'
+      tags:
+      - Upload
+  /metric/update-influencer-metrics/{uid}:
+    post:
+      operationId: MetricController_updateInfluencerMetrics
+      parameters:
+      - name: uid
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Metrics
+      security:
+      - admin-api-key: []
+  /campaign/draft:
+    get:
+      operationId: CampaignController_findOneDraftByBrand
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/draft/{campaignId}:
+    patch:
+      operationId: CampaignController_updateDraft
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDraftCampaignDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/submit/{campaignId}:
+    patch:
+      operationId: CampaignController_submitCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitCampaignDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/submissions/{campaignId}:
+    get:
+      operationId: CampaignController_getCampaignSubmissions
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignContentSubmissionsResponse'
+      tags:
+      - Campaign
+  /campaign/{campaignId}:
+    get:
+      operationId: CampaignController_getCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/update/{campaignId}:
+    patch:
+      operationId: CampaignController_updateCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateActiveCampaign'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/{campaignId}/bump:
+    patch:
+      operationId: CampaignController_bumpCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/archive:
+    patch:
+      operationId: CampaignController_brandArchiveCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/reactivate:
+    patch:
+      operationId: CampaignController_brandReactivateCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/relist:
+    patch:
+      operationId: CampaignController_brandRelistCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/unlist:
+    patch:
+      operationId: CampaignController_brandUnlistCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/approve-partnership/{campaignId}/{partnershipId}:
+    patch:
+      operationId: CampaignController_approvePartnership
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/invite-creator/{campaignId}/{creatorId}:
+    patch:
+      operationId: CampaignController_inviteCreator
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteCreatorBodyDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/remove-creator/{campaignId}/{partnershipId}:
+    patch:
+      operationId: CampaignController_removeCreator
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCreatorBodyDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/admin-remove-creator/{campaignId}/{partnershipId}:
+    patch:
+      operationId: CampaignController_adminRemoveCreator
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /campaign/{campaignId}/increment-download:
+    patch:
+      operationId: CampaignController_incrementDownload
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncrementDownloadDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/admin/overdue:
+    get:
+      operationId: CampaignController_getOverdueCampaigns
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /campaign/admin/{brandId}/first-campaign:
+    get:
+      operationId: CampaignController_getFirstCampaign
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /campaign/admin/{campaignId}/bump:
+    patch:
+      operationId: CampaignController_adminBumpCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /system/partnership/activate:
+    post:
+      operationId: SystemPartnershipController_systemActivatePartnership
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /system/partnership/reject-partnership/{partnershipId}:
+    patch:
+      operationId: SystemPartnershipController_systemRejectInfluencerPartnership
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /system/partnership/{partnershipId}/auto-decline-rehire-invite:
+    patch:
+      operationId: SystemPartnershipController_systemAutoDeclineRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/{campaignId}/application:
+    post:
+      operationId: PartnershipController_submitApplication
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitApplicationRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/reject-partnership/{partnershipId}:
+    patch:
+      operationId: PartnershipController_approvePartnership
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Partnership
+  /partnership/view-approve-invites:
+    patch:
+      operationId: PartnershipController_viewApproveInvites
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/set-due-date/{partnershipId}:
+    patch:
+      operationId: PartnershipController_setDueDate
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/find-by-emails:
+    get:
+      operationId: PartnershipController_findPartnerships
+      parameters:
+      - name: creator
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: brand
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/{partnershipId}/accept-rehire-invite:
+    patch:
+      operationId: PartnershipController_acceptRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/{partnershipId}/decline-rehire-invite:
+    patch:
+      operationId: PartnershipController_declineRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/{partnershipId}/app-accept-rehire-invite:
+    patch:
+      operationId: PartnershipController_appAcceptRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/{partnershipId}/app-decline-rehire-invite:
+    patch:
+      operationId: PartnershipController_appDeclineRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /content/{campaignId}/{creatorId}:
+    get:
+      operationId: ContentController_getContentCollectionPage
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get data for content collection page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCollectionResponse'
+      tags:
+      - Content
+  /content/admin/pre-signed-url:
+    post:
+      operationId: ContentController_postPreSignedUrl
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentPresignedUrlRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /content/system-approve/{contentCollectionId}:
+    patch:
+      operationId: ContentController_systemApproveContent
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /content/approve/{campaignId}/{creatorId}:
+    patch:
+      operationId: ContentController_brandApproveContent
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveContentRequestDto'
+      responses:
+        '200':
+          description: Content successfully approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentApprovalResponse'
+      tags:
+      - Content
+  /content/request-revision/{contentCollectionId}:
+    patch:
+      operationId: ContentController_brandRequestRevision
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestRevisionDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Content
+  /content/view/{contentCollectionId}/{contentRecordId}:
+    patch:
+      operationId: ContentController_patchTrackViewCollection
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: contentRecordId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Track view collection
+      tags:
+      - Content
+  /content/remove/{contentCollectionId}/{contentRecordId}:
+    delete:
+      operationId: ContentController_removeContent
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: contentRecordId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Content removed from partnership
+          content:
+            application/json:
+              schema:
+                type: boolean
+      tags:
+      - Content
+  /content/submit/notify-brand:
+    post:
+      operationId: SubmitContentController_notifyBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentUploadNotificationDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /content/submit/{partnershipId}:
+    post:
+      operationId: SubmitContentController_creatorAddContent
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContentRecordDto'
+      responses:
+        '200':
+          description: Content successfully added to partnership
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '201':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /review/{reviewId}/brand-review-influencer:
+    patch:
+      operationId: ReviewController_brandReviewInfluencer
+      parameters:
+      - name: reviewId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+  /message/brand/{threadId}/send:
+    post:
+      operationId: MessageController_brandSendMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandSendMessageRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/brand/{threadId}/read:
+    post:
+      operationId: MessageController_brandReadMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/creator/{threadId}/send:
+    post:
+      operationId: MessageController_creatorSendMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatorSendMessageRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/creator/{threadId}/read:
+    post:
+      operationId: MessageController_creatorReadMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/creator/unread:
+    get:
+      operationId: MessageController_getCreatorUnreadMessageCount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Message
+  /message/creator/unread/{threadId}:
+    post:
+      operationId: MessageController_notifyCreatorUnread
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+      security:
+      - admin-api-key: []
+  /ai/generate:
+    post:
+      operationId: AIController_generatePhotos
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSceneRequestDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateSceneResponseDto'
+      tags:
+      - AI
+  /ai/super-resolution/{generationId}:
+    get:
+      operationId: AIController_getSuperResolution
+      parameters:
+      - name: generationId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - AI
+  /ai/fal/enhance:
+    post:
+      operationId: AIController_enhanceImageQuality
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - AI
+  /shipment/events:
+    post:
+      operationId: ShipmentController_shipmentEvents
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Shipment
+      security:
+      - {}
+  /shipment/create:
+    post:
+      operationId: ShipmentController_createShipment
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipmentDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Shipment
+  /shipment/update:
+    patch:
+      operationId: ShipmentController_updateShipment
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateShipmentDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Shipment
+  /payment/payouts:
+    get:
+      operationId: PaymentController_payouts
+      parameters:
+      - name: startDate
+        required: true
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: endDate
+        required: true
+        in: query
+        schema:
+          format: date-time
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPayoutsByDateRangeResponse'
+      tags:
+      - Payment
+      security:
+      - admin-api-key: []
+info:
+  title: Trend API - 1.28.31
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f"
+    target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+tags: []
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+components:
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key
+  schemas:
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
+    FirebaseAuthSignInResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        registered:
+          type: boolean
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - registered
+      - email
+      - refreshToken
+    UserRecord:
+      type: object
+      properties: {}
+    UpdatePermissionsDto:
+      type: object
+      properties:
+        email:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - admin
+            - content_viewer
+      required:
+      - email
+    BrandSchema:
+      type: object
+      properties: {}
+    TrendBrandAuthResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        brand:
+          $ref: '#/components/schemas/BrandSchema'
+        customToken:
+          type: string
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - brand
+      - customToken
+      - email
+      - refreshToken
+    AdminUpdateBrandEmail:
+      type: object
+      properties:
+        brandId:
+          type: string
+        newEmail:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - brandId
+      - newEmail
+    User:
+      type: object
+      properties:
+        firebaseUserId:
+          type: string
+          description: Firebase User ID
+          example: ExwY3egTxNUCeM5DT300D9Otue53
+        email:
+          type: string
+          example: don@trend.io
+        creatorId:
+          type: string
+          description: Mongo Creator Collection ID
+        socialProvider:
+          type: string
+          enum:
+          - google
+          - ''
+        outsideUS:
+          type: boolean
+          example: false
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - feature-tester
+            - admin
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        emailVerified:
+          type: boolean
+      required:
+      - firebaseUserId
+      - email
+      - creatorId
+      - socialProvider
+      - outsideUS
+      - permissions
+      - firstName
+      - lastName
+      - profilePicture
+      - phoneNumber
+      - phoneNumberVerified
+      - emailVerified
+    SignUpResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        creator:
+          type: object
+        user:
+          $ref: '#/components/schemas/User'
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+      required:
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
+    Creator:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Mongo Creator Collection ID
+        address:
+          $ref: '#/components/schemas/Address'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        applicationStatus:
+          enum:
+          - new
+          - submitted
+          - approved
+          - rejected
+          type: string
+          example: new
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        userId:
+          type: string
+        phoneNumber:
+          type: string
+        payPalEmail:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        levelId:
+          type: string
+        isOverdue:
+          type: boolean
+        overduePartnerships:
+          type: array
+          items:
+            type: string
+        contentDeliveryScore:
+          type: number
+        contentDeliveryAverageDays:
+          type: number
+        bypassIsOverdueFlag:
+          type: boolean
+      required:
+      - _id
+      - address
+      - gender
+      - applicationStatus
+      - ageRange
+      - userId
+      - payPalEmail
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - levelId
+    TrendCreatorAuthResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    TrendAuthProfileResponse:
+      type: object
+      properties:
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - creator
+      - user
+    LinkSoonaAccountDto:
+      type: object
+      properties:
+        soonaJWT:
+          type: string
+      required:
+      - soonaJWT
+    CreateLinkedBrandDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+        soonaJWT:
+          type: string
+      required:
+      - password
+      - email
+      - soonaJWT
+    ProfileDto:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          type: object
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+      required:
+      - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+    SettingsDto:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          $ref: '#/components/schemas/Address'
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        payPalEmail:
+          type: string
+      required:
+      - ageRange
+      - address
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - equipment
+      - environment
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - payPalEmail
+    PublicProfileResponse:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          type: object
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        contentQuality:
+          type: number
+        professionalism:
+          type: number
+        reviews:
+          type: array
+          items:
+            type: object
+        instagramStats:
+          type: object
+          properties:
+            followers:
+              required: false
+              type: number
+            avgComments:
+              required: false
+              type: number
+            avgLikes:
+              required: false
+              type: number
+        partnershipCreditCost:
+          type: number
+      required:
+      - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - reviews
+      - instagramStats
+      - partnershipCreditCost
+    JobTypeDto:
+      type: object
+      properties:
+        content:
+          type: boolean
+        social:
+          type: boolean
+      required:
+      - content
+      - social
+    SocialProviderDto:
+      type: object
+      properties:
+        instagram:
+          type: string
+        youTube:
+          type: string
+        tikTok:
+          type: string
+        website:
+          type: string
+      required:
+      - instagram
+      - youTube
+      - tikTok
+      - website
+    UpdateProfileDto:
+      type: object
+      properties:
+        username:
+          type: string
+        jobTypes:
+          $ref: '#/components/schemas/JobTypeDto'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        about:
+          type: string
+        payPalEmail:
+          type: string
+        socials:
+          $ref: '#/components/schemas/SocialProviderDto'
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        phoneNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+    PortfolioDto:
+      type: object
+      properties:
+        url:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+      required:
+      - url
+      - type
+    CreatorUserDto:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Mongo Creator Collection ID
+        address:
+          $ref: '#/components/schemas/Address'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        applicationStatus:
+          enum:
+          - new
+          - submitted
+          - approved
+          - rejected
+          type: string
+          example: new
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        userId:
+          type: string
+        phoneNumber:
+          type: string
+        payPalEmail:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        levelId:
+          type: string
+        isOverdue:
+          type: boolean
+        overduePartnerships:
+          type: array
+          items:
+            type: string
+        contentDeliveryScore:
+          type: number
+        contentDeliveryAverageDays:
+          type: number
+        bypassIsOverdueFlag:
+          type: boolean
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - _id
+      - address
+      - gender
+      - applicationStatus
+      - ageRange
+      - userId
+      - payPalEmail
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - levelId
+      - user
+    FindAllResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatorUserDto'
+        total:
+          type: number
+        totalPages:
+          type: number
+        page:
+          type: number
+        perPage:
+          type: number
+        sortBy:
+          type: string
+        sortOrder:
+          type: object
+        paginationFlags:
+          type: boolean
+      required:
+      - documents
+      - total
+      - totalPages
+    ApproveCreatorDto:
+      type: object
+      properties:
+        firebaseId:
+          type: string
+        level:
+          type: object
+          minimum: 1
+          maximum: 3
+      required:
+      - firebaseId
+      - level
+    UpdateAddressDto:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+    UpdateCreatorDto:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/UpdateAddressDto'
+        skipFirestoreUpdate:
+          type: boolean
+        _id:
+          type: string
+        userId:
+          type: string
+        applicationStatus:
+          enum:
+          - new
+          - submitted
+          - approved
+          - rejected
+          type: string
+        payPalEmail:
+          type: string
+        phoneNumber:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          $ref: '#/components/schemas/SocialProviderDto'
+        portfolio:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioDto'
+        jobTypes:
+          $ref: '#/components/schemas/JobTypeDto'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        levelId:
+          type: string
+        isOverdue:
+          type: boolean
+        overduePartnerships:
+          type: array
+          items:
+            type: string
+        contentDeliveryScore:
+          type: number
+        contentDeliveryAverageDays:
+          type: number
+        bypassIsOverdueFlag:
+          type: boolean
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+    UpdateCreatorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required:
+      - success
+    UserIdEmailDto:
+      type: object
+      properties:
+        _id:
+          type: string
+        email:
+          type: string
+      required:
+      - _id
+      - email
+    AddressDto:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+      required:
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
+    CreatorRegistrationDto:
+      type: object
+      properties:
+        profilePicture:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        user:
+          $ref: '#/components/schemas/UserIdEmailDto'
+        portfolio:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioDto'
+        address:
+          $ref: '#/components/schemas/AddressDto'
+        payPalEmail:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          $ref: '#/components/schemas/SocialProviderDto'
+        jobTypes:
+          $ref: '#/components/schemas/JobTypeDto'
+        gender:
+          type: string
+          enum:
+          - male
+          - female
+          - other
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        phoneNumber:
+          type: string
+      required:
+      - profilePicture
+      - firstName
+      - lastName
+      - user
+      - portfolio
+      - address
+      - payPalEmail
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - gender
+      - ageRange
+    UserCreatorDto:
+      type: object
+      properties:
+        firebaseUserId:
+          type: string
+          description: Firebase User ID
+          example: ExwY3egTxNUCeM5DT300D9Otue53
+        email:
+          type: string
+          example: don@trend.io
+        creatorId:
+          type: string
+          description: Mongo Creator Collection ID
+        socialProvider:
+          type: string
+          enum:
+          - google
+          - ''
+        outsideUS:
+          type: boolean
+          example: false
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - feature-tester
+            - admin
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        emailVerified:
+          type: boolean
+        creator:
+          $ref: '#/components/schemas/Creator'
+      required:
+      - firebaseUserId
+      - email
+      - creatorId
+      - socialProvider
+      - outsideUS
+      - permissions
+      - firstName
+      - lastName
+      - profilePicture
+      - phoneNumber
+      - phoneNumberVerified
+      - emailVerified
+      - creator
+    ApproveBrandDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+        productImage:
+          type: string
+        storeImage:
+          type: string
+        description:
+          type: string
+      required:
+      - brandId
+      - productImage
+    UpdateBrandDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
+    AddCreditsDto:
+      type: object
+      properties:
+        changeType:
+          enum:
+          - add-new
+          - refund
+          type: string
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    UpdateBrandRequest:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
+        createCardTokenId:
+          type: string
+        updateCardTokenId:
+          type: string
+    UpdateFavoriteCreatorDto:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+      required:
+      - creatorId
+    CreateReferralDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        contactEmail:
+          type: string
+      required:
+      - companyName
+      - contactEmail
+    RemoveCreditsDto:
+      type: object
+      properties:
+        changeType:
+          type: string
+          enum:
+          - refunded
+          - remove
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    StripeCheckoutSessionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        after_expiration:
+          type: object
+        allow_promotion_codes:
+          type: boolean
+        amount_subtotal:
+          type: number
+        amount_total:
+          type: number
+        automatic_tax:
+          type: object
+        billing_address_collection:
+          type: object
+        cancel_url:
+          type: string
+        client_reference_id:
+          type: string
+        consent:
+          type: object
+        consent_collection:
+          type: object
+        currency:
+          type: string
+        customer:
+          type: object
+        customer_creation:
+          type: object
+        customer_details:
+          type: object
+        customer_email:
+          type: string
+        expires_at:
+          type: number
+        line_items:
+          type: object
+          properties:
+            object:
+              required: true
+              type: string
+            data:
+              required: true
+              type: array
+              items:
+                type: object
+            has_more:
+              required: true
+              type: boolean
+            url:
+              required: true
+              type: string
+        livemode:
+          type: boolean
+        locale:
+          type: object
+        metadata:
+          type: object
+        mode:
+          type: object
+        payment_intent:
+          type: object
+        payment_link:
+          type: object
+        payment_method_options:
+          type: object
+        payment_method_types:
+          type: array
+          items:
+            type: string
+        payment_status:
+          type: object
+        phone_number_collection:
+          type: object
+        recovered_from:
+          type: string
+        setup_intent:
+          type: object
+        shipping:
+          type: object
+        shipping_address_collection:
+          type: object
+        shipping_options:
+          type: array
+          items:
+            type: object
+        shipping_rate:
+          type: object
+        status:
+          type: object
+        submit_type:
+          type: object
+        subscription:
+          type: object
+        success_url:
+          type: string
+        tax_id_collection:
+          type: object
+        total_details:
+          type: object
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - after_expiration
+      - allow_promotion_codes
+      - amount_subtotal
+      - amount_total
+      - automatic_tax
+      - billing_address_collection
+      - cancel_url
+      - client_reference_id
+      - consent
+      - consent_collection
+      - currency
+      - customer
+      - customer_creation
+      - customer_details
+      - customer_email
+      - expires_at
+      - line_items
+      - livemode
+      - locale
+      - metadata
+      - mode
+      - payment_intent
+      - payment_link
+      - payment_method_options
+      - payment_method_types
+      - payment_status
+      - recovered_from
+      - setup_intent
+      - shipping
+      - shipping_address_collection
+      - shipping_options
+      - shipping_rate
+      - status
+      - submit_type
+      - subscription
+      - success_url
+      - total_details
+      - url
+    PackageProduct:
+      type: object
+      properties:
+        cost:
+          type: number
+        credits:
+          type: number
+        savings:
+          type: number
+        description:
+          type: string
+        mostPopular:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - cost
+      - credits
+      - savings
+      - id
+      - name
+    PresignedUrlResponseDto:
+      type: object
+      properties:
+        signedUrl:
+          type: string
+        fileName:
+          type: string
+        fileDestinationUrl:
+          type: string
+      required:
+      - signedUrl
+      - fileName
+      - fileDestinationUrl
+    UpdateDraftCampaignDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - social
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type: string
+          nullable: true
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+        userFullName:
+          type: string
+        companyName:
+          type: string
+    SubmitCampaignDto:
+      type: object
+      properties:
+        userFullName:
+          type: string
+        companyName:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - social
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type: string
+          nullable: true
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+      required:
+      - type
+      - category
+      - platform
+      - styleCategory
+      - gender
+      - name
+      - url
+      - value
+    CampaignContentSubmissionsResponse:
+      type: object
+      properties:
+        submissions:
+          type: array
+          items:
+            type: object
+        approvals:
+          type: array
+          items:
+            type: object
+      required:
+      - submissions
+      - approvals
+    UpdateActiveCampaign:
+      type: object
+      properties:
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type: string
+          nullable: true
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+        userFullName:
+          type: string
+        companyName:
+          type: string
+    InviteCreatorBodyDto:
+      type: object
+      properties:
+        rehireContentNeeds:
+          type: string
+        rehireWillBrandSendProduct:
+          type: boolean
+        rehireProductDescription:
+          type: string
+      required:
+      - rehireContentNeeds
+      - rehireWillBrandSendProduct
+    RemoveCreatorBodyDto:
+      type: object
+      properties:
+        removalReason:
+          type: string
+      required:
+      - removalReason
+    IncrementDownloadDto:
+      type: object
+      properties:
+        count:
+          type: number
+          minimum: 0
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+        type:
+          type: string
+    SubmitApplicationRequestDto:
+      type: object
+      properties:
+        writtenApplication:
+          type: string
+    ContentCollectionResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
+    ContentPresignedUrlRequestDto:
+      type: object
+      properties:
+        collectionId:
+          type: string
+        recordId:
+          type: string
+      required:
+      - collectionId
+      - recordId
+    ApproveContentRequestDto:
+      type: object
+      properties:
+        contentIds:
+          type: array
+          items:
+            type: string
+      required:
+      - contentIds
+    ContentApprovalResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
+    RequestRevisionDto:
+      type: object
+      properties:
+        rejectionReason:
+          type: string
+      required:
+      - rejectionReason
+    ContentUploadNotificationDto:
+      type: object
+      properties:
+        contentCollectionId:
+          type: string
+      required:
+      - contentCollectionId
+    AddContentRecordDto:
+      type: object
+      properties:
+        contentPath:
+          type: string
+        isFree:
+          type: boolean
+        category:
+          type: string
+          enum:
+          - productPhotography
+          - lifestyleOrActionPhotography
+          - portraitStylePhotography
+          - actionOrProductInUseVideo
+          - unboxingExplanationVideo
+          - productReviewOrTestimonialVideo
+          - other
+      required:
+      - contentPath
+      - category
+    BrandSendMessageRequestDto:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        text:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - text
+          - revisionRequest
+        url:
+          type: string
+        thumbnail:
+          type: string
+        messageId:
+          type: string
+      required:
+      - creatorId
+      - text
+      - type
+    CreatorSendMessageRequestDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+        text:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - text
+          - revisionRequest
+        url:
+          type: string
+        thumbnail:
+          type: string
+        messageId:
+          type: string
+      required:
+      - brandId
+      - text
+      - type
+    GenerateSceneRequestDto:
+      type: object
+      properties:
+        productImage:
+          type: string
+        scene:
+          type: string
+        timeOfDay:
+          type: string
+        colorPalette:
+          type: string
+        perspective:
+          type: string
+        scale:
+          type: number
+        translation:
+          type: object
+      required:
+      - productImage
+      - scene
+    GenerateSceneResponseDto:
+      type: object
+      properties:
+        scenes:
+          type: array
+          items:
+            type: object
+      required:
+      - scenes
+    ShipmentDto:
+      type: object
+      properties:
+        partnershipId:
+          type: string
+        nonShippable:
+          type: boolean
+        trackingNumber:
+          type: string
+        carrierCode:
+          type: string
+      required:
+      - partnershipId
+      - nonShippable
+    UpdateShipmentDto:
+      type: object
+      properties:
+        partnershipId:
+          type: string
+        nonShippable:
+          type: boolean
+        trackingNumber:
+          type: string
+        carrierCode:
+          type: string
+        shipmentId:
+          type: string
+      required:
+      - partnershipId
+      - nonShippable
+      - shipmentId
+    GetPayoutsByDateRangeResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            type: object
+        count:
+          type: number
+        startDate:
+          format: date-time
+          type: string
+        endDate:
+          format: date-time
+          type: string
+      required:
+      - payouts
+      - count
+      - startDate
+      - endDate
+security:
+- access-token: []

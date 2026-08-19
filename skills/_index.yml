@@ -1,0 +1,33 @@
+generated: '2026-08-13'
+method: generated
+source: >-
+  Packaged Agent Skills generated from Trend's own published OpenAPI 3.0 document
+  (openapi/trend-api-openapi.yml; verbatim original in
+  openapi/_original/trend-openapi-original.json, fetched from
+  https://api.trend.io/docs-json). Every operationId in every skill was verified
+  verbatim against the spec, and every required request-body field is quoted from the
+  DTO schema. Cross-cutting rules cite ../authentication/, ../conventions/,
+  ../errors/, ../data-model/, ../plans/ and ../rate-limits/. Trend publishes no
+  skills or AGENTS.md of its own — searched and not found.
+note: >-
+  These skills describe the platform's real application API. Trend runs no developer
+  program, so calling it requires a genuine Trend brand or creator account; there is
+  no sandbox and no self-serve API key. Every flow below is grounded in the contract
+  Trend publishes, not in documentation, because Trend publishes none.
+skills:
+- file: trend-run-a-ugc-campaign.md
+  name: Run a UGC campaign end to end
+  api: openapi/trend-api-openapi.yml
+  operations: [BrandAuthController_brandLogin, CampaignController_findOneDraftByBrand, CampaignController_updateDraft, CampaignController_submitCampaign, CampaignController_inviteCreator, CampaignController_approvePartnership, PartnershipController_setDueDate, ShipmentController_createShipment, CampaignController_getCampaignSubmissions, ContentController_getContentCollectionPage, ContentController_brandRequestRevision, ContentController_brandApproveContent]
+- file: trend-find-and-hire-a-creator.md
+  name: Find and hire a creator
+  api: openapi/trend-api-openapi.yml
+  operations: [CreatorController_findAll, CreatorController_findOne, ProfileController_findOnePublicProfile, PortfolioController_getCreatorPortfolio, CreatorController_getCreatorDemographicData, CampaignController_inviteCreator, CampaignController_approvePartnership, BrandController_favoriteCreator, MessageController_brandSendMessage]
+- file: trend-submit-content-as-a-creator.md
+  name: Submit content as a creator
+  api: openapi/trend-api-openapi.yml
+  operations: [CreatorAuthController_login, PartnershipController_submitApplication, UploaderController_getPresignedUrl, SubmitContentController_creatorAddContent, SubmitContentController_notifyBrand, MessageController_creatorSendMessage, ContentController_getContentCollectionPage, CreatorLevelController_getLevel]
+- file: trend-buy-credits-and-generate-ai-scenes.md
+  name: Buy credits and generate AI product scenes
+  api: openapi/trend-api-openapi.yml
+  operations: [StripeController_packageProductsList, StripeController_createCustomer, StripeController_createUserPackageCheckout, StripeController_stripeSessionCard, UploaderController_getAIPresignedUrl, AIController_generatePhotos, AIController_enhanceImageQuality, AIController_getSuperResolution]

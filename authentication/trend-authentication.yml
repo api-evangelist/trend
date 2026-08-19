@@ -1,0 +1,22 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/trend-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: access-token
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/trend-api-openapi.yml
+- name: admin-api-key
+  type: apiKey
+  in: header
+  parameter: trend-api-key
+  sources:
+  - openapi/trend-api-openapi.yml

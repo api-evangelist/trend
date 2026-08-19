@@ -1,0 +1,2567 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Trend API - 1.28.31",
+    "version": "1.28.31"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "HealthCheckController_healthCheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Basic Authentication (AI)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AuthController_basicSignUp",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/basic/signup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AuthController_basicLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/basic/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AuthController_logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/logout"
+          }
+        },
+        {
+          "info": {
+            "name": "AuthController_patchPassword",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/auth/update/password"
+          }
+        },
+        {
+          "info": {
+            "name": "AuthController_patchPermissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/auth/update/permissions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Brand Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BrandAuthController_signEmailOnly",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/brand/signup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAuthController_brandLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/brand/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAuthController_brandLoginSSO",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/brand/login/google",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAuthController_brandRefreshCustomToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/brand/custom-token"
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAuthController_adminPatchBrandEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/auth/brand/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAuthController_updateLoggedInAfterApproval",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/auth/brand/update/logged-in-after-approval"
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAuthController_brandProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/auth/brand/profile"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Creator Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "CreatorAuthController_signUp",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/signup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorAuthController_login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorAuthController_googleLogin",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/login/google"
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorAuthController_getProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/auth/profile"
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorAuthController_removeUser",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trend.io/auth/remove-my-user"
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorAuthController_patchEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/auth/update/email"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "SoonaAuthController_createLinkedBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/auth/soona/link-brand",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SoonaAuthController_linkBrandToSoonaAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/auth/soona/link-brand",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SoonaAuthController_getSoonaAccount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/auth/soona/account"
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorLevelController_getLevel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/level"
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorLevelController_getBonusLevels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/level/bonus-table"
+          }
+        },
+        {
+          "info": {
+            "name": "ReviewController_brandReviewInfluencer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/review/:reviewId/brand-review-influencer",
+            "params": [
+              {
+                "name": "reviewId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Creator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ProfileController_findOnePersonalProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/profile"
+          }
+        },
+        {
+          "info": {
+            "name": "ProfileController_findPersonalProfileSettings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/profile/settings"
+          }
+        },
+        {
+          "info": {
+            "name": "ProfileController_findOnePublicProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/profile/public/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "ProfileController_findOneIframeProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/profile/iframe/:firebaseUserId",
+            "params": [
+              {
+                "name": "firebaseUserId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "ProfileController_getActiveCreatorsList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/profile/id-list"
+          }
+        },
+        {
+          "info": {
+            "name": "ProfileController_updateProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/creator/profile/:creatorId",
+            "params": [
+              {
+                "name": "creatorId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PortfolioController_getCreatorPortfolio",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/portfolio/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "PortfolioController_create",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/creator/portfolio/add",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PortfolioController_remove",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trend.io/creator/portfolio/remove",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PortfolioController_removeInfluencerPortfolioItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trend.io/creator/portfolio/influencer/remove/:userId",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_findAll",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "perPage",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "paginationFlags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "returnAll",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "line1",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "line2",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "postalCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "applicationStatus",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "payPalEmail",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phoneNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "socialCategories",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contentCategories",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "instagram",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "youTube",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tikTok",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "website",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "social",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "gender",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ageRange",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "about",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "equipment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "environment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "levelId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "isOverdue",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "overduePartnerships",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contentDeliveryScore",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contentDeliveryAverageDays",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "bypassIsOverdueFlag",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_findByUserEmail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/findByUserEmail",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_getCreatorDemographicData",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/demographic-data",
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_getAdminLevel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/admin/level/:creatorId",
+            "params": [
+              {
+                "name": "creatorId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_findOne",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/creator/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/creator/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_approveCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/creator/admin/approve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_rejectCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/creator/admin/reject",
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_updateCreatorByInfluencerUid",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/creator/influencer/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_postRegistration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/creator/registration",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CreatorController_createIdentification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/creator/hubspot/identification"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Brand",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BrandController_adminApproveBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/brand/admin-approve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_adminRejectBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/brand/admin/reject/:brandId",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_adminUpdateBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/brand/admin-update/:brandId",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_adminAddCredits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/brand/:brandId/admin-update-credits",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_updateBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/brand/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_favoriteCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/brand/:brandId/favorite-creator",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_unFavoriteCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/brand/:brandId/unfavorite-creator",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_createIdentification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/brand/hubspot/identification"
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_createReferral",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/brand/referral",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandController_getReferrals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/brand/referrals"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Brand Admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "BrandAdminController_adminApproveBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/admin/brand/approve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAdminController_adminRejectBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/admin/brand/:brandId/reject",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAdminController_adminRevertRejectBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/admin/brand/:brandId/revert-reject",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAdminController_adminUpdateBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/admin/brand/:brandId/update",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAdminController_adminAddCredits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/admin/brand/:brandId/add-credits",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAdminController_adminRemoveCredits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/admin/brand/:brandId/remove-credits",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "BrandAdminController_getBrands",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/admin/brand",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "orderDirection",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "StripeController_stripeSessionCard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/payment/stripe/session/:id/payment-card",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "StripeController_createUserPackageCheckout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/payment/stripe/checkout/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "StripeController_packageProductsList",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/payment/stripe/packages"
+          }
+        },
+        {
+          "info": {
+            "name": "StripeController_stripePaymentEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/payment/stripe/events"
+          }
+        },
+        {
+          "info": {
+            "name": "StripeController_createCustomer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/payment/stripe/create-customer"
+          }
+        },
+        {
+          "info": {
+            "name": "PaymentController_payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/payment/payouts",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Upload",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "UploaderController_getPresignedUrl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/upload/pre-signed-url",
+            "params": [
+              {
+                "name": "uploadType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fileName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "creatorId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "influencerUID",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "contentId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "UploaderController_getAIPresignedUrl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/upload/ai/pre-signed-url",
+            "params": [
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "MetricController_updateInfluencerMetrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/metric/update-influencer-metrics/:uid",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Campaign",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "CampaignController_findOneDraftByBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/campaign/draft"
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_updateDraft",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/draft/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_submitCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/submit/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_getCampaignSubmissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/campaign/submissions/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_getCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/campaign/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_updateCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/update/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_bumpCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/:campaignId/bump",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_brandArchiveCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/:campaignId/archive",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_brandReactivateCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/:campaignId/reactivate",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_brandRelistCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/:campaignId/relist",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_brandUnlistCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/:campaignId/unlist",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_approvePartnership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/approve-partnership/:campaignId/:partnershipId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_inviteCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/invite-creator/:campaignId/:creatorId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "creatorId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_removeCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/remove-creator/:campaignId/:partnershipId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_adminRemoveCreator",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/admin-remove-creator/:campaignId/:partnershipId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_incrementDownload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/:campaignId/increment-download",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_getOverdueCampaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/campaign/admin/overdue",
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_getFirstCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/campaign/admin/:brandId/first-campaign",
+            "params": [
+              {
+                "name": "brandId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "CampaignController_adminBumpCampaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/campaign/admin/:campaignId/bump",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Partnership",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "SystemPartnershipController_systemActivatePartnership",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/system/partnership/activate",
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SystemPartnershipController_systemRejectInfluencerPartnership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/system/partnership/reject-partnership/:partnershipId",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SystemPartnershipController_systemAutoDeclineRehireInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/system/partnership/:partnershipId/auto-decline-rehire-invite",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_submitApplication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/partnership/:campaignId/application",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_approvePartnership",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/reject-partnership/:partnershipId",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_viewApproveInvites",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/view-approve-invites"
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_setDueDate",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/set-due-date/:partnershipId",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_findPartnerships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/partnership/find-by-emails",
+            "params": [
+              {
+                "name": "creator",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "brand",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_acceptRehireInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/:partnershipId/accept-rehire-invite",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_declineRehireInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/:partnershipId/decline-rehire-invite",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_appAcceptRehireInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/:partnershipId/app-accept-rehire-invite",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "PartnershipController_appDeclineRehireInvite",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/partnership/:partnershipId/app-decline-rehire-invite",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ContentController_getContentCollectionPage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/content/:campaignId/:creatorId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "creatorId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "ContentController_postPreSignedUrl",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/content/admin/pre-signed-url",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ContentController_systemApproveContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/content/system-approve/:contentCollectionId",
+            "params": [
+              {
+                "name": "contentCollectionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ContentController_brandApproveContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/content/approve/:campaignId/:creatorId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "creatorId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ContentController_brandRequestRevision",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/content/request-revision/:contentCollectionId",
+            "params": [
+              {
+                "name": "contentCollectionId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ContentController_patchTrackViewCollection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/content/view/:contentCollectionId/:contentRecordId",
+            "params": [
+              {
+                "name": "contentCollectionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contentRecordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "ContentController_removeContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.trend.io/content/remove/:contentCollectionId/:contentRecordId",
+            "params": [
+              {
+                "name": "contentCollectionId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "contentRecordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "SubmitContentController_notifyBrand",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/content/submit/notify-brand",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "SubmitContentController_creatorAddContent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/content/submit/:partnershipId",
+            "params": [
+              {
+                "name": "partnershipId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Message",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "MessageController_brandSendMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/message/brand/:threadId/send",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "MessageController_brandReadMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/message/brand/:threadId/read",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "MessageController_creatorSendMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/message/creator/:threadId/send",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "MessageController_creatorReadMessage",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/message/creator/:threadId/read",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "MessageController_getCreatorUnreadMessageCount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/message/creator/unread"
+          }
+        },
+        {
+          "info": {
+            "name": "MessageController_notifyCreatorUnread",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/message/creator/unread/:threadId",
+            "params": [
+              {
+                "name": "threadId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "trend-api-key",
+              "value": "{{trend-api-key}}",
+              "placement": "header"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "AI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AIController_generatePhotos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/ai/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "AIController_getSuperResolution",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.trend.io/ai/super-resolution/:generationId",
+            "params": [
+              {
+                "name": "generationId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "AIController_enhanceImageQuality",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/ai/fal/enhance"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Shipment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "ShipmentController_shipmentEvents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/shipment/events"
+          }
+        },
+        {
+          "info": {
+            "name": "ShipmentController_createShipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.trend.io/shipment/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "ShipmentController_updateShipment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.trend.io/shipment/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

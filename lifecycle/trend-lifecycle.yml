@@ -1,0 +1,95 @@
+generated: '2026-08-13'
+method: probed
+source: openapi/trend-api-openapi.yml + live probes of trend.io, api.trend.io, statuspage candidates
+note: >-
+  Trend publishes no lifecycle commitments of any kind. There is no developer
+  changelog, no versioning policy, no deprecation policy, no SLA and no status page.
+  What follows is what could be established by probe and by reading the contract.
+versioning:
+  scheme: build semver, surfaced in the document only
+  current_version: 1.28.31
+  source: >-
+    info.version and info.title in https://api.trend.io/docs-json; the API root
+    returns "Success! trend-api Version: 1.28.31"
+  in_url: false
+  in_header: false
+  policy_published: false
+  detail: >-
+    Paths are unversioned — /campaign, /creator, /brand, with no /v1 prefix (GET /v1
+    returns 404). The version string tracks the deployed build, not a contract
+    generation, so it changes on every release and cannot be pinned to. A consumer
+    has no way to request an older shape of the API.
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  detail: >-
+    No operation in the spec carries `deprecated: true` (zero of 124), and no Sunset
+    or Deprecation response header is declared or observed. There is no published
+    notice period. Note this is not evidence of stability — an undocumented internal
+    API can change without any signal, and nothing here would tell a caller it had.
+changelog:
+  published: false
+  url: null
+  probed:
+  - url: https://www.trend.io/changelog
+    status: 404
+  detail: >-
+    No dated changelog exists on trend.io, on the API host, or in the Trend-io GitHub
+    organization. The only observable release signal is the build number in
+    info.version, which an integrator would have to poll /docs-json to detect.
+status_page:
+  published: false
+  url: null
+  probed:
+  - url: https://status.trend.io
+    status: 0
+    detail: DNS does not resolve
+  - url: https://status.soona.co
+    status: 0
+    detail: DNS does not resolve
+  - url: https://soona.co/status
+    status: 404
+  - url: https://trend.statuspage.io
+    status: 200
+    detail: >-
+      NOT Trend's. This page belongs to Trend Micro — its single component is "Apex
+      One", Trend Micro's endpoint-security product. Rejected on ownership; the name
+      collision between Trend (UGC) and Trend Micro is the trap here.
+  - url: https://trendio.statuspage.io
+    status: 302
+    detail: 302s to https://www.statuspage.io/ — an unclaimed Statuspage subdomain, not a status page.
+  detail: No status page, no uptime history and no incident feed exists for this API.
+sla:
+  published: false
+  url: null
+  detail: >-
+    No SLA, uptime commitment or support-response target is published. Consistent with
+    there being no developer program to attach one to.
+support:
+  url: https://support.soona.co
+  detail: >-
+    Help-center support for brands and creators (soona-operated, covering the Trend
+    UGC product). It is end-user support, not developer support — there is no
+    developer contact channel, no support email for API consumers and no
+    info.contact in the OpenAPI (contact is an empty object).
+engineering_wiki:
+  url: https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f
+  status: 200
+  readable: false
+  detail: >-
+    The OpenAPI description links to "The Trend Engineering Wiki" on Notion. It
+    returns 200 but renders client-side — a fetch yields the single word "Notion" and
+    no content — so nothing could be read from it. Recorded as a lead, not a source.
+corporate:
+  acquired_by: soona (soona.co)
+  detail: >-
+    Trend was acquired by soona and the product is being folded in as "soona UGC"
+    (soona.co/blog/trend-is-now-soona-ugc). trend.io, app.trend.io and api.trend.io
+    all remain live and the API is actively deployed (build 1.28.31), and the API
+    carries explicit soona integration routes (/auth/soona/account,
+    /auth/soona/link-brand) — evidence of an in-progress account migration rather than
+    a shutdown. No end-of-life date for the Trend surface has been announced.

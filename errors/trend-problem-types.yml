@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/trend-api-openapi.yml + observed responses from https://api.trend.io
+format: nestjs-default
+rfc9457: false
+content_type: application/json
+note: >-
+  THE OPENAPI DOCUMENTS NO ERRORS. Across all 124 operations the only declared
+  response codes are 200 (88) and 201 (41) — there is not a single 4xx or 5xx
+  response object in the contract, and no error schema is defined in
+  components.schemas. That is the finding. The entries below are therefore NOT read
+  from declared responses; they are the framework-default envelopes actually observed
+  on the wire, recorded so an integrator has something to branch on. Titles and
+  remediation could not be enriched from a documentation error reference because
+  Trend publishes none.
+envelope:
+  fields:
+  - name: message
+    type: string | string[]
+    detail: human-readable message; an array of strings when class-validator rejects a body
+  - name: error
+    type: string
+    detail: HTTP reason phrase
+  - name: statusCode
+    type: number
+    detail: HTTP status, repeated in the body
+  example: '{"message":"Cannot GET /nope-not-here","error":"Not Found","statusCode":404}'
+declared_in_spec:
+  '200': 88
+  '201': 41
+  4xx: 0
+  5xx: 0
+problem_types:
+- status: 401
+  code: Unauthorized
+  title: Missing or invalid credential
+  envelope: '{"message":"Unauthorized","statusCode":401}'
+  meaning: >-
+    The access-token bearer JWT was absent, expired or not accepted, or the
+    trend-api-key header was required and not supplied.
+  remediation: >-
+    Re-authenticate via POST /auth/login (creator), POST /auth/brand/login (brand) or
+    the Google SSO variants, and resend with Authorization: Bearer <jwt>. Admin and
+    /system/* routes additionally need the trend-api-key header.
+  observed: true
+  observed_at: https://api.trend.io/creator/level/bonus-table
+- status: 404
+  code: Not Found
+  title: Route or resource does not exist
+  envelope: '{"message":"Cannot GET <path>","error":"Not Found","statusCode":404}'
+  meaning: >-
+    No route matches the method+path, or the addressed campaign/creator/partnership
+    id does not resolve.
+  remediation: Check the path against openapi/trend-api-openapi.yml and verify the id.
+  observed: true
+  observed_at: https://api.trend.io/nope-not-here
+- status: 400
+  code: Bad Request
+  title: Request body or query failed validation
+  envelope: '{"message":["<field> must be a string", ...],"error":"Bad Request","statusCode":400}'
+  meaning: >-
+    NestJS ValidationPipe rejected the DTO. `message` is an ARRAY of per-field
+    strings in this case, not a string — callers must handle both shapes.
+  remediation: >-
+    Validate the payload against the DTO schema in components.schemas (e.g.
+    UpdateBrandDto, SubmitCampaignDto, CreatorRegistrationDto) before sending.
+  observed: false
+  inferred_from: NestJS ValidationPipe default; DTO schemas declare required[] arrays
+gaps:
+- >-
+  No machine-stable error code. `message` is prose and `error` is the HTTP reason
+  phrase, so there is nothing to switch on beyond the status number.
+- >-
+  No 429 is declared or observed anywhere — see rate-limits/trend-rate-limits.yml.
+- >-
+  The `message` field changes type (string vs string[]) depending on the failure,
+  which will break naively typed clients.
+- >-
+  No error responses are declared in the OpenAPI at all, so generated clients will
+  have no typed error path.

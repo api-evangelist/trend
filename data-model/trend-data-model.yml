@@ -1,0 +1,248 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/trend-api-openapi.yml (components.schemas + path id parameters)
+note: >-
+  Entity-relationship graph derived from the 64 schemas in the published OpenAPI and
+  from the id path/query parameters used across the 124 operations. Trend publishes
+  no object reference, so id prefixes and domains could not be enriched from docs.
+  Identifiers are MongoDB ObjectId strings (`_id`) except for users, which are keyed
+  by Firebase uid (`firebaseUserId`).
+id_conventions:
+  primary_key_field: _id
+  format: MongoDB ObjectId (24-char hex string)
+  user_key: firebaseUserId (Firebase Authentication uid, 28-char string)
+  prefixed_ids: false
+  detail: >-
+    No typed/prefixed identifiers (no "cus_"-style prefixes). An id is not
+    self-describing, so a caller must track which entity an id belongs to. Stripe
+    product ids (prod_*) appear in the payment surface and are the one exception —
+    they are Stripe's, not Trend's.
+entities:
+- name: User
+  schema: User
+  key: firebaseUserId
+  fields:
+  - firebaseUserId
+  - email
+  - creatorId
+  - socialProvider
+  - outsideUS
+  - permissions
+  - firstName
+  - lastName
+  - profilePicture
+  - phoneNumber
+  - phoneNumberVerified
+  - emailVerified
+  detail: Authentication identity. A User may be a creator, a brand user, or an admin.
+- name: Creator
+  schema: Creator
+  key: _id
+  fields:
+  - _id
+  - userId
+  - levelId
+  - address
+  - gender
+  - ageRange
+  - applicationStatus
+  - payPalEmail
+  - socialCategories
+  - contentCategories
+  - socials
+  - portfolio
+  - jobTypes
+  - equipment
+  - environment
+  - username
+  - about
+  - isOverdue
+  - overduePartnerships
+  - contentDeliveryScore
+  - contentDeliveryAverageDays
+  detail: >-
+    A vetted content creator. applicationStatus drives the approve/reject admin flow;
+    contentDeliveryScore and isOverdue are platform-computed reliability signals.
+- name: Brand
+  schema: BrandSchema
+  key: _id
+  fields: []
+  detail: >-
+    The buying account that funds campaigns with credits. NOTE: BrandSchema is
+    declared in components.schemas with an EMPTY properties object — the brand entity
+    is referenced throughout the API (/brand/*, /admin/brand/*, brandId path params)
+    but its shape is not published. UpdateBrandDto / UpdateBrandRequest are the only
+    windows onto its fields.
+- name: Campaign
+  key: campaignId
+  fields:
+  - campaignId
+  - brandId
+  - status (draft | submitted | listed | unlisted | archived)
+  detail: >-
+    A creative brief a brand posts. No Campaign response schema is declared; the
+    entity is addressed by campaignId across 19 operations and shaped by
+    UpdateDraftCampaignDto, UpdateActiveCampaign and SubmitCampaignDto.
+- name: Partnership
+  key: partnershipId
+  detail: >-
+    The join entity between a Campaign and a Creator — the hire. Carries application,
+    approval/rejection, due date, rehire invite accept/decline, and activation state.
+    Consumes credits at 20/40/60 per hire depending on creator level.
+- name: ContentCollection
+  schema: ContentCollectionResponse
+  key: contentCollectionId
+  fields:
+  - brandCredits
+  - creator
+  - campaign
+  - messageId
+  - approvedContents
+  - pendingContents
+  detail: >-
+    The delivered content for one campaign+creator pair, holding approved and pending
+    content records. Individual items are addressed by contentRecordId.
+- name: Portfolio
+  schema: PortfolioDto
+  fields:
+  - url
+  - type
+  detail: Creator work samples, added/removed individually and served publicly by username.
+- name: Profile
+  schema: ProfileDto / PublicProfileResponse
+  key: creatorId
+  fields:
+  - creatorId
+  - userId
+  - overallRating
+  - totalReviews
+  - contentQuality
+  - professionalism
+  - reviews
+  - instagramStats
+  - partnershipCreditCost
+  detail: >-
+    Public-facing creator profile. partnershipCreditCost is the credit price of hiring
+    this creator; instagramStats carries social reach.
+- name: CreatorLevel
+  key: levelId
+  detail: >-
+    Tiering that sets a creator's bonus table and hire cost. Referenced by
+    Creator.levelId; served by /creator/level and /creator/level/bonus-table.
+- name: Message
+  key: threadId
+  detail: >-
+    Brand↔creator thread messaging, with separate brand and creator send/read routes
+    and an unread counter.
+- name: Review
+  key: reviewId
+  detail: Brand's review of a creator after a partnership; aggregates into Profile.overallRating.
+- name: Shipment
+  schema: ShipmentDto
+  fields:
+  - partnershipId
+  - nonShippable
+  - trackingNumber
+  - carrierCode
+  detail: Physical product sent from brand to creator for a partnership.
+- name: PackageProduct
+  schema: PackageProduct
+  key: id (Stripe product id)
+  fields:
+  - id
+  - name
+  - cost
+  - credits
+  - savings
+  - description
+  - mostPopular
+  detail: >-
+    A prepaid credit package. This is the only entity a caller can read anonymously.
+    See plans/trend-plans-pricing.yml.
+- name: Address
+  schema: Address / AddressDto
+  fields:
+  - line1
+  - line2
+  - city
+  - postalCode
+  - state
+  - country
+  detail: Value object embedded on Creator and Profile; also the creator shipping destination.
+relationships:
+- from: User
+  to: Creator
+  type: has_one
+  via: User.creatorId
+- from: Creator
+  to: User
+  type: belongs_to
+  via: Creator.userId
+- from: Creator
+  to: Address
+  type: has_one
+  via: Creator.address ($ref Address)
+- from: Creator
+  to: CreatorLevel
+  type: belongs_to
+  via: Creator.levelId
+- from: Creator
+  to: Portfolio
+  type: has_many
+  via: Creator.portfolio
+- from: Creator
+  to: Partnership
+  type: has_many
+  via: Creator.overduePartnerships / partnershipId routes
+- from: Brand
+  to: Campaign
+  type: has_many
+  via: brandId path parameter on /campaign/admin/{brandId}/first-campaign
+- from: Campaign
+  to: Partnership
+  type: has_many
+  via: /campaign/approve-partnership/{campaignId}/{partnershipId}
+- from: Partnership
+  to: Creator
+  type: belongs_to
+  via: /campaign/invite-creator/{campaignId}/{creatorId}
+- from: Partnership
+  to: Shipment
+  type: has_one
+  via: ShipmentDto.partnershipId
+- from: Partnership
+  to: ContentCollection
+  type: has_one
+  via: POST /content/submit/{partnershipId}
+- from: ContentCollection
+  to: Campaign
+  type: belongs_to
+  via: ContentCollectionResponse.campaign
+- from: ContentCollection
+  to: Creator
+  type: belongs_to
+  via: ContentCollectionResponse.creator
+- from: ContentCollection
+  to: Message
+  type: has_one
+  via: ContentCollectionResponse.messageId
+- from: Brand
+  to: Creator
+  type: has_many
+  via: POST /brand/{brandId}/favorite-creator
+- from: Brand
+  to: PackageProduct
+  type: has_many
+  via: POST /payment/stripe/checkout/{productId}
+- from: Creator
+  to: Review
+  type: has_many
+  via: PublicProfileResponse.reviews
+- from: ProfileDto
+  to: Creator
+  type: belongs_to
+  via: ProfileDto.creatorId
+gaps:
+- BrandSchema publishes no properties — the central buying entity has no documented shape.
+- No Campaign or Partnership response schema is declared; both are addressed only by id.
+- No schema declares format, pattern or maxLength on its id fields.

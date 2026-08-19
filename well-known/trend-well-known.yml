@@ -1,0 +1,103 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTPS probes of api.trend.io, trend.io and app.trend.io
+note: >-
+  No .well-known document is served on any Trend host. api.trend.io (NestJS/Express)
+  returns a JSON 404 envelope for every path; trend.io (Webflow) returns an "Invalid
+  .well-known request" HTML 404. app.trend.io answers HTTP 200 for EVERY .well-known
+  path, but the body is the React SPA index shell (identical 3,941-byte
+  "<!doctype html>...<div id=root>" document for all six paths) — that is a catch-all
+  route, not a document, and is recorded here as a MISS. No WellKnown or SecurityTxt
+  pointer is emitted in apis.yml because nothing on this provider serves a real
+  well-known document.
+hosts:
+- host: api.trend.io
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+- host: trend.io
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+- host: app.trend.io
+  spa_catch_all: true
+  paths:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    result: miss
+    detail: HTML SPA shell, not a security.txt document
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    result: miss
+    detail: HTML SPA shell, not JSON
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    result: miss
+    detail: HTML SPA shell, not JSON
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: null
+    result: miss
+    detail: HTML SPA shell, not JSON
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    result: miss
+    detail: HTML SPA shell, not a link-set document
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: null
+    result: miss
+    detail: HTML SPA shell, not JSON
+a2a:
+  probed:
+  - url: https://trend.io/.well-known/agent-card.json
+    status: 404
+  - url: https://trend.io/.well-known/agent.json
+    status: 404
+  - url: https://api.trend.io/.well-known/agent-card.json
+    status: 404
+  - url: https://api.trend.io/.well-known/agent.json
+    status: 404
+  - url: https://app.trend.io/.well-known/agent-card.json
+    status: 200
+    result: miss
+    detail: SPA shell HTML, not an AgentCard JSON object
+  - url: https://soona.co/.well-known/agent-card.json
+    status: 404
+  result: no agent card served; no a2a/ artifact written and no AgentCard pointer emitted
