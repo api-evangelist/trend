@@ -41,6 +41,19 @@ created: '2026-07-17'
 modified: '2026-08-13'
 tags:
 - Company
+- User Generated Content
+- Creator Economy
+- Content Marketing
+- Video Production
+- Photography
+- Marketing
+- E-Commerce
+- Creator Marketplace
+- Influencer Marketing
+- AI Image Generation
+- Payments
+tags_raw:
+- Company
 - User-Generated Content
 - Creator Economy
 - Content Marketing
@@ -68,6 +81,13 @@ apis:
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
+  - User Generated Content
+  - Creator Economy
+  - Content Marketing
+  - Video Production
+  - Photography
+  - E-Commerce
+  tags_raw:
   - User-Generated Content
   - Creator Economy
   - Content Marketing
