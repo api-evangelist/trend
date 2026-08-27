@@ -66,37 +66,16 @@ tags_raw:
 - AI Image Generation
 - Payments
 apis:
-- name: Trend API
-  description: >-
-    The Trend platform API — the NestJS backend behind app.trend.io and the Trend
-    creator app. It exposes 124 operations across brand accounts and approvals,
-    campaign creation/submission/relisting, creator profiles, portfolios and levels,
-    partnership applications and rehire invites, content submission/approval/revision,
-    brand↔creator messaging, product shipments, AI photo generation and
-    super-resolution, S3 pre-signed uploads, and Stripe credit-package checkout.
-    Authentication is a JWT bearer ("access-token"); 39 admin operations additionally
-    require a "trend-api-key" header. There is no published developer program, no
-    onboarding for third-party developers, and no rate-limit documentation — but the
-    OpenAPI is served publicly and unauthenticated at https://api.trend.io/docs-json.
+- aid: trend:trend-ai-api
+  name: Trend AI API
+  description: The AI API from Trend — 3 operation(s) for ai.
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
-  - User Generated Content
-  - Creator Economy
-  - Content Marketing
-  - Video Production
-  - Photography
-  - E-Commerce
-  tags_raw:
-  - User-Generated Content
-  - Creator Economy
-  - Content Marketing
-  - Video Production
-  - Photography
-  - eCommerce
+  - AI
   properties:
   - type: OpenAPI
-    url: openapi/trend-api-openapi.yml
+    url: openapi/trend-ai-api-openapi.yml
   - type: APIReference
     url: https://api.trend.io/docs-json
   - type: Authentication
@@ -107,12 +86,427 @@ apis:
     url: data-model/trend-data-model.yml
   - type: ErrorCatalog
     url: errors/trend-problem-types.yml
-  - type: Overlay
-    url: overlays/trend-api-overlay.yaml
   - type: RateLimits
     url: rate-limits/trend-rate-limits.yml
-  - type: MCPServer
-    url: mcp/trend-mcp.yml
+- aid: trend:trend-auth-api
+  name: Trend Auth API
+  description: The Auth API from Trend — 2 operation(s) for auth.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-auth-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-basic-authentication-ai-api
+  name: Trend Basic Authentication (AI) API
+  description: >-
+    The Basic Authentication (AI) API from Trend — 5 operation(s) for basic authentication (ai).
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Basic Authentication (AI)
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-basic-authentication-ai-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-brand-admin-api
+  name: Trend Brand Admin API
+  description: The Brand Admin API from Trend — 7 operation(s) for brand admin.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Brand Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-brand-admin-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-brand-api
+  name: Trend Brand API
+  description: The Brand API from Trend — 10 operation(s) for brand.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Brand
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-brand-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-brand-authentication-api
+  name: Trend Brand Authentication API
+  description: The Brand Authentication API from Trend — 7 operation(s) for brand authentication.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Brand Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-brand-authentication-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-campaign-api
+  name: Trend Campaign API
+  description: The Campaign API from Trend — 19 operation(s) for campaign.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Campaign
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-campaign-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-content-api
+  name: Trend Content API
+  description: The Content API from Trend — 9 operation(s) for content.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-content-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-creator-api
+  name: Trend Creator API
+  description: The Creator API from Trend — 22 operation(s) for creator.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Creator
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-creator-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-creator-authentication-api
+  name: Trend Creator Authentication API
+  description: The Creator Authentication API from Trend — 6 operation(s) for creator authentication.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Creator Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-creator-authentication-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-creator-portfolio-api
+  name: Trend Creator Portfolio API
+  description: The Creator Portfolio API from Trend — 4 operation(s) for creator portfolio.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Creator Portfolio
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-creator-portfolio-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-creator-profiles-api
+  name: Trend Creator Profiles API
+  description: The Creator Profiles API from Trend — 6 operation(s) for creator profiles.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Creator Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-creator-profiles-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-health-check-api
+  name: Trend Health Check API
+  description: The Health Check API from Trend — 1 operation(s) for health check.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-health-check-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-message-api
+  name: Trend Message API
+  description: The Message API from Trend — 6 operation(s) for message.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Message
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-message-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-metrics-api
+  name: Trend Metrics API
+  description: The Metrics API from Trend — 1 operation(s) for metrics.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-metrics-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-partnership-api
+  name: Trend Partnership API
+  description: The Partnership API from Trend — 12 operation(s) for partnership.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Partnership
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-partnership-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-payment-api
+  name: Trend Payment API
+  description: The Payment API from Trend — 6 operation(s) for payment.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Payment
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-payment-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-review-api
+  name: Trend Review API
+  description: The Review API from Trend — 1 operation(s) for review.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Review
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-review-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-shipment-api
+  name: Trend Shipment API
+  description: The Shipment API from Trend — 3 operation(s) for shipment.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Shipment
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-shipment-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
+- aid: trend:trend-upload-api
+  name: Trend Upload API
+  description: The Upload API from Trend — 2 operation(s) for upload.
+  humanURL: https://api.trend.io/docs
+  baseURL: https://api.trend.io
+  tags:
+  - Upload
+  properties:
+  - type: OpenAPI
+    url: openapi/trend-upload-api-openapi.yml
+  - type: APIReference
+    url: https://api.trend.io/docs-json
+  - type: Authentication
+    url: authentication/trend-authentication.yml
+  - type: Conventions
+    url: conventions/trend-conventions.yml
+  - type: DataModel
+    url: data-model/trend-data-model.yml
+  - type: ErrorCatalog
+    url: errors/trend-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/trend-rate-limits.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
