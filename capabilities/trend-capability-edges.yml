@@ -1,0 +1,25 @@
+slug: trend
+provider: Trend
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Partnership
+  spec_file: trend-partnership-api-openapi.yml
+  capability_id: BC-3790.20
+  capability_id_l1: BC-3790
+  capability_name: Talent Contracting & Engagement
+  confidence: 0.7
+  evidence: POST /partnership/{campaignId}/application PartnershipController_submitApplication; PATCH
+    /partnership/reject-partnership/{partnershipId} PartnershipController_approvePartnership; PATCH /partnership/{partnershipId}/accept-rehire-invite
+  reason: Lifecycle of a creator's engagement with a brand campaign — application, approval/rejection,
+    due dates, rehire invites — i.e. contracting and engaging creative talent for content production.

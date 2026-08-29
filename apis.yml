@@ -525,6 +525,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/trend-capability-edges.yml
+  name: Trend Business Capability Map
 - type: Website
   url: https://trend.io
 - type: Pricing
