@@ -1,0 +1,164 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Basic Authentication (AI) API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Basic Authentication (AI)
+paths:
+  /auth/basic/signup:
+    post:
+      operationId: AuthController_basicSignUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: The user was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirebaseAuthSignInResponse'
+      tags:
+      - Basic Authentication (AI)
+      security:
+      - {}
+  /auth/basic/login:
+    post:
+      operationId: AuthController_basicLogin
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: Auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FirebaseAuthSignInResponse'
+      tags:
+      - Basic Authentication (AI)
+      security:
+      - {}
+  /auth/logout:
+    post:
+      operationId: AuthController_logout
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Basic Authentication (AI)
+  /auth/update/password:
+    patch:
+      operationId: AuthController_patchPassword
+      parameters: []
+      responses:
+        '200':
+          description: Updated Firebase UserRecord
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRecord'
+      tags:
+      - Basic Authentication (AI)
+  /auth/update/permissions:
+    patch:
+      operationId: AuthController_patchPermissions
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePermissionsDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Basic Authentication (AI)
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    UserRecord:
+      type: object
+      properties: {}
+    FirebaseAuthSignInResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        registered:
+          type: boolean
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - registered
+      - email
+      - refreshToken
+    UpdatePermissionsDto:
+      type: object
+      properties:
+        email:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - admin
+            - content_viewer
+      required:
+      - email
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

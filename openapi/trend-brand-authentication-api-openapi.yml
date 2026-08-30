@@ -1,0 +1,195 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Brand Authentication API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Brand Authentication
+paths:
+  /auth/brand/signup:
+    post:
+      operationId: BrandAuthController_signEmailOnly
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: The user & brand successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      tags:
+      - Brand Authentication
+      security:
+      - {}
+  /auth/brand/login:
+    post:
+      operationId: BrandAuthController_brandLogin
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: Brand auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      tags:
+      - Brand Authentication
+      security:
+      - {}
+  /auth/brand/login/google:
+    post:
+      operationId: BrandAuthController_brandLoginSSO
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '201':
+          description: Brand auth session successfully created.
+      tags:
+      - Brand Authentication
+  /auth/brand/custom-token:
+    post:
+      operationId: BrandAuthController_brandRefreshCustomToken
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Brand Authentication
+  /auth/brand/update:
+    patch:
+      operationId: BrandAuthController_adminPatchBrandEmail
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateBrandEmail'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Authentication
+      security:
+      - admin-api-key: []
+  /auth/brand/update/logged-in-after-approval:
+    patch:
+      operationId: BrandAuthController_updateLoggedInAfterApproval
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Authentication
+  /auth/brand/profile:
+    get:
+      operationId: BrandAuthController_brandProfile
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+        '201':
+          description: Retrieve Brand Profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      tags:
+      - Brand Authentication
+components:
+  schemas:
+    AdminUpdateBrandEmail:
+      type: object
+      properties:
+        brandId:
+          type: string
+        newEmail:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - brandId
+      - newEmail
+    TrendBrandAuthResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        brand:
+          $ref: '#/components/schemas/BrandSchema'
+        customToken:
+          type: string
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - brand
+      - customToken
+      - email
+      - refreshToken
+    BrandSchema:
+      type: object
+      properties: {}
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

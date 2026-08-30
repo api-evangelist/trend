@@ -1,0 +1,634 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Campaign API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Campaign
+paths:
+  /campaign/draft:
+    get:
+      operationId: CampaignController_findOneDraftByBrand
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/draft/{campaignId}:
+    patch:
+      operationId: CampaignController_updateDraft
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDraftCampaignDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/submit/{campaignId}:
+    patch:
+      operationId: CampaignController_submitCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitCampaignDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/submissions/{campaignId}:
+    get:
+      operationId: CampaignController_getCampaignSubmissions
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignContentSubmissionsResponse'
+      tags:
+      - Campaign
+  /campaign/{campaignId}:
+    get:
+      operationId: CampaignController_getCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/update/{campaignId}:
+    patch:
+      operationId: CampaignController_updateCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateActiveCampaign'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/{campaignId}/bump:
+    patch:
+      operationId: CampaignController_bumpCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/archive:
+    patch:
+      operationId: CampaignController_brandArchiveCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/reactivate:
+    patch:
+      operationId: CampaignController_brandReactivateCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/relist:
+    patch:
+      operationId: CampaignController_brandRelistCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/{campaignId}/unlist:
+    patch:
+      operationId: CampaignController_brandUnlistCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/approve-partnership/{campaignId}/{partnershipId}:
+    patch:
+      operationId: CampaignController_approvePartnership
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/invite-creator/{campaignId}/{creatorId}:
+    patch:
+      operationId: CampaignController_inviteCreator
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteCreatorBodyDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+  /campaign/remove-creator/{campaignId}/{partnershipId}:
+    patch:
+      operationId: CampaignController_removeCreator
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCreatorBodyDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/admin-remove-creator/{campaignId}/{partnershipId}:
+    patch:
+      operationId: CampaignController_adminRemoveCreator
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /campaign/{campaignId}/increment-download:
+    patch:
+      operationId: CampaignController_incrementDownload
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncrementDownloadDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+  /campaign/admin/overdue:
+    get:
+      operationId: CampaignController_getOverdueCampaigns
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /campaign/admin/{brandId}/first-campaign:
+    get:
+      operationId: CampaignController_getFirstCampaign
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+  /campaign/admin/{campaignId}/bump:
+    patch:
+      operationId: CampaignController_adminBumpCampaign
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Campaign
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    CampaignContentSubmissionsResponse:
+      type: object
+      properties:
+        submissions:
+          type: array
+          items:
+            type: object
+        approvals:
+          type: array
+          items:
+            type: object
+      required:
+      - submissions
+      - approvals
+    UpdateActiveCampaign:
+      type: object
+      properties:
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type:
+          - string
+          - 'null'
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+        userFullName:
+          type: string
+        companyName:
+          type: string
+    UpdateDraftCampaignDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - social
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type:
+          - string
+          - 'null'
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+        userFullName:
+          type: string
+        companyName:
+          type: string
+    InviteCreatorBodyDto:
+      type: object
+      properties:
+        rehireContentNeeds:
+          type: string
+        rehireWillBrandSendProduct:
+          type: boolean
+        rehireProductDescription:
+          type: string
+      required:
+      - rehireContentNeeds
+      - rehireWillBrandSendProduct
+    RemoveCreatorBodyDto:
+      type: object
+      properties:
+        removalReason:
+          type: string
+      required:
+      - removalReason
+    IncrementDownloadDto:
+      type: object
+      properties:
+        count:
+          type: number
+          minimum: 0
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+        type:
+          type: string
+    SubmitCampaignDto:
+      type: object
+      properties:
+        userFullName:
+          type: string
+        companyName:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - social
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type:
+          - string
+          - 'null'
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+      required:
+      - type
+      - category
+      - platform
+      - styleCategory
+      - gender
+      - name
+      - url
+      - value
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

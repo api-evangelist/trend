@@ -1,0 +1,361 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Creator Authentication API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Creator Authentication
+paths:
+  /auth/signup:
+    post:
+      operationId: CreatorAuthController_signUp
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: The user was successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUpResponse'
+      tags:
+      - Creator Authentication
+      security:
+      - {}
+  /auth/login:
+    post:
+      operationId: CreatorAuthController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailPasswordDto'
+      responses:
+        '201':
+          description: Auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendCreatorAuthResponse'
+      tags:
+      - Creator Authentication
+      security:
+      - {}
+  /auth/login/google:
+    post:
+      operationId: CreatorAuthController_googleLogin
+      parameters: []
+      responses:
+        '201':
+          description: Auth session successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendAuthProfileResponse'
+      tags:
+      - Creator Authentication
+  /auth/profile:
+    get:
+      operationId: CreatorAuthController_getProfile
+      parameters: []
+      responses:
+        '200':
+          description: Retrieve Auth Profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendAuthProfileResponse'
+      tags:
+      - Creator Authentication
+  /auth/remove-my-user:
+    delete:
+      operationId: CreatorAuthController_removeUser
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Creator Authentication
+  /auth/update/email:
+    patch:
+      operationId: CreatorAuthController_patchEmail
+      parameters: []
+      responses:
+        '200':
+          description: Updated Mongo DB User
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      tags:
+      - Creator Authentication
+components:
+  schemas:
+    SignUpResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        creator:
+          type: object
+        user:
+          $ref: '#/components/schemas/User'
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    User:
+      type: object
+      properties:
+        firebaseUserId:
+          type: string
+          description: Firebase User ID
+          example: ExwY3egTxNUCeM5DT300D9Otue53
+        email:
+          type: string
+          example: don@trend.io
+        creatorId:
+          type: string
+          description: Mongo Creator Collection ID
+        socialProvider:
+          type: string
+          enum:
+          - google
+          - ''
+        outsideUS:
+          type: boolean
+          example: false
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - feature-tester
+            - admin
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        emailVerified:
+          type: boolean
+      required:
+      - firebaseUserId
+      - email
+      - creatorId
+      - socialProvider
+      - outsideUS
+      - permissions
+      - firstName
+      - lastName
+      - profilePicture
+      - phoneNumber
+      - phoneNumberVerified
+      - emailVerified
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+      required:
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
+    TrendCreatorAuthResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    TrendAuthProfileResponse:
+      type: object
+      properties:
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - creator
+      - user
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
+    Creator:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Mongo Creator Collection ID
+        address:
+          $ref: '#/components/schemas/Address'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        applicationStatus:
+          enum:
+          - new
+          - submitted
+          - approved
+          - rejected
+          type: string
+          example: new
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        userId:
+          type: string
+        phoneNumber:
+          type: string
+        payPalEmail:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        levelId:
+          type: string
+        isOverdue:
+          type: boolean
+        overduePartnerships:
+          type: array
+          items:
+            type: string
+        contentDeliveryScore:
+          type: number
+        contentDeliveryAverageDays:
+          type: number
+        bypassIsOverdueFlag:
+          type: boolean
+      required:
+      - _id
+      - address
+      - gender
+      - applicationStatus
+      - ageRange
+      - userId
+      - payPalEmail
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - levelId
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

@@ -1,0 +1,268 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Brand API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Brand
+paths:
+  /brand/admin-approve:
+    patch:
+      operationId: BrandController_adminApproveBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveBrandDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/admin/reject/{brandId}:
+    patch:
+      operationId: BrandController_adminRejectBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/admin-update/{brandId}:
+    patch:
+      operationId: BrandController_adminUpdateBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/{brandId}/admin-update-credits:
+    post:
+      operationId: BrandController_adminAddCredits
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCreditsDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand
+      security:
+      - admin-api-key: []
+  /brand/update:
+    patch:
+      operationId: BrandController_updateBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand
+  /brand/{brandId}/favorite-creator:
+    post:
+      operationId: BrandController_favoriteCreator
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFavoriteCreatorDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/{brandId}/unfavorite-creator:
+    post:
+      operationId: BrandController_unFavoriteCreator
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFavoriteCreatorDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/hubspot/identification:
+    post:
+      operationId: BrandController_createIdentification
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/referral:
+    post:
+      operationId: BrandController_createReferral
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReferralDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Brand
+  /brand/referrals:
+    get:
+      operationId: BrandController_getReferrals
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand
+components:
+  schemas:
+    CreateReferralDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        contactEmail:
+          type: string
+      required:
+      - companyName
+      - contactEmail
+    UpdateBrandRequest:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
+        createCardTokenId:
+          type: string
+        updateCardTokenId:
+          type: string
+    AddCreditsDto:
+      type: object
+      properties:
+        changeType:
+          enum:
+          - add-new
+          - refund
+          type: string
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    UpdateFavoriteCreatorDto:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+      required:
+      - creatorId
+    UpdateBrandDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
+    ApproveBrandDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+        productImage:
+          type: string
+        storeImage:
+          type: string
+        description:
+          type: string
+      required:
+      - brandId
+      - productImage
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

@@ -1,0 +1,327 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Payment API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Payment
+paths:
+  /payment/stripe/session/{id}/payment-card:
+    get:
+      operationId: StripeController_stripeSessionCard
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCheckoutSessionResponse'
+      tags:
+      - Payment
+      security:
+      - {}
+  /payment/stripe/checkout/{productId}:
+    post:
+      operationId: StripeController_createUserPackageCheckout
+      parameters:
+      - name: productId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeCheckoutSessionResponse'
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Payment
+  /payment/stripe/packages:
+    get:
+      operationId: StripeController_packageProductsList
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PackageProduct'
+      tags:
+      - Payment
+      security:
+      - {}
+  /payment/stripe/events:
+    post:
+      operationId: StripeController_stripePaymentEvents
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Payment
+      security:
+      - {}
+  /payment/stripe/create-customer:
+    post:
+      operationId: StripeController_createCustomer
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Payment
+  /payment/payouts:
+    get:
+      operationId: PaymentController_payouts
+      parameters:
+      - name: startDate
+        required: true
+        in: query
+        schema:
+          format: date-time
+          type: string
+      - name: endDate
+        required: true
+        in: query
+        schema:
+          format: date-time
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPayoutsByDateRangeResponse'
+      tags:
+      - Payment
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    GetPayoutsByDateRangeResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            type: object
+        count:
+          type: number
+        startDate:
+          format: date-time
+          type: string
+        endDate:
+          format: date-time
+          type: string
+      required:
+      - payouts
+      - count
+      - startDate
+      - endDate
+    PackageProduct:
+      type: object
+      properties:
+        cost:
+          type: number
+        credits:
+          type: number
+        savings:
+          type: number
+        description:
+          type: string
+        mostPopular:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - cost
+      - credits
+      - savings
+      - id
+      - name
+    StripeCheckoutSessionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        after_expiration:
+          type: object
+        allow_promotion_codes:
+          type: boolean
+        amount_subtotal:
+          type: number
+        amount_total:
+          type: number
+        automatic_tax:
+          type: object
+        billing_address_collection:
+          type: object
+        cancel_url:
+          type: string
+        client_reference_id:
+          type: string
+        consent:
+          type: object
+        consent_collection:
+          type: object
+        currency:
+          type: string
+        customer:
+          type: object
+        customer_creation:
+          type: object
+        customer_details:
+          type: object
+        customer_email:
+          type: string
+        expires_at:
+          type: number
+        line_items:
+          type: object
+          properties:
+            object:
+              required: true
+              type: string
+            data:
+              required: true
+              type: array
+              items:
+                type: object
+            has_more:
+              required: true
+              type: boolean
+            url:
+              required: true
+              type: string
+        livemode:
+          type: boolean
+        locale:
+          type: object
+        metadata:
+          type: object
+        mode:
+          type: object
+        payment_intent:
+          type: object
+        payment_link:
+          type: object
+        payment_method_options:
+          type: object
+        payment_method_types:
+          type: array
+          items:
+            type: string
+        payment_status:
+          type: object
+        phone_number_collection:
+          type: object
+        recovered_from:
+          type: string
+        setup_intent:
+          type: object
+        shipping:
+          type: object
+        shipping_address_collection:
+          type: object
+        shipping_options:
+          type: array
+          items:
+            type: object
+        shipping_rate:
+          type: object
+        status:
+          type: object
+        submit_type:
+          type: object
+        subscription:
+          type: object
+        success_url:
+          type: string
+        tax_id_collection:
+          type: object
+        total_details:
+          type: object
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - after_expiration
+      - allow_promotion_codes
+      - amount_subtotal
+      - amount_total
+      - automatic_tax
+      - billing_address_collection
+      - cancel_url
+      - client_reference_id
+      - consent
+      - consent_collection
+      - currency
+      - customer
+      - customer_creation
+      - customer_details
+      - customer_email
+      - expires_at
+      - line_items
+      - livemode
+      - locale
+      - metadata
+      - mode
+      - payment_intent
+      - payment_link
+      - payment_method_options
+      - payment_method_types
+      - payment_status
+      - recovered_from
+      - setup_intent
+      - shipping
+      - shipping_address_collection
+      - shipping_options
+      - shipping_rate
+      - status
+      - submit_type
+      - subscription
+      - success_url
+      - total_details
+      - url
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

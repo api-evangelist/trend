@@ -1,0 +1,460 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Creator Profiles API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Creator Profiles
+paths:
+  /creator/profile:
+    get:
+      operationId: ProfileController_findOnePersonalProfile
+      parameters: []
+      responses:
+        '200':
+          description: 'Fetch data for creator personal profile: /profile'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileDto'
+      tags:
+      - Creator Profiles
+  /creator/profile/settings:
+    get:
+      operationId: ProfileController_findPersonalProfileSettings
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SettingsDto'
+      tags:
+      - Creator Profiles
+  /creator/profile/public/{id}:
+    get:
+      operationId: ProfileController_findOnePublicProfile
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicProfileResponse'
+      tags:
+      - Creator Profiles
+      security:
+      - {}
+  /creator/profile/iframe/{firebaseUserId}:
+    get:
+      operationId: ProfileController_findOneIframeProfile
+      parameters:
+      - name: firebaseUserId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicProfileResponse'
+      tags:
+      - Creator Profiles
+      security:
+      - {}
+  /creator/profile/id-list:
+    get:
+      operationId: ProfileController_getActiveCreatorsList
+      parameters: []
+      responses:
+        '200':
+          description: Active Creator IDs list for pre generating Iframe Profile
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      tags:
+      - Creator Profiles
+      security:
+      - {}
+  /creator/profile/{creatorId}:
+    patch:
+      operationId: ProfileController_updateProfile
+      parameters:
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateProfileDto'
+      tags:
+      - Creator Profiles
+components:
+  schemas:
+    JobTypeDto:
+      type: object
+      properties:
+        content:
+          type: boolean
+        social:
+          type: boolean
+      required:
+      - content
+      - social
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+      required:
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
+    PublicProfileResponse:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          type: object
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        contentQuality:
+          type: number
+        professionalism:
+          type: number
+        reviews:
+          type: array
+          items:
+            type: object
+        instagramStats:
+          type: object
+          properties:
+            followers:
+              required: false
+              type: number
+            avgComments:
+              required: false
+              type: number
+            avgLikes:
+              required: false
+              type: number
+        partnershipCreditCost:
+          type: number
+      required:
+      - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - reviews
+      - instagramStats
+      - partnershipCreditCost
+    SocialProviderDto:
+      type: object
+      properties:
+        instagram:
+          type: string
+        youTube:
+          type: string
+        tikTok:
+          type: string
+        website:
+          type: string
+      required:
+      - instagram
+      - youTube
+      - tikTok
+      - website
+    UpdateProfileDto:
+      type: object
+      properties:
+        username:
+          type: string
+        jobTypes:
+          $ref: '#/components/schemas/JobTypeDto'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        about:
+          type: string
+        payPalEmail:
+          type: string
+        socials:
+          $ref: '#/components/schemas/SocialProviderDto'
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        phoneNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+    ProfileDto:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          type: object
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+      required:
+      - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+    SettingsDto:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          $ref: '#/components/schemas/Address'
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        payPalEmail:
+          type: string
+      required:
+      - ageRange
+      - address
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - equipment
+      - environment
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - payPalEmail
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

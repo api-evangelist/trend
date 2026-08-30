@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Message API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Message
+paths:
+  /message/brand/{threadId}/send:
+    post:
+      operationId: MessageController_brandSendMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BrandSendMessageRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/brand/{threadId}/read:
+    post:
+      operationId: MessageController_brandReadMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/creator/{threadId}/send:
+    post:
+      operationId: MessageController_creatorSendMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatorSendMessageRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/creator/{threadId}/read:
+    post:
+      operationId: MessageController_creatorReadMessage
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+  /message/creator/unread:
+    get:
+      operationId: MessageController_getCreatorUnreadMessageCount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Message
+  /message/creator/unread/{threadId}:
+    post:
+      operationId: MessageController_notifyCreatorUnread
+      parameters:
+      - name: threadId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Message
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    CreatorSendMessageRequestDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+        text:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - text
+          - revisionRequest
+        url:
+          type: string
+        thumbnail:
+          type: string
+        messageId:
+          type: string
+      required:
+      - brandId
+      - text
+      - type
+    BrandSendMessageRequestDto:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        text:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - text
+          - revisionRequest
+        url:
+          type: string
+        thumbnail:
+          type: string
+        messageId:
+          type: string
+      required:
+      - creatorId
+      - text
+      - type
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

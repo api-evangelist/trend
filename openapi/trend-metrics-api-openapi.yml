@@ -1,0 +1,46 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Metrics API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Metrics
+paths:
+  /metric/update-influencer-metrics/{uid}:
+    post:
+      operationId: MetricController_updateInfluencerMetrics
+      parameters:
+      - name: uid
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Metrics
+      security:
+      - admin-api-key: []
+components:
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

@@ -1,0 +1,104 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 AI API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: AI
+paths:
+  /ai/generate:
+    post:
+      operationId: AIController_generatePhotos
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateSceneRequestDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateSceneResponseDto'
+      tags:
+      - AI
+  /ai/super-resolution/{generationId}:
+    get:
+      operationId: AIController_getSuperResolution
+      parameters:
+      - name: generationId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - AI
+  /ai/fal/enhance:
+    post:
+      operationId: AIController_enhanceImageQuality
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - AI
+components:
+  schemas:
+    GenerateSceneRequestDto:
+      type: object
+      properties:
+        productImage:
+          type: string
+        scene:
+          type: string
+        timeOfDay:
+          type: string
+        colorPalette:
+          type: string
+        perspective:
+          type: string
+        scale:
+          type: number
+        translation:
+          type: object
+      required:
+      - productImage
+      - scene
+    GenerateSceneResponseDto:
+      type: object
+      properties:
+        scenes:
+          type: array
+          items:
+            type: object
+      required:
+      - scenes
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

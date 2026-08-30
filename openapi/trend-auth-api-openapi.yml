@@ -1,0 +1,130 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Auth API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Auth
+paths:
+  /auth/soona/link-brand:
+    patch:
+      operationId: SoonaAuthController_linkBrandToSoonaAccount
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkSoonaAccountDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Auth
+    post:
+      operationId: SoonaAuthController_createLinkedBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLinkedBrandDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendBrandAuthResponse'
+      security:
+      - {}
+      tags:
+      - Auth
+  /auth/soona/account:
+    get:
+      operationId: SoonaAuthController_getSoonaAccount
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Auth
+components:
+  schemas:
+    LinkSoonaAccountDto:
+      type: object
+      properties:
+        soonaJWT:
+          type: string
+      required:
+      - soonaJWT
+    TrendBrandAuthResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        brand:
+          $ref: '#/components/schemas/BrandSchema'
+        customToken:
+          type: string
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - brand
+      - customToken
+      - email
+      - refreshToken
+    BrandSchema:
+      type: object
+      properties: {}
+    CreateLinkedBrandDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+        soonaJWT:
+          type: string
+      required:
+      - password
+      - email
+      - soonaJWT
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

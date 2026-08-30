@@ -1,0 +1,39 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Health Check API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Health Check
+paths:
+  /:
+    get:
+      operationId: HealthCheckController_healthCheck
+      parameters: []
+      responses:
+        '200':
+          description: Successful response from API with version number
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - Health Check
+      security:
+      - {}
+components:
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

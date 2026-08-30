@@ -1,0 +1,231 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Partnership API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Partnership
+paths:
+  /system/partnership/activate:
+    post:
+      operationId: SystemPartnershipController_systemActivatePartnership
+      parameters: []
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /system/partnership/reject-partnership/{partnershipId}:
+    patch:
+      operationId: SystemPartnershipController_systemRejectInfluencerPartnership
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /system/partnership/{partnershipId}/auto-decline-rehire-invite:
+    patch:
+      operationId: SystemPartnershipController_systemAutoDeclineRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/{campaignId}/application:
+    post:
+      operationId: PartnershipController_submitApplication
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitApplicationRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/reject-partnership/{partnershipId}:
+    patch:
+      operationId: PartnershipController_approvePartnership
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Partnership
+  /partnership/view-approve-invites:
+    patch:
+      operationId: PartnershipController_viewApproveInvites
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/set-due-date/{partnershipId}:
+    patch:
+      operationId: PartnershipController_setDueDate
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/find-by-emails:
+    get:
+      operationId: PartnershipController_findPartnerships
+      parameters:
+      - name: creator
+        required: true
+        in: query
+        schema:
+          type: string
+      - name: brand
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/{partnershipId}/accept-rehire-invite:
+    patch:
+      operationId: PartnershipController_acceptRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/{partnershipId}/decline-rehire-invite:
+    patch:
+      operationId: PartnershipController_declineRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+  /partnership/{partnershipId}/app-accept-rehire-invite:
+    patch:
+      operationId: PartnershipController_appAcceptRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+  /partnership/{partnershipId}/app-decline-rehire-invite:
+    patch:
+      operationId: PartnershipController_appDeclineRehireInvite
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Partnership
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    SubmitApplicationRequestDto:
+      type: object
+      properties:
+        writtenApplication:
+          type: string
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

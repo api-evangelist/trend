@@ -1,0 +1,244 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Brand Admin API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Brand Admin
+paths:
+  /admin/brand/approve:
+    patch:
+      operationId: BrandAdminController_adminApproveBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveBrandDto'
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/reject:
+    patch:
+      operationId: BrandAdminController_adminRejectBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/revert-reject:
+    patch:
+      operationId: BrandAdminController_adminRevertRejectBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/update:
+    patch:
+      operationId: BrandAdminController_adminUpdateBrand
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBrandDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/add-credits:
+    post:
+      operationId: BrandAdminController_adminAddCredits
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCreditsDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand/{brandId}/remove-credits:
+    post:
+      operationId: BrandAdminController_adminRemoveCredits
+      parameters:
+      - name: brandId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCreditsDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+  /admin/brand:
+    get:
+      operationId: BrandAdminController_getBrands
+      parameters:
+      - name: offset
+        required: false
+        in: query
+        schema:
+          type: number
+      - name: orderDirection
+        required: false
+        in: query
+        schema:
+          enum:
+          - asc
+          - desc
+          type: string
+      - name: filters
+        required: false
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags:
+      - Brand Admin
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    AddCreditsDto:
+      type: object
+      properties:
+        changeType:
+          enum:
+          - add-new
+          - refund
+          type: string
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    RemoveCreditsDto:
+      type: object
+      properties:
+        changeType:
+          type: string
+          enum:
+          - refunded
+          - remove
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    UpdateBrandDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
+    ApproveBrandDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+        productImage:
+          type: string
+        storeImage:
+          type: string
+        description:
+          type: string
+      required:
+      - brandId
+      - productImage
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key

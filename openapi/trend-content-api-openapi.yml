@@ -1,0 +1,344 @@
+openapi: 3.2.0
+info:
+  title: Trend API - 1.28.31 Content API
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  version: 1.28.31
+  contact: {}
+servers:
+- url: https://api.trend.io
+  description: 'Production Trend API (host serving /docs-json; root returns "Success! trend-api Version: 1.28.31")'
+security:
+- access-token: []
+tags:
+- name: Content
+paths:
+  /content/{campaignId}/{creatorId}:
+    get:
+      operationId: ContentController_getContentCollectionPage
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get data for content collection page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentCollectionResponse'
+      tags:
+      - Content
+  /content/admin/pre-signed-url:
+    post:
+      operationId: ContentController_postPreSignedUrl
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentPresignedUrlRequestDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /content/system-approve/{contentCollectionId}:
+    patch:
+      operationId: ContentController_systemApproveContent
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /content/approve/{campaignId}/{creatorId}:
+    patch:
+      operationId: ContentController_brandApproveContent
+      parameters:
+      - name: campaignId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: creatorId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveContentRequestDto'
+      responses:
+        '200':
+          description: Content successfully approved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentApprovalResponse'
+      tags:
+      - Content
+  /content/request-revision/{contentCollectionId}:
+    patch:
+      operationId: ContentController_brandRequestRevision
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestRevisionDto'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+      tags:
+      - Content
+  /content/view/{contentCollectionId}/{contentRecordId}:
+    patch:
+      operationId: ContentController_patchTrackViewCollection
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: contentRecordId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Track view collection
+      tags:
+      - Content
+  /content/remove/{contentCollectionId}/{contentRecordId}:
+    delete:
+      operationId: ContentController_removeContent
+      parameters:
+      - name: contentCollectionId
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: contentRecordId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Content removed from partnership
+          content:
+            application/json:
+              schema:
+                type: boolean
+      tags:
+      - Content
+  /content/submit/notify-brand:
+    post:
+      operationId: SubmitContentController_notifyBrand
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentUploadNotificationDto'
+      responses:
+        '201':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+  /content/submit/{partnershipId}:
+    post:
+      operationId: SubmitContentController_creatorAddContent
+      parameters:
+      - name: partnershipId
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddContentRecordDto'
+      responses:
+        '200':
+          description: Content successfully added to partnership
+          content:
+            application/json:
+              schema:
+                type: boolean
+        '201':
+          description: ''
+      tags:
+      - Content
+      security:
+      - admin-api-key: []
+components:
+  schemas:
+    ApproveContentRequestDto:
+      type: object
+      properties:
+        contentIds:
+          type: array
+          items:
+            type: string
+      required:
+      - contentIds
+    ContentCollectionResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
+    ContentApprovalResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
+    ContentPresignedUrlRequestDto:
+      type: object
+      properties:
+        collectionId:
+          type: string
+        recordId:
+          type: string
+      required:
+      - collectionId
+      - recordId
+    AddContentRecordDto:
+      type: object
+      properties:
+        contentPath:
+          type: string
+        isFree:
+          type: boolean
+        category:
+          type: string
+          enum:
+          - productPhotography
+          - lifestyleOrActionPhotography
+          - portraitStylePhotography
+          - actionOrProductInUseVideo
+          - unboxingExplanationVideo
+          - productReviewOrTestimonialVideo
+          - other
+      required:
+      - contentPath
+      - category
+    ContentUploadNotificationDto:
+      type: object
+      properties:
+        contentCollectionId:
+          type: string
+      required:
+      - contentCollectionId
+    RequestRevisionDto:
+      type: object
+      properties:
+        rejectionReason:
+          type: string
+      required:
+      - rejectionReason
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    admin-api-key:
+      type: apiKey
+      in: header
+      name: trend-api-key
