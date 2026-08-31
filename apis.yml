@@ -53,7 +53,7 @@ created: '2026-07-17'
 modified: '2026-08-13'
 tags:
 - Company
-- User Generated Content
+- User-Generated Content
 - Creator Economy
 - Content Marketing
 - Video Production
@@ -84,6 +84,8 @@ apis:
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
+  - Artificial Intelligence
+  tags_raw:
   - AI
   properties:
   - type: OpenAPI
@@ -106,6 +108,8 @@ apis:
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
