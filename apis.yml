@@ -36,16 +36,18 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: paid
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Paid · Self-serve signup
+  label: Paid
   confidence: high
   source:
   - plans
   - authentication
-  generated: '2026-08-13'
+  - rate-limits
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://cdn.prod.website-files.com/62c13e3f6b73683c91c0df7c/649ae4e9626c096bdb7ca6ca_trend-by-soona-black.svg
 specificationVersion: '0.23'
@@ -570,8 +572,9 @@ common:
   url: plans/trend-plans-pricing.yml
 - type: RateLimits
   url: rate-limits/trend-rate-limits.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/trend-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: Overlay
   url: overlays/trend-api-overlay.yaml
 - type: LLMsTxt
