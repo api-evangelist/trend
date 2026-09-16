@@ -1,20 +1,16 @@
 aid: trend
 name: Trend
-description: >-
-  Trend (branded "Trend by soona") is a user-generated content (UGC) platform
-  that connects brands with a network of vetted independent creators to produce
-  custom photo and video content — product and lifestyle photography, testimonial,
-  unboxing, and product-in-action videos — optimized for TikTok, Instagram,
-  Facebook, YouTube, and Amazon. Brands post a creative brief, hire creators from
-  a network of 3,700+, and receive full licensing and distribution rights to the
-  delivered content. Pricing is credit-based with no subscriptions or contracts.
-  Trend is part of soona.co. It was surfaced as a 500 Global portfolio company and
-  added to the API Evangelist network. Trend publishes no developer program or
-  developer portal, but the platform's own NestJS backend at api.trend.io serves a
-  public, machine-readable OpenAPI 3.0 document at /docs-json covering 124
-  operations across brands, campaigns, creators, partnerships, content submission,
-  messaging, shipments, AI image generation, and Stripe credit purchases. The
-  Swagger UI at /docs is password-protected; the specification behind it is not.
+description: Trend (branded "Trend by soona") is a user-generated content (UGC) platform that connects
+  brands with a network of vetted independent creators to produce custom photo and video content — product
+  and lifestyle photography, testimonial, unboxing, and product-in-action videos — optimized for TikTok,
+  Instagram, Facebook, YouTube, and Amazon. Brands post a creative brief, hire creators from a network
+  of 3,700+, and receive full licensing and distribution rights to the delivered content. Pricing is credit-based
+  with no subscriptions or contracts. Trend is part of soona.co. It was surfaced as a 500 Global portfolio
+  company and added to the API Evangelist network. Trend publishes no developer program or developer portal,
+  but the platform's own NestJS backend at api.trend.io serves a public, machine-readable OpenAPI 3.0
+  document at /docs-json covering 124 operations across brands, campaigns, creators, partnerships, content
+  submission, messaging, shipments, AI image generation, and Stripe credit purchases. The Swagger UI at
+  /docs is password-protected; the specification behind it is not.
 url: https://raw.githubusercontent.com/api-evangelist/trend/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -52,7 +48,7 @@ accessModel:
 image: https://cdn.prod.website-files.com/62c13e3f6b73683c91c0df7c/649ae4e9626c096bdb7ca6ca_trend-by-soona-black.svg
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-08-13'
+modified: '2026-09-16'
 tags:
 - Company
 - User Generated Content
@@ -130,8 +126,8 @@ apis:
     url: rate-limits/trend-rate-limits.yml
 - aid: trend:trend-basic-authentication-ai-api
   name: Trend Basic Authentication (AI) API
-  description: >-
-    The Basic Authentication (AI) API from Trend — 5 operation(s) for basic authentication (ai).
+  description: The Basic Authentication (AI) API from Trend — 5 operation(s) for basic authentication
+    (ai).
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
@@ -553,7 +549,7 @@ common:
 - type: GitHubOrganization
   url: https://github.com/Trend-io
 - type: OpenAPI
-  url: openapi/trend-api-openapi.yml
+  url: openapi/_original/trend-api-openapi.yml
 - type: APIReference
   url: https://api.trend.io/docs-json
 - type: Authentication
@@ -574,7 +570,10 @@ common:
   url: rate-limits/trend-rate-limits.yml
 - type: X-MCPServerCandidate
   url: mcp/trend-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: Overlay
   url: overlays/trend-api-overlay.yaml
 - type: LLMsTxt
