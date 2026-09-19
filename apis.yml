@@ -175,6 +175,8 @@ apis:
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
+  - Brands
+  tags_raw:
   - Brand
   properties:
   - type: OpenAPI
@@ -263,6 +265,8 @@ apis:
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
+  - Creators
+  tags_raw:
   - Creator
   properties:
   - type: OpenAPI
@@ -439,6 +443,8 @@ apis:
   humanURL: https://api.trend.io/docs
   baseURL: https://api.trend.io
   tags:
+  - Payments
+  tags_raw:
   - Payment
   properties:
   - type: OpenAPI
