@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Brand Admin API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -29,6 +29,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller admin approve brand
+      x-summary-source: derived
   /admin/brand/{brandId}/reject:
     patch:
       operationId: BrandAdminController_adminRejectBrand
@@ -45,6 +47,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller admin reject brand
+      x-summary-source: derived
   /admin/brand/{brandId}/revert-reject:
     patch:
       operationId: BrandAdminController_adminRevertRejectBrand
@@ -65,6 +69,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller admin revert reject brand
+      x-summary-source: derived
   /admin/brand/{brandId}/update:
     patch:
       operationId: BrandAdminController_adminUpdateBrand
@@ -91,6 +97,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller admin update brand
+      x-summary-source: derived
   /admin/brand/{brandId}/add-credits:
     post:
       operationId: BrandAdminController_adminAddCredits
@@ -117,6 +125,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller admin add credits
+      x-summary-source: derived
   /admin/brand/{brandId}/remove-credits:
     post:
       operationId: BrandAdminController_adminRemoveCredits
@@ -143,6 +153,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller admin remove credits
+      x-summary-source: derived
   /admin/brand:
     get:
       operationId: BrandAdminController_getBrands
@@ -180,6 +192,8 @@ paths:
       - Brand Admin
       security:
       - admin-api-key: []
+      summary: Brand admin controller get brands
+      x-summary-source: derived
 components:
   schemas:
     AddCreditsDto:
@@ -190,21 +204,6 @@ components:
           - add-new
           - refund
           type: string
-        credits:
-          type: number
-          minimum: 1
-          maximum: 15000
-      required:
-      - changeType
-      - credits
-    RemoveCreditsDto:
-      type: object
-      properties:
-        changeType:
-          type: string
-          enum:
-          - refunded
-          - remove
         credits:
           type: number
           minimum: 1
@@ -233,6 +232,21 @@ components:
       required:
       - brandId
       - productImage
+    RemoveCreditsDto:
+      type: object
+      properties:
+        changeType:
+          type: string
+          enum:
+          - refunded
+          - remove
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
   securitySchemes:
     access-token:
       scheme: bearer

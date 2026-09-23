@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Message API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -32,6 +32,8 @@ paths:
           description: ''
       tags:
       - Message
+      summary: Message controller brand send message
+      x-summary-source: derived
   /message/brand/{threadId}/read:
     post:
       operationId: MessageController_brandReadMessage
@@ -46,6 +48,8 @@ paths:
           description: ''
       tags:
       - Message
+      summary: Message controller brand read message
+      x-summary-source: derived
   /message/creator/{threadId}/send:
     post:
       operationId: MessageController_creatorSendMessage
@@ -66,6 +70,8 @@ paths:
           description: ''
       tags:
       - Message
+      summary: Message controller creator send message
+      x-summary-source: derived
   /message/creator/{threadId}/read:
     post:
       operationId: MessageController_creatorReadMessage
@@ -80,6 +86,8 @@ paths:
           description: ''
       tags:
       - Message
+      summary: Message controller creator read message
+      x-summary-source: derived
   /message/creator/unread:
     get:
       operationId: MessageController_getCreatorUnreadMessageCount
@@ -89,6 +97,8 @@ paths:
           description: ''
       tags:
       - Message
+      summary: Message controller get creator unread message count
+      x-summary-source: derived
   /message/creator/unread/{threadId}:
     post:
       operationId: MessageController_notifyCreatorUnread
@@ -105,6 +115,8 @@ paths:
       - Message
       security:
       - admin-api-key: []
+      summary: Message controller notify creator unread
+      x-summary-source: derived
 components:
   schemas:
     CreatorSendMessageRequestDto:

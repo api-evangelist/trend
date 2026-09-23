@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Auth API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -31,6 +31,8 @@ paths:
                 type: object
       tags:
       - Auth
+      summary: Soona auth controller link brand to soona account
+      x-summary-source: derived
     post:
       operationId: SoonaAuthController_createLinkedBrand
       parameters: []
@@ -51,6 +53,8 @@ paths:
       - {}
       tags:
       - Auth
+      summary: Soona auth controller create linked brand
+      x-summary-source: derived
   /auth/soona/account:
     get:
       operationId: SoonaAuthController_getSoonaAccount
@@ -64,15 +68,10 @@ paths:
                 type: object
       tags:
       - Auth
+      summary: Soona auth controller get soona account
+      x-summary-source: derived
 components:
   schemas:
-    LinkSoonaAccountDto:
-      type: object
-      properties:
-        soonaJWT:
-          type: string
-      required:
-      - soonaJWT
     TrendBrandAuthResponse:
       type: object
       properties:
@@ -104,6 +103,13 @@ components:
     BrandSchema:
       type: object
       properties: {}
+    LinkSoonaAccountDto:
+      type: object
+      properties:
+        soonaJWT:
+          type: string
+      required:
+      - soonaJWT
     CreateLinkedBrandDto:
       type: object
       properties:

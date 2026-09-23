@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Payment API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -32,6 +32,8 @@ paths:
       - Payment
       security:
       - {}
+      summary: Stripe controller stripe session card
+      x-summary-source: derived
   /payment/stripe/checkout/{productId}:
     post:
       operationId: StripeController_createUserPackageCheckout
@@ -56,6 +58,8 @@ paths:
                 type: object
       tags:
       - Payment
+      summary: Stripe controller create user package checkout
+      x-summary-source: derived
   /payment/stripe/packages:
     get:
       operationId: StripeController_packageProductsList
@@ -73,6 +77,8 @@ paths:
       - Payment
       security:
       - {}
+      summary: Stripe controller package products list
+      x-summary-source: derived
   /payment/stripe/events:
     post:
       operationId: StripeController_stripePaymentEvents
@@ -84,6 +90,8 @@ paths:
       - Payment
       security:
       - {}
+      summary: Stripe controller stripe payment events
+      x-summary-source: derived
   /payment/stripe/create-customer:
     post:
       operationId: StripeController_createCustomer
@@ -97,6 +105,8 @@ paths:
                 type: object
       tags:
       - Payment
+      summary: Stripe controller create customer
+      x-summary-source: derived
   /payment/payouts:
     get:
       operationId: PaymentController_payouts
@@ -124,28 +134,10 @@ paths:
       - Payment
       security:
       - admin-api-key: []
+      summary: Payment controller payouts
+      x-summary-source: derived
 components:
   schemas:
-    GetPayoutsByDateRangeResponse:
-      type: object
-      properties:
-        payouts:
-          type: array
-          items:
-            type: object
-        count:
-          type: number
-        startDate:
-          format: date-time
-          type: string
-        endDate:
-          format: date-time
-          type: string
-      required:
-      - payouts
-      - count
-      - startDate
-      - endDate
     PackageProduct:
       type: object
       properties:
@@ -316,6 +308,26 @@ components:
       - success_url
       - total_details
       - url
+    GetPayoutsByDateRangeResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            type: object
+        count:
+          type: number
+        startDate:
+          format: date-time
+          type: string
+        endDate:
+          format: date-time
+          type: string
+      required:
+      - payouts
+      - count
+      - startDate
+      - endDate
   securitySchemes:
     access-token:
       scheme: bearer

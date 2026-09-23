@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Brand API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -29,6 +29,8 @@ paths:
       - Brand
       security:
       - admin-api-key: []
+      summary: Brand controller admin approve brand
+      x-summary-source: derived
   /brand/admin/reject/{brandId}:
     patch:
       operationId: BrandController_adminRejectBrand
@@ -45,6 +47,8 @@ paths:
       - Brand
       security:
       - admin-api-key: []
+      summary: Brand controller admin reject brand
+      x-summary-source: derived
   /brand/admin-update/{brandId}:
     patch:
       operationId: BrandController_adminUpdateBrand
@@ -71,6 +75,8 @@ paths:
       - Brand
       security:
       - admin-api-key: []
+      summary: Brand controller admin update brand
+      x-summary-source: derived
   /brand/{brandId}/admin-update-credits:
     post:
       operationId: BrandController_adminAddCredits
@@ -97,6 +103,8 @@ paths:
       - Brand
       security:
       - admin-api-key: []
+      summary: Brand controller admin add credits
+      x-summary-source: derived
   /brand/update:
     patch:
       operationId: BrandController_updateBrand
@@ -116,6 +124,8 @@ paths:
                 type: object
       tags:
       - Brand
+      summary: Brand controller update brand
+      x-summary-source: derived
   /brand/{brandId}/favorite-creator:
     post:
       operationId: BrandController_favoriteCreator
@@ -136,6 +146,8 @@ paths:
           description: ''
       tags:
       - Brand
+      summary: Brand controller favorite creator
+      x-summary-source: derived
   /brand/{brandId}/unfavorite-creator:
     post:
       operationId: BrandController_unFavoriteCreator
@@ -156,6 +168,8 @@ paths:
           description: ''
       tags:
       - Brand
+      summary: Brand controller un favorite creator
+      x-summary-source: derived
   /brand/hubspot/identification:
     post:
       operationId: BrandController_createIdentification
@@ -165,6 +179,8 @@ paths:
           description: ''
       tags:
       - Brand
+      summary: Brand controller create identification
+      x-summary-source: derived
   /brand/referral:
     post:
       operationId: BrandController_createReferral
@@ -180,6 +196,8 @@ paths:
           description: ''
       tags:
       - Brand
+      summary: Brand controller create referral
+      x-summary-source: derived
   /brand/referrals:
     get:
       operationId: BrandController_getReferrals
@@ -189,18 +207,10 @@ paths:
           description: ''
       tags:
       - Brand
+      summary: Brand controller get referrals
+      x-summary-source: derived
 components:
   schemas:
-    CreateReferralDto:
-      type: object
-      properties:
-        companyName:
-          type: string
-        contactEmail:
-          type: string
-      required:
-      - companyName
-      - contactEmail
     UpdateBrandRequest:
       type: object
       properties:
@@ -227,6 +237,16 @@ components:
       required:
       - changeType
       - credits
+    CreateReferralDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        contactEmail:
+          type: string
+      required:
+      - companyName
+      - contactEmail
     UpdateFavoriteCreatorDto:
       type: object
       properties:

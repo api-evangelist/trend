@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Brand Authentication API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -33,6 +33,8 @@ paths:
       - Brand Authentication
       security:
       - {}
+      summary: Brand auth controller sign email only
+      x-summary-source: derived
   /auth/brand/login:
     post:
       operationId: BrandAuthController_brandLogin
@@ -54,6 +56,8 @@ paths:
       - Brand Authentication
       security:
       - {}
+      summary: Brand auth controller brand login
+      x-summary-source: derived
   /auth/brand/login/google:
     post:
       operationId: BrandAuthController_brandLoginSSO
@@ -69,6 +73,8 @@ paths:
           description: Brand auth session successfully created.
       tags:
       - Brand Authentication
+      summary: Brand auth controller brand login SSO
+      x-summary-source: derived
   /auth/brand/custom-token:
     post:
       operationId: BrandAuthController_brandRefreshCustomToken
@@ -82,6 +88,8 @@ paths:
                 type: string
       tags:
       - Brand Authentication
+      summary: Brand auth controller brand refresh custom token
+      x-summary-source: derived
   /auth/brand/update:
     patch:
       operationId: BrandAuthController_adminPatchBrandEmail
@@ -99,6 +107,8 @@ paths:
       - Brand Authentication
       security:
       - admin-api-key: []
+      summary: Brand auth controller admin patch brand email
+      x-summary-source: derived
   /auth/brand/update/logged-in-after-approval:
     patch:
       operationId: BrandAuthController_updateLoggedInAfterApproval
@@ -108,6 +118,8 @@ paths:
           description: ''
       tags:
       - Brand Authentication
+      summary: Brand auth controller update logged in after approval
+      x-summary-source: derived
   /auth/brand/profile:
     get:
       operationId: BrandAuthController_brandProfile
@@ -127,20 +139,10 @@ paths:
                 $ref: '#/components/schemas/TrendBrandAuthResponse'
       tags:
       - Brand Authentication
+      summary: Brand auth controller brand profile
+      x-summary-source: derived
 components:
   schemas:
-    AdminUpdateBrandEmail:
-      type: object
-      properties:
-        brandId:
-          type: string
-        newEmail:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - brandId
-      - newEmail
     TrendBrandAuthResponse:
       type: object
       properties:
@@ -169,9 +171,6 @@ components:
       - customToken
       - email
       - refreshToken
-    BrandSchema:
-      type: object
-      properties: {}
     EmailPasswordDto:
       type: object
       properties:
@@ -184,6 +183,21 @@ components:
       required:
       - password
       - email
+    AdminUpdateBrandEmail:
+      type: object
+      properties:
+        brandId:
+          type: string
+        newEmail:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - brandId
+      - newEmail
+    BrandSchema:
+      type: object
+      properties: {}
   securitySchemes:
     access-token:
       scheme: bearer

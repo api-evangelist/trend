@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Shipment API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -23,6 +23,8 @@ paths:
       - Shipment
       security:
       - {}
+      summary: Shipment controller shipment events
+      x-summary-source: derived
   /shipment/create:
     post:
       operationId: ShipmentController_createShipment
@@ -38,6 +40,8 @@ paths:
           description: ''
       tags:
       - Shipment
+      summary: Shipment controller create shipment
+      x-summary-source: derived
   /shipment/update:
     patch:
       operationId: ShipmentController_updateShipment
@@ -57,22 +61,10 @@ paths:
                 type: object
       tags:
       - Shipment
+      summary: Shipment controller update shipment
+      x-summary-source: derived
 components:
   schemas:
-    ShipmentDto:
-      type: object
-      properties:
-        partnershipId:
-          type: string
-        nonShippable:
-          type: boolean
-        trackingNumber:
-          type: string
-        carrierCode:
-          type: string
-      required:
-      - partnershipId
-      - nonShippable
     UpdateShipmentDto:
       type: object
       properties:
@@ -90,6 +82,20 @@ components:
       - partnershipId
       - nonShippable
       - shipmentId
+    ShipmentDto:
+      type: object
+      properties:
+        partnershipId:
+          type: string
+        nonShippable:
+          type: boolean
+        trackingNumber:
+          type: string
+        carrierCode:
+          type: string
+      required:
+      - partnershipId
+      - nonShippable
   securitySchemes:
     access-token:
       scheme: bearer

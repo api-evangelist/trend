@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Creator Authentication API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -33,6 +33,8 @@ paths:
       - Creator Authentication
       security:
       - {}
+      summary: Creator auth controller sign up
+      x-summary-source: derived
   /auth/login:
     post:
       operationId: CreatorAuthController_login
@@ -54,6 +56,8 @@ paths:
       - Creator Authentication
       security:
       - {}
+      summary: Creator auth controller login
+      x-summary-source: derived
   /auth/login/google:
     post:
       operationId: CreatorAuthController_googleLogin
@@ -67,6 +71,8 @@ paths:
                 $ref: '#/components/schemas/TrendAuthProfileResponse'
       tags:
       - Creator Authentication
+      summary: Creator auth controller google login
+      x-summary-source: derived
   /auth/profile:
     get:
       operationId: CreatorAuthController_getProfile
@@ -80,6 +86,8 @@ paths:
                 $ref: '#/components/schemas/TrendAuthProfileResponse'
       tags:
       - Creator Authentication
+      summary: Creator auth controller get profile
+      x-summary-source: derived
   /auth/remove-my-user:
     delete:
       operationId: CreatorAuthController_removeUser
@@ -89,6 +97,8 @@ paths:
           description: ''
       tags:
       - Creator Authentication
+      summary: Creator auth controller remove user
+      x-summary-source: derived
   /auth/update/email:
     patch:
       operationId: CreatorAuthController_patchEmail
@@ -102,8 +112,20 @@ paths:
                 $ref: '#/components/schemas/User'
       tags:
       - Creator Authentication
+      summary: Creator auth controller patch email
+      x-summary-source: derived
 components:
   schemas:
+    TrendAuthProfileResponse:
+      type: object
+      properties:
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - creator
+      - user
     SignUpResponse:
       type: object
       properties:
@@ -132,6 +154,40 @@ components:
       - user
       - email
       - refreshToken
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+      required:
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
     User:
       type: object
       properties:
@@ -185,28 +241,6 @@ components:
       - phoneNumber
       - phoneNumberVerified
       - emailVerified
-    Address:
-      type: object
-      properties:
-        line1:
-          type: string
-        line2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        state:
-          type: string
-        country:
-          type: string
-      required:
-      - line1
-      - line2
-      - city
-      - postalCode
-      - state
-      - country
     TrendCreatorAuthResponse:
       type: object
       properties:
@@ -235,28 +269,6 @@ components:
       - user
       - email
       - refreshToken
-    TrendAuthProfileResponse:
-      type: object
-      properties:
-        creator:
-          $ref: '#/components/schemas/Creator'
-        user:
-          $ref: '#/components/schemas/User'
-      required:
-      - creator
-      - user
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
     Creator:
       type: object
       properties:

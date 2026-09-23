@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Basic Authentication (AI) API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -33,6 +33,8 @@ paths:
       - Basic Authentication (AI)
       security:
       - {}
+      summary: Auth controller basic sign up
+      x-summary-source: derived
   /auth/basic/login:
     post:
       operationId: AuthController_basicLogin
@@ -54,6 +56,8 @@ paths:
       - Basic Authentication (AI)
       security:
       - {}
+      summary: Auth controller basic login
+      x-summary-source: derived
   /auth/logout:
     post:
       operationId: AuthController_logout
@@ -63,6 +67,8 @@ paths:
           description: ''
       tags:
       - Basic Authentication (AI)
+      summary: Auth controller logout
+      x-summary-source: derived
   /auth/update/password:
     patch:
       operationId: AuthController_patchPassword
@@ -76,6 +82,8 @@ paths:
                 $ref: '#/components/schemas/UserRecord'
       tags:
       - Basic Authentication (AI)
+      summary: Auth controller patch password
+      x-summary-source: derived
   /auth/update/permissions:
     patch:
       operationId: AuthController_patchPermissions
@@ -97,8 +105,36 @@ paths:
       - Basic Authentication (AI)
       security:
       - admin-api-key: []
+      summary: Auth controller patch permissions
+      x-summary-source: derived
 components:
   schemas:
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
+    UpdatePermissionsDto:
+      type: object
+      properties:
+        email:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - admin
+            - content_viewer
+      required:
+      - email
     UserRecord:
       type: object
       properties: {}
@@ -127,32 +163,6 @@ components:
       - registered
       - email
       - refreshToken
-    UpdatePermissionsDto:
-      type: object
-      properties:
-        email:
-          type: string
-        permissions:
-          type: array
-          items:
-            type: string
-            enum:
-            - admin
-            - content_viewer
-      required:
-      - email
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
   securitySchemes:
     access-token:
       scheme: bearer

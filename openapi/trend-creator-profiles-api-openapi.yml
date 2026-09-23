@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Trend API - 1.28.31 Creator Profiles API
-  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit <a href="https://trendio.notion.site/Trend-Engineering-1ade0c83fcf741a1acb45b73282caf4f" target="_blank"> The Trend Engineering Wiki</a>
+  description: OpenAPI documentation for the Trend NestJS API. For additional engineering documentation, visit The Trend Engineering Wiki
   version: 1.28.31
   contact: {}
 servers:
@@ -25,6 +25,8 @@ paths:
                 $ref: '#/components/schemas/ProfileDto'
       tags:
       - Creator Profiles
+      summary: Profile controller find one personal profile
+      x-summary-source: derived
   /creator/profile/settings:
     get:
       operationId: ProfileController_findPersonalProfileSettings
@@ -38,6 +40,8 @@ paths:
                 $ref: '#/components/schemas/SettingsDto'
       tags:
       - Creator Profiles
+      summary: Profile controller find personal profile settings
+      x-summary-source: derived
   /creator/profile/public/{id}:
     get:
       operationId: ProfileController_findOnePublicProfile
@@ -58,6 +62,8 @@ paths:
       - Creator Profiles
       security:
       - {}
+      summary: Profile controller find one public profile
+      x-summary-source: derived
   /creator/profile/iframe/{firebaseUserId}:
     get:
       operationId: ProfileController_findOneIframeProfile
@@ -78,6 +84,8 @@ paths:
       - Creator Profiles
       security:
       - {}
+      summary: Profile controller find one iframe profile
+      x-summary-source: derived
   /creator/profile/id-list:
     get:
       operationId: ProfileController_getActiveCreatorsList
@@ -95,6 +103,8 @@ paths:
       - Creator Profiles
       security:
       - {}
+      summary: Profile controller get active creators list
+      x-summary-source: derived
   /creator/profile/{creatorId}:
     patch:
       operationId: ProfileController_updateProfile
@@ -119,18 +129,77 @@ paths:
                 $ref: '#/components/schemas/UpdateProfileDto'
       tags:
       - Creator Profiles
+      summary: Profile controller update profile
+      x-summary-source: derived
 components:
   schemas:
-    JobTypeDto:
+    SettingsDto:
       type: object
       properties:
-        content:
-          type: boolean
-        social:
-          type: boolean
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          $ref: '#/components/schemas/Address'
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        payPalEmail:
+          type: string
       required:
-      - content
-      - social
+      - ageRange
+      - address
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - equipment
+      - environment
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - payPalEmail
     Address:
       type: object
       properties:
@@ -153,6 +222,85 @@ components:
       - postalCode
       - state
       - country
+    JobTypeDto:
+      type: object
+      properties:
+        content:
+          type: boolean
+        social:
+          type: boolean
+      required:
+      - content
+      - social
+    ProfileDto:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          type: object
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+      required:
+      - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
     PublicProfileResponse:
       type: object
       properties:
@@ -247,22 +395,6 @@ components:
       - reviews
       - instagramStats
       - partnershipCreditCost
-    SocialProviderDto:
-      type: object
-      properties:
-        instagram:
-          type: string
-        youTube:
-          type: string
-        tikTok:
-          type: string
-        website:
-          type: string
-      required:
-      - instagram
-      - youTube
-      - tikTok
-      - website
     UpdateProfileDto:
       type: object
       properties:
@@ -313,142 +445,22 @@ components:
           type: string
         profilePicture:
           type: string
-    ProfileDto:
+    SocialProviderDto:
       type: object
       properties:
-        ageRange:
+        instagram:
           type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        address:
-          type: object
-        creatorId:
+        youTube:
           type: string
-        firstName:
+        tikTok:
           type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        overallRating:
-          type: number
-        totalReviews:
-          type: number
-        userId:
-          type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          type: object
-        portfolio:
-          type: array
-          items:
-            type: object
-        jobTypes:
-          type: object
-        username:
-          type: string
-        about:
-          type: string
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-      required:
-      - ageRange
-      - address
-      - creatorId
-      - firstName
-      - lastName
-      - profilePicture
-      - userId
-      - socialCategories
-      - contentCategories
-      - socials
-      - portfolio
-      - jobTypes
-      - equipment
-      - environment
-    SettingsDto:
-      type: object
-      properties:
-        ageRange:
-          type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        address:
-          $ref: '#/components/schemas/Address'
-        userId:
-          type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          type: object
-        jobTypes:
-          type: object
-        username:
-          type: string
-        about:
-          type: string
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-        creatorId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        overallRating:
-          type: number
-        totalReviews:
-          type: number
-        payPalEmail:
+        website:
           type: string
       required:
-      - ageRange
-      - address
-      - userId
-      - socialCategories
-      - contentCategories
-      - socials
-      - jobTypes
-      - equipment
-      - environment
-      - creatorId
-      - firstName
-      - lastName
-      - profilePicture
-      - payPalEmail
+      - instagram
+      - youTube
+      - tikTok
+      - website
   securitySchemes:
     access-token:
       scheme: bearer
