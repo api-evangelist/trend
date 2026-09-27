@@ -196,14 +196,14 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AddCreditsDto:
+    RemoveCreditsDto:
       type: object
       properties:
         changeType:
-          enum:
-          - add-new
-          - refund
           type: string
+          enum:
+          - refunded
+          - remove
         credits:
           type: number
           minimum: 1
@@ -211,13 +211,6 @@ components:
       required:
       - changeType
       - credits
-    UpdateBrandDto:
-      type: object
-      properties:
-        companyName:
-          type: string
-        url:
-          type: string
     ApproveBrandDto:
       type: object
       properties:
@@ -232,14 +225,21 @@ components:
       required:
       - brandId
       - productImage
-    RemoveCreditsDto:
+    UpdateBrandDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
+    AddCreditsDto:
       type: object
       properties:
         changeType:
-          type: string
           enum:
-          - refunded
-          - remove
+          - add-new
+          - refund
+          type: string
         credits:
           type: number
           minimum: 1

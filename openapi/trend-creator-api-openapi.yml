@@ -683,285 +683,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PortfolioDto:
-      type: object
-      properties:
-        url:
-          type: string
-        type:
-          type: string
-          enum:
-          - image
-          - video
-      required:
-      - url
-      - type
-    JobTypeDto:
-      type: object
-      properties:
-        content:
-          type: boolean
-        social:
-          type: boolean
-      required:
-      - content
-      - social
-    PublicProfileResponse:
-      type: object
-      properties:
-        ageRange:
-          type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        address:
-          type: object
-        creatorId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        overallRating:
-          type: number
-        totalReviews:
-          type: number
-        userId:
-          type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          type: object
-        portfolio:
-          type: array
-          items:
-            type: object
-        jobTypes:
-          type: object
-        username:
-          type: string
-        about:
-          type: string
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-        contentQuality:
-          type: number
-        professionalism:
-          type: number
-        reviews:
-          type: array
-          items:
-            type: object
-        instagramStats:
-          type: object
-          properties:
-            followers:
-              required: false
-              type: number
-            avgComments:
-              required: false
-              type: number
-            avgLikes:
-              required: false
-              type: number
-        partnershipCreditCost:
-          type: number
-      required:
-      - ageRange
-      - address
-      - creatorId
-      - firstName
-      - lastName
-      - profilePicture
-      - userId
-      - socialCategories
-      - contentCategories
-      - socials
-      - portfolio
-      - jobTypes
-      - equipment
-      - environment
-      - reviews
-      - instagramStats
-      - partnershipCreditCost
-    ApproveCreatorDto:
-      type: object
-      properties:
-        firebaseId:
-          type: string
-        level:
-          type: object
-          minimum: 1
-          maximum: 3
-      required:
-      - firebaseId
-      - level
-    SocialProviderDto:
-      type: object
-      properties:
-        instagram:
-          type: string
-        youTube:
-          type: string
-        tikTok:
-          type: string
-        website:
-          type: string
-      required:
-      - instagram
-      - youTube
-      - tikTok
-      - website
-    UserIdEmailDto:
-      type: object
-      properties:
-        _id:
-          type: string
-        email:
-          type: string
-      required:
-      - _id
-      - email
-    UserCreatorDto:
-      type: object
-      properties:
-        firebaseUserId:
-          type: string
-          description: Firebase User ID
-          example: ExwY3egTxNUCeM5DT300D9Otue53
-        email:
-          type: string
-          example: don@trend.io
-        creatorId:
-          type: string
-          description: Mongo Creator Collection ID
-        socialProvider:
-          type: string
-          enum:
-          - google
-          - ''
-        outsideUS:
-          type: boolean
-          example: false
-        permissions:
-          type: array
-          items:
-            type: string
-            enum:
-            - feature-tester
-            - admin
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        phoneNumber:
-          type: string
-        phoneNumberVerified:
-          type: boolean
-        emailVerified:
-          type: boolean
-        creator:
-          $ref: '#/components/schemas/Creator'
-      required:
-      - firebaseUserId
-      - email
-      - creatorId
-      - socialProvider
-      - outsideUS
-      - permissions
-      - firstName
-      - lastName
-      - profilePicture
-      - phoneNumber
-      - phoneNumberVerified
-      - emailVerified
-      - creator
-    SettingsDto:
-      type: object
-      properties:
-        ageRange:
-          type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        address:
-          $ref: '#/components/schemas/Address'
-        userId:
-          type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          type: object
-        jobTypes:
-          type: object
-        username:
-          type: string
-        about:
-          type: string
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-        creatorId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        overallRating:
-          type: number
-        totalReviews:
-          type: number
-        payPalEmail:
-          type: string
-      required:
-      - ageRange
-      - address
-      - userId
-      - socialCategories
-      - contentCategories
-      - socials
-      - jobTypes
-      - equipment
-      - environment
-      - creatorId
-      - firstName
-      - lastName
-      - profilePicture
-      - payPalEmail
-    UpdateAddressDto:
+    AddressDto:
       type: object
       properties:
         line1:
@@ -976,33 +698,16 @@ components:
           type: string
         country:
           type: string
-    UpdateProfileDto:
+      required:
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
+    ProfileDto:
       type: object
       properties:
-        username:
-          type: string
-        jobTypes:
-          $ref: '#/components/schemas/JobTypeDto'
-        gender:
-          enum:
-          - male
-          - female
-          - other
-          type: string
-        about:
-          type: string
-        payPalEmail:
-          type: string
-        socials:
-          $ref: '#/components/schemas/SocialProviderDto'
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
         ageRange:
           type: string
           enum:
@@ -1010,15 +715,9 @@ components:
           - 25-31
           - 32-44
           - 45+
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-        phoneNumber:
+        address:
+          type: object
+        creatorId:
           type: string
         firstName:
           type: string
@@ -1026,40 +725,11 @@ components:
           type: string
         profilePicture:
           type: string
-    Creator:
-      type: object
-      properties:
-        _id:
-          type: string
-          description: Mongo Creator Collection ID
-        address:
-          $ref: '#/components/schemas/Address'
-        gender:
-          enum:
-          - male
-          - female
-          - other
-          type: string
-        applicationStatus:
-          enum:
-          - new
-          - submitted
-          - approved
-          - rejected
-          type: string
-          example: new
-        ageRange:
-          type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
         userId:
-          type: string
-        phoneNumber:
-          type: string
-        payPalEmail:
           type: string
         socialCategories:
           type: array
@@ -1089,28 +759,14 @@ components:
           type: array
           items:
             type: string
-        levelId:
-          type: string
-        isOverdue:
-          type: boolean
-        overduePartnerships:
-          type: array
-          items:
-            type: string
-        contentDeliveryScore:
-          type: number
-        contentDeliveryAverageDays:
-          type: number
-        bypassIsOverdueFlag:
-          type: boolean
       required:
-      - _id
-      - address
-      - gender
-      - applicationStatus
       - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
       - userId
-      - payPalEmail
       - socialCategories
       - contentCategories
       - socials
@@ -1118,7 +774,31 @@ components:
       - jobTypes
       - equipment
       - environment
-      - levelId
+    FindAllResponse:
+      type: object
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatorUserDto'
+        total:
+          type: number
+        totalPages:
+          type: number
+        page:
+          type: number
+        perPage:
+          type: number
+        sortBy:
+          type: string
+        sortOrder:
+          type: object
+        paginationFlags:
+          type: boolean
+      required:
+      - documents
+      - total
+      - totalPages
     UpdateCreatorDto:
       type: object
       properties:
@@ -1224,142 +904,6 @@ components:
       - postalCode
       - state
       - country
-    CreatorRegistrationDto:
-      type: object
-      properties:
-        profilePicture:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        user:
-          $ref: '#/components/schemas/UserIdEmailDto'
-        portfolio:
-          type: array
-          items:
-            $ref: '#/components/schemas/PortfolioDto'
-        address:
-          $ref: '#/components/schemas/AddressDto'
-        payPalEmail:
-          type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          $ref: '#/components/schemas/SocialProviderDto'
-        jobTypes:
-          $ref: '#/components/schemas/JobTypeDto'
-        gender:
-          type: string
-          enum:
-          - male
-          - female
-          - other
-        ageRange:
-          type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        phoneNumber:
-          type: string
-      required:
-      - profilePicture
-      - firstName
-      - lastName
-      - user
-      - portfolio
-      - address
-      - payPalEmail
-      - socialCategories
-      - contentCategories
-      - socials
-      - jobTypes
-      - gender
-      - ageRange
-    ProfileDto:
-      type: object
-      properties:
-        ageRange:
-          type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        address:
-          type: object
-        creatorId:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        overallRating:
-          type: number
-        totalReviews:
-          type: number
-        userId:
-          type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          type: object
-        portfolio:
-          type: array
-          items:
-            type: object
-        jobTypes:
-          type: object
-        username:
-          type: string
-        about:
-          type: string
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-      required:
-      - ageRange
-      - address
-      - creatorId
-      - firstName
-      - lastName
-      - profilePicture
-      - userId
-      - socialCategories
-      - contentCategories
-      - socials
-      - portfolio
-      - jobTypes
-      - equipment
-      - environment
-    UpdateCreatorResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-      required:
-      - success
     CreatorUserDto:
       type: object
       properties:
@@ -1456,6 +1000,382 @@ components:
       - environment
       - levelId
       - user
+    UserCreatorDto:
+      type: object
+      properties:
+        firebaseUserId:
+          type: string
+          description: Firebase User ID
+          example: ExwY3egTxNUCeM5DT300D9Otue53
+        email:
+          type: string
+          example: don@trend.io
+        creatorId:
+          type: string
+          description: Mongo Creator Collection ID
+        socialProvider:
+          type: string
+          enum:
+          - google
+          - ''
+        outsideUS:
+          type: boolean
+          example: false
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - feature-tester
+            - admin
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        emailVerified:
+          type: boolean
+        creator:
+          $ref: '#/components/schemas/Creator'
+      required:
+      - firebaseUserId
+      - email
+      - creatorId
+      - socialProvider
+      - outsideUS
+      - permissions
+      - firstName
+      - lastName
+      - profilePicture
+      - phoneNumber
+      - phoneNumberVerified
+      - emailVerified
+      - creator
+    SocialProviderDto:
+      type: object
+      properties:
+        instagram:
+          type: string
+        youTube:
+          type: string
+        tikTok:
+          type: string
+        website:
+          type: string
+      required:
+      - instagram
+      - youTube
+      - tikTok
+      - website
+    ApproveCreatorDto:
+      type: object
+      properties:
+        firebaseId:
+          type: string
+        level:
+          type: object
+          minimum: 1
+          maximum: 3
+      required:
+      - firebaseId
+      - level
+    Creator:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Mongo Creator Collection ID
+        address:
+          $ref: '#/components/schemas/Address'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        applicationStatus:
+          enum:
+          - new
+          - submitted
+          - approved
+          - rejected
+          type: string
+          example: new
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        userId:
+          type: string
+        phoneNumber:
+          type: string
+        payPalEmail:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        levelId:
+          type: string
+        isOverdue:
+          type: boolean
+        overduePartnerships:
+          type: array
+          items:
+            type: string
+        contentDeliveryScore:
+          type: number
+        contentDeliveryAverageDays:
+          type: number
+        bypassIsOverdueFlag:
+          type: boolean
+      required:
+      - _id
+      - address
+      - gender
+      - applicationStatus
+      - ageRange
+      - userId
+      - payPalEmail
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - levelId
+    PortfolioDto:
+      type: object
+      properties:
+        url:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+      required:
+      - url
+      - type
+    JobTypeDto:
+      type: object
+      properties:
+        content:
+          type: boolean
+        social:
+          type: boolean
+      required:
+      - content
+      - social
+    UpdateProfileDto:
+      type: object
+      properties:
+        username:
+          type: string
+        jobTypes:
+          $ref: '#/components/schemas/JobTypeDto'
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        about:
+          type: string
+        payPalEmail:
+          type: string
+        socials:
+          $ref: '#/components/schemas/SocialProviderDto'
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        phoneNumber:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+    UpdateCreatorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+      required:
+      - success
+    UserIdEmailDto:
+      type: object
+      properties:
+        _id:
+          type: string
+        email:
+          type: string
+      required:
+      - _id
+      - email
+    PublicProfileResponse:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          type: object
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        portfolio:
+          type: array
+          items:
+            type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        contentQuality:
+          type: number
+        professionalism:
+          type: number
+        reviews:
+          type: array
+          items:
+            type: object
+        instagramStats:
+          type: object
+          properties:
+            followers:
+              required: false
+              type: number
+            avgComments:
+              required: false
+              type: number
+            avgLikes:
+              required: false
+              type: number
+        partnershipCreditCost:
+          type: number
+      required:
+      - ageRange
+      - address
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - portfolio
+      - jobTypes
+      - equipment
+      - environment
+      - reviews
+      - instagramStats
+      - partnershipCreditCost
+    UpdateAddressDto:
+      type: object
+      properties:
+        line1:
+          type: string
+        line2:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
     User:
       type: object
       properties:
@@ -1509,53 +1429,133 @@ components:
       - phoneNumber
       - phoneNumberVerified
       - emailVerified
-    FindAllResponse:
+    SettingsDto:
       type: object
       properties:
-        documents:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          $ref: '#/components/schemas/Address'
+        userId:
+          type: string
+        socialCategories:
           type: array
           items:
-            $ref: '#/components/schemas/CreatorUserDto'
-        total:
-          type: number
-        totalPages:
-          type: number
-        page:
-          type: number
-        perPage:
-          type: number
-        sortBy:
-          type: string
-        sortOrder:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
           type: object
-        paginationFlags:
-          type: boolean
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        payPalEmail:
+          type: string
       required:
-      - documents
-      - total
-      - totalPages
-    AddressDto:
+      - ageRange
+      - address
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - equipment
+      - environment
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - payPalEmail
+    CreatorRegistrationDto:
       type: object
       properties:
-        line1:
+        profilePicture:
           type: string
-        line2:
+        firstName:
           type: string
-        city:
+        lastName:
           type: string
-        postalCode:
+        user:
+          $ref: '#/components/schemas/UserIdEmailDto'
+        portfolio:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortfolioDto'
+        address:
+          $ref: '#/components/schemas/AddressDto'
+        payPalEmail:
           type: string
-        state:
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          $ref: '#/components/schemas/SocialProviderDto'
+        jobTypes:
+          $ref: '#/components/schemas/JobTypeDto'
+        gender:
           type: string
-        country:
+          enum:
+          - male
+          - female
+          - other
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        phoneNumber:
           type: string
       required:
-      - line1
-      - line2
-      - city
-      - postalCode
-      - state
-      - country
+      - profilePicture
+      - firstName
+      - lastName
+      - user
+      - portfolio
+      - address
+      - payPalEmail
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - gender
+      - ageRange
   securitySchemes:
     access-token:
       scheme: bearer

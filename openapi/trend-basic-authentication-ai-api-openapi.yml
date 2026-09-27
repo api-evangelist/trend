@@ -109,18 +109,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
     UpdatePermissionsDto:
       type: object
       properties:
@@ -138,6 +126,18 @@ components:
     UserRecord:
       type: object
       properties: {}
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
     FirebaseAuthSignInResponse:
       type: object
       properties:

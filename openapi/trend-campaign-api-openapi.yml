@@ -412,39 +412,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    IncrementDownloadDto:
+    InviteCreatorBodyDto:
       type: object
       properties:
-        count:
-          type: number
-          minimum: 0
-        creatorId:
+        rehireContentNeeds:
           type: string
-        partnershipId:
-          type: string
-        type:
-          type: string
-    RemoveCreatorBodyDto:
-      type: object
-      properties:
-        removalReason:
+        rehireWillBrandSendProduct:
+          type: boolean
+        rehireProductDescription:
           type: string
       required:
-      - removalReason
-    CampaignContentSubmissionsResponse:
-      type: object
-      properties:
-        submissions:
-          type: array
-          items:
-            type: object
-        approvals:
-          type: array
-          items:
-            type: object
-      required:
-      - submissions
-      - approvals
+      - rehireContentNeeds
+      - rehireWillBrandSendProduct
     UpdateActiveCampaign:
       type: object
       properties:
@@ -506,6 +485,13 @@ components:
           type: string
         companyName:
           type: string
+    RemoveCreatorBodyDto:
+      type: object
+      properties:
+        removalReason:
+          type: string
+      required:
+      - removalReason
     SubmitCampaignDto:
       type: object
       properties:
@@ -582,18 +568,6 @@ components:
       - name
       - url
       - value
-    InviteCreatorBodyDto:
-      type: object
-      properties:
-        rehireContentNeeds:
-          type: string
-        rehireWillBrandSendProduct:
-          type: boolean
-        rehireProductDescription:
-          type: string
-      required:
-      - rehireContentNeeds
-      - rehireWillBrandSendProduct
     UpdateDraftCampaignDto:
       type: object
       properties:
@@ -661,6 +635,32 @@ components:
           type: string
         companyName:
           type: string
+    IncrementDownloadDto:
+      type: object
+      properties:
+        count:
+          type: number
+          minimum: 0
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+        type:
+          type: string
+    CampaignContentSubmissionsResponse:
+      type: object
+      properties:
+        submissions:
+          type: array
+          items:
+            type: object
+        approvals:
+          type: array
+          items:
+            type: object
+      required:
+      - submissions
+      - approvals
   securitySchemes:
     access-token:
       scheme: bearer

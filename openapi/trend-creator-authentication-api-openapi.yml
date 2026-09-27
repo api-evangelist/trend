@@ -116,44 +116,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TrendAuthProfileResponse:
-      type: object
-      properties:
-        creator:
-          $ref: '#/components/schemas/Creator'
-        user:
-          $ref: '#/components/schemas/User'
-      required:
-      - creator
-      - user
-    SignUpResponse:
-      type: object
-      properties:
-        idToken:
-          type: string
-          description: Authentication Token
-        expiresIn:
-          type: string
-          description: Seconds until idToken expires
-        localId:
-          type: string
-          description: Firebase User ID
-        creator:
-          type: object
-        user:
-          $ref: '#/components/schemas/User'
-        email:
-          type: string
-        refreshToken:
-          type: string
-      required:
-      - idToken
-      - expiresIn
-      - localId
-      - creator
-      - user
-      - email
-      - refreshToken
     Address:
       type: object
       properties:
@@ -176,99 +138,6 @@ components:
       - postalCode
       - state
       - country
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
-    User:
-      type: object
-      properties:
-        firebaseUserId:
-          type: string
-          description: Firebase User ID
-          example: ExwY3egTxNUCeM5DT300D9Otue53
-        email:
-          type: string
-          example: don@trend.io
-        creatorId:
-          type: string
-          description: Mongo Creator Collection ID
-        socialProvider:
-          type: string
-          enum:
-          - google
-          - ''
-        outsideUS:
-          type: boolean
-          example: false
-        permissions:
-          type: array
-          items:
-            type: string
-            enum:
-            - feature-tester
-            - admin
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        phoneNumber:
-          type: string
-        phoneNumberVerified:
-          type: boolean
-        emailVerified:
-          type: boolean
-      required:
-      - firebaseUserId
-      - email
-      - creatorId
-      - socialProvider
-      - outsideUS
-      - permissions
-      - firstName
-      - lastName
-      - profilePicture
-      - phoneNumber
-      - phoneNumberVerified
-      - emailVerified
-    TrendCreatorAuthResponse:
-      type: object
-      properties:
-        idToken:
-          type: string
-          description: Authentication Token
-        expiresIn:
-          type: string
-          description: Seconds until idToken expires
-        localId:
-          type: string
-          description: Firebase User ID
-        creator:
-          $ref: '#/components/schemas/Creator'
-        user:
-          $ref: '#/components/schemas/User'
-        email:
-          type: string
-        refreshToken:
-          type: string
-      required:
-      - idToken
-      - expiresIn
-      - localId
-      - creator
-      - user
-      - email
-      - refreshToken
     Creator:
       type: object
       properties:
@@ -362,6 +231,137 @@ components:
       - equipment
       - environment
       - levelId
+    SignUpResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        creator:
+          type: object
+        user:
+          $ref: '#/components/schemas/User'
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    TrendCreatorAuthResponse:
+      type: object
+      properties:
+        idToken:
+          type: string
+          description: Authentication Token
+        expiresIn:
+          type: string
+          description: Seconds until idToken expires
+        localId:
+          type: string
+          description: Firebase User ID
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+        email:
+          type: string
+        refreshToken:
+          type: string
+      required:
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
+    TrendAuthProfileResponse:
+      type: object
+      properties:
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - creator
+      - user
+    User:
+      type: object
+      properties:
+        firebaseUserId:
+          type: string
+          description: Firebase User ID
+          example: ExwY3egTxNUCeM5DT300D9Otue53
+        email:
+          type: string
+          example: don@trend.io
+        creatorId:
+          type: string
+          description: Mongo Creator Collection ID
+        socialProvider:
+          type: string
+          enum:
+          - google
+          - ''
+        outsideUS:
+          type: boolean
+          example: false
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - feature-tester
+            - admin
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        phoneNumber:
+          type: string
+        phoneNumberVerified:
+          type: boolean
+        emailVerified:
+          type: boolean
+      required:
+      - firebaseUserId
+      - email
+      - creatorId
+      - socialProvider
+      - outsideUS
+      - permissions
+      - firstName
+      - lastName
+      - profilePicture
+      - phoneNumber
+      - phoneNumberVerified
+      - emailVerified
   securitySchemes:
     access-token:
       scheme: bearer

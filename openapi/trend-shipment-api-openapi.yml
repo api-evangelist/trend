@@ -65,6 +65,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ShipmentDto:
+      type: object
+      properties:
+        partnershipId:
+          type: string
+        nonShippable:
+          type: boolean
+        trackingNumber:
+          type: string
+        carrierCode:
+          type: string
+      required:
+      - partnershipId
+      - nonShippable
     UpdateShipmentDto:
       type: object
       properties:
@@ -82,20 +96,6 @@ components:
       - partnershipId
       - nonShippable
       - shipmentId
-    ShipmentDto:
-      type: object
-      properties:
-        partnershipId:
-          type: string
-        nonShippable:
-          type: boolean
-        trackingNumber:
-          type: string
-        carrierCode:
-          type: string
-      required:
-      - partnershipId
-      - nonShippable
   securitySchemes:
     access-token:
       scheme: bearer

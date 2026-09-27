@@ -72,6 +72,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateLinkedBrandDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+        soonaJWT:
+          type: string
+      required:
+      - password
+      - email
+      - soonaJWT
     TrendBrandAuthResponse:
       type: object
       properties:
@@ -109,21 +124,6 @@ components:
         soonaJWT:
           type: string
       required:
-      - soonaJWT
-    CreateLinkedBrandDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-        soonaJWT:
-          type: string
-      required:
-      - password
-      - email
       - soonaJWT
   securitySchemes:
     access-token:

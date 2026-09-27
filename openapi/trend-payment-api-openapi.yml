@@ -138,29 +138,26 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PackageProduct:
+    GetPayoutsByDateRangeResponse:
       type: object
       properties:
-        cost:
+        payouts:
+          type: array
+          items:
+            type: object
+        count:
           type: number
-        credits:
-          type: number
-        savings:
-          type: number
-        description:
+        startDate:
+          format: date-time
           type: string
-        mostPopular:
-          type: boolean
-        id:
-          type: string
-        name:
+        endDate:
+          format: date-time
           type: string
       required:
-      - cost
-      - credits
-      - savings
-      - id
-      - name
+      - payouts
+      - count
+      - startDate
+      - endDate
     StripeCheckoutSessionResponse:
       type: object
       properties:
@@ -308,26 +305,29 @@ components:
       - success_url
       - total_details
       - url
-    GetPayoutsByDateRangeResponse:
+    PackageProduct:
       type: object
       properties:
-        payouts:
-          type: array
-          items:
-            type: object
-        count:
+        cost:
           type: number
-        startDate:
-          format: date-time
+        credits:
+          type: number
+        savings:
+          type: number
+        description:
           type: string
-        endDate:
-          format: date-time
+        mostPopular:
+          type: boolean
+        id:
+          type: string
+        name:
           type: string
       required:
-      - payouts
-      - count
-      - startDate
-      - endDate
+      - cost
+      - credits
+      - savings
+      - id
+      - name
   securitySchemes:
     access-token:
       scheme: bearer

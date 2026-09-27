@@ -228,64 +228,36 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RequestRevisionDto:
+    AddContentRecordDto:
       type: object
       properties:
-        rejectionReason:
+        contentPath:
+          type: string
+        isFree:
+          type: boolean
+        category:
+          type: string
+          enum:
+          - productPhotography
+          - lifestyleOrActionPhotography
+          - portraitStylePhotography
+          - actionOrProductInUseVideo
+          - unboxingExplanationVideo
+          - productReviewOrTestimonialVideo
+          - other
+      required:
+      - contentPath
+      - category
+    ContentPresignedUrlRequestDto:
+      type: object
+      properties:
+        collectionId:
+          type: string
+        recordId:
           type: string
       required:
-      - rejectionReason
-    ContentApprovalResponse:
-      type: object
-      properties:
-        brandCredits:
-          type: number
-        creator:
-          type: object
-          properties:
-            name:
-              required: true
-              type: string
-            profilePicture:
-              required: false
-              type: string
-            tier:
-              required: true
-              type: object
-        campaign:
-          type: object
-        messageId:
-          type: string
-        approvedContents:
-          type: array
-          items:
-            type: object
-        pendingContents:
-          type: array
-          items:
-            type: object
-      required:
-      - creator
-      - campaign
-      - messageId
-      - approvedContents
-      - pendingContents
-    ApproveContentRequestDto:
-      type: object
-      properties:
-        contentIds:
-          type: array
-          items:
-            type: string
-      required:
-      - contentIds
-    ContentUploadNotificationDto:
-      type: object
-      properties:
-        contentCollectionId:
-          type: string
-      required:
-      - contentCollectionId
+      - collectionId
+      - recordId
     ContentCollectionResponse:
       type: object
       properties:
@@ -321,36 +293,64 @@ components:
       - messageId
       - approvedContents
       - pendingContents
-    ContentPresignedUrlRequestDto:
+    RequestRevisionDto:
       type: object
       properties:
-        collectionId:
-          type: string
-        recordId:
+        rejectionReason:
           type: string
       required:
-      - collectionId
-      - recordId
-    AddContentRecordDto:
+      - rejectionReason
+    ContentUploadNotificationDto:
       type: object
       properties:
-        contentPath:
+        contentCollectionId:
           type: string
-        isFree:
-          type: boolean
-        category:
-          type: string
-          enum:
-          - productPhotography
-          - lifestyleOrActionPhotography
-          - portraitStylePhotography
-          - actionOrProductInUseVideo
-          - unboxingExplanationVideo
-          - productReviewOrTestimonialVideo
-          - other
       required:
-      - contentPath
-      - category
+      - contentCollectionId
+    ApproveContentRequestDto:
+      type: object
+      properties:
+        contentIds:
+          type: array
+          items:
+            type: string
+      required:
+      - contentIds
+    ContentApprovalResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
   securitySchemes:
     access-token:
       scheme: bearer
