@@ -228,6 +228,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    ContentUploadNotificationDto:
+      type: object
+      properties:
+        contentCollectionId:
+          type: string
+      required:
+      - contentCollectionId
     AddContentRecordDto:
       type: object
       properties:
@@ -248,6 +255,50 @@ components:
       required:
       - contentPath
       - category
+    ContentApprovalResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
+    ApproveContentRequestDto:
+      type: object
+      properties:
+        contentIds:
+          type: array
+          items:
+            type: string
+      required:
+      - contentIds
     ContentPresignedUrlRequestDto:
       type: object
       properties:
@@ -300,57 +351,6 @@ components:
           type: string
       required:
       - rejectionReason
-    ContentUploadNotificationDto:
-      type: object
-      properties:
-        contentCollectionId:
-          type: string
-      required:
-      - contentCollectionId
-    ApproveContentRequestDto:
-      type: object
-      properties:
-        contentIds:
-          type: array
-          items:
-            type: string
-      required:
-      - contentIds
-    ContentApprovalResponse:
-      type: object
-      properties:
-        brandCredits:
-          type: number
-        creator:
-          type: object
-          properties:
-            name:
-              required: true
-              type: string
-            profilePicture:
-              required: false
-              type: string
-            tier:
-              required: true
-              type: object
-        campaign:
-          type: object
-        messageId:
-          type: string
-        approvedContents:
-          type: array
-          items:
-            type: object
-        pendingContents:
-          type: array
-          items:
-            type: object
-      required:
-      - creator
-      - campaign
-      - messageId
-      - approvedContents
-      - pendingContents
   securitySchemes:
     access-token:
       scheme: bearer

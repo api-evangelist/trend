@@ -119,30 +119,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    BrandSendMessageRequestDto:
-      type: object
-      properties:
-        creatorId:
-          type: string
-        text:
-          type: string
-        type:
-          type: string
-          enum:
-          - image
-          - video
-          - text
-          - revisionRequest
-        url:
-          type: string
-        thumbnail:
-          type: string
-        messageId:
-          type: string
-      required:
-      - creatorId
-      - text
-      - type
     CreatorSendMessageRequestDto:
       type: object
       properties:
@@ -165,6 +141,30 @@ components:
           type: string
       required:
       - brandId
+      - text
+      - type
+    BrandSendMessageRequestDto:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        text:
+          type: string
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - text
+          - revisionRequest
+        url:
+          type: string
+        thumbnail:
+          type: string
+        messageId:
+          type: string
+      required:
+      - creatorId
       - text
       - type
   securitySchemes:

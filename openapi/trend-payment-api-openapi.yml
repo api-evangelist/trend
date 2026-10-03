@@ -158,6 +158,29 @@ components:
       - count
       - startDate
       - endDate
+    PackageProduct:
+      type: object
+      properties:
+        cost:
+          type: number
+        credits:
+          type: number
+        savings:
+          type: number
+        description:
+          type: string
+        mostPopular:
+          type: boolean
+        id:
+          type: string
+        name:
+          type: string
+      required:
+      - cost
+      - credits
+      - savings
+      - id
+      - name
     StripeCheckoutSessionResponse:
       type: object
       properties:
@@ -305,29 +328,6 @@ components:
       - success_url
       - total_details
       - url
-    PackageProduct:
-      type: object
-      properties:
-        cost:
-          type: number
-        credits:
-          type: number
-        savings:
-          type: number
-        description:
-          type: string
-        mostPopular:
-          type: boolean
-        id:
-          type: string
-        name:
-          type: string
-      required:
-      - cost
-      - credits
-      - savings
-      - id
-      - name
   securitySchemes:
     access-token:
       scheme: bearer

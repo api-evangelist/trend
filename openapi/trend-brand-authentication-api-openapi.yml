@@ -171,6 +171,18 @@ components:
       - customToken
       - email
       - refreshToken
+    AdminUpdateBrandEmail:
+      type: object
+      properties:
+        brandId:
+          type: string
+        newEmail:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - brandId
+      - newEmail
     BrandSchema:
       type: object
       properties: {}
@@ -186,18 +198,6 @@ components:
       required:
       - password
       - email
-    AdminUpdateBrandEmail:
-      type: object
-      properties:
-        brandId:
-          type: string
-        newEmail:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - brandId
-      - newEmail
   securitySchemes:
     access-token:
       scheme: bearer

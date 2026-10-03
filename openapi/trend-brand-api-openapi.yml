@@ -211,51 +211,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UpdateBrandDto:
-      type: object
-      properties:
-        companyName:
-          type: string
-        url:
-          type: string
-    UpdateFavoriteCreatorDto:
-      type: object
-      properties:
-        creatorId:
-          type: string
-        partnershipId:
-          type: string
-      required:
-      - creatorId
-    ApproveBrandDto:
-      type: object
-      properties:
-        brandId:
-          type: string
-        productImage:
-          type: string
-        storeImage:
-          type: string
-        description:
-          type: string
-      required:
-      - brandId
-      - productImage
-    AddCreditsDto:
-      type: object
-      properties:
-        changeType:
-          enum:
-          - add-new
-          - refund
-          type: string
-        credits:
-          type: number
-          minimum: 1
-          maximum: 15000
-      required:
-      - changeType
-      - credits
     UpdateBrandRequest:
       type: object
       properties:
@@ -277,6 +232,51 @@ components:
       required:
       - companyName
       - contactEmail
+    UpdateFavoriteCreatorDto:
+      type: object
+      properties:
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+      required:
+      - creatorId
+    AddCreditsDto:
+      type: object
+      properties:
+        changeType:
+          enum:
+          - add-new
+          - refund
+          type: string
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    ApproveBrandDto:
+      type: object
+      properties:
+        brandId:
+          type: string
+        productImage:
+          type: string
+        storeImage:
+          type: string
+        description:
+          type: string
+      required:
+      - brandId
+      - productImage
+    UpdateBrandDto:
+      type: object
+      properties:
+        companyName:
+          type: string
+        url:
+          type: string
   securitySchemes:
     access-token:
       scheme: bearer
