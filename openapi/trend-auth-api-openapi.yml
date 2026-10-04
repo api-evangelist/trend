@@ -72,13 +72,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    LinkSoonaAccountDto:
-      type: object
-      properties:
-        soonaJWT:
-          type: string
-      required:
-      - soonaJWT
     TrendBrandAuthResponse:
       type: object
       properties:
@@ -107,6 +100,13 @@ components:
       - customToken
       - email
       - refreshToken
+    LinkSoonaAccountDto:
+      type: object
+      properties:
+        soonaJWT:
+          type: string
+      required:
+      - soonaJWT
     CreateLinkedBrandDto:
       type: object
       properties:

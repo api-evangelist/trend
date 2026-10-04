@@ -124,20 +124,6 @@ components:
       required:
       - password
       - email
-    UpdatePermissionsDto:
-      type: object
-      properties:
-        email:
-          type: string
-        permissions:
-          type: array
-          items:
-            type: string
-            enum:
-            - admin
-            - content_viewer
-      required:
-      - email
     FirebaseAuthSignInResponse:
       type: object
       properties:
@@ -163,6 +149,20 @@ components:
       - registered
       - email
       - refreshToken
+    UpdatePermissionsDto:
+      type: object
+      properties:
+        email:
+          type: string
+        permissions:
+          type: array
+          items:
+            type: string
+            enum:
+            - admin
+            - content_viewer
+      required:
+      - email
   securitySchemes:
     access-token:
       scheme: bearer

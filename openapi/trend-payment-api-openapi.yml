@@ -138,26 +138,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GetPayoutsByDateRangeResponse:
-      type: object
-      properties:
-        payouts:
-          type: array
-          items:
-            type: object
-        count:
-          type: number
-        startDate:
-          format: date-time
-          type: string
-        endDate:
-          format: date-time
-          type: string
-      required:
-      - payouts
-      - count
-      - startDate
-      - endDate
     PackageProduct:
       type: object
       properties:
@@ -181,6 +161,26 @@ components:
       - savings
       - id
       - name
+    GetPayoutsByDateRangeResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            type: object
+        count:
+          type: number
+        startDate:
+          format: date-time
+          type: string
+        endDate:
+          format: date-time
+          type: string
+      required:
+      - payouts
+      - count
+      - startDate
+      - endDate
     StripeCheckoutSessionResponse:
       type: object
       properties:

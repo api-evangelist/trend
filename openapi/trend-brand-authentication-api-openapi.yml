@@ -143,6 +143,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AdminUpdateBrandEmail:
+      type: object
+      properties:
+        brandId:
+          type: string
+        newEmail:
+          type: string
+        newPassword:
+          type: string
+      required:
+      - brandId
+      - newEmail
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
     TrendBrandAuthResponse:
       type: object
       properties:
@@ -171,33 +195,9 @@ components:
       - customToken
       - email
       - refreshToken
-    AdminUpdateBrandEmail:
-      type: object
-      properties:
-        brandId:
-          type: string
-        newEmail:
-          type: string
-        newPassword:
-          type: string
-      required:
-      - brandId
-      - newEmail
     BrandSchema:
       type: object
       properties: {}
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
   securitySchemes:
     access-token:
       scheme: bearer

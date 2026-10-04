@@ -228,33 +228,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ContentUploadNotificationDto:
-      type: object
-      properties:
-        contentCollectionId:
-          type: string
-      required:
-      - contentCollectionId
-    AddContentRecordDto:
-      type: object
-      properties:
-        contentPath:
-          type: string
-        isFree:
-          type: boolean
-        category:
-          type: string
-          enum:
-          - productPhotography
-          - lifestyleOrActionPhotography
-          - portraitStylePhotography
-          - actionOrProductInUseVideo
-          - unboxingExplanationVideo
-          - productReviewOrTestimonialVideo
-          - other
-      required:
-      - contentPath
-      - category
     ContentApprovalResponse:
       type: object
       properties:
@@ -309,6 +282,13 @@ components:
       required:
       - collectionId
       - recordId
+    RequestRevisionDto:
+      type: object
+      properties:
+        rejectionReason:
+          type: string
+      required:
+      - rejectionReason
     ContentCollectionResponse:
       type: object
       properties:
@@ -344,13 +324,33 @@ components:
       - messageId
       - approvedContents
       - pendingContents
-    RequestRevisionDto:
+    AddContentRecordDto:
       type: object
       properties:
-        rejectionReason:
+        contentPath:
+          type: string
+        isFree:
+          type: boolean
+        category:
+          type: string
+          enum:
+          - productPhotography
+          - lifestyleOrActionPhotography
+          - portraitStylePhotography
+          - actionOrProductInUseVideo
+          - unboxingExplanationVideo
+          - productReviewOrTestimonialVideo
+          - other
+      required:
+      - contentPath
+      - category
+    ContentUploadNotificationDto:
+      type: object
+      properties:
+        contentCollectionId:
           type: string
       required:
-      - rejectionReason
+      - contentCollectionId
   securitySchemes:
     access-token:
       scheme: bearer

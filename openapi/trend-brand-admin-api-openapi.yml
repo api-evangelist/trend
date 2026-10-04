@@ -196,21 +196,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RemoveCreditsDto:
-      type: object
-      properties:
-        changeType:
-          type: string
-          enum:
-          - refunded
-          - remove
-        credits:
-          type: number
-          minimum: 1
-          maximum: 15000
-      required:
-      - changeType
-      - credits
     ApproveBrandDto:
       type: object
       properties:
@@ -232,6 +217,21 @@ components:
           type: string
         url:
           type: string
+    RemoveCreditsDto:
+      type: object
+      properties:
+        changeType:
+          type: string
+          enum:
+          - refunded
+          - remove
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
     AddCreditsDto:
       type: object
       properties:
