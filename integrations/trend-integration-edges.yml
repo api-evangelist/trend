@@ -1,0 +1,31 @@
+generated: '2026-10-12'
+method: searched
+source:
+- https://zapier.com/apps/trend/integrations
+- https://n8n.io/integrations/trend/
+- https://composio.dev/toolkits/trend
+- https://monid.ai/tools/trend
+checked:
+- https://composio.dev/toolkits/trend
+- https://monid.ai/tools/trend
+- https://n8n.io/integrations/trend/
+- https://zapier.com/apps/trend/integrations
+summary: null
+marketplace_apps: []
+edges:
+- partner_name: pomo
+  partner: pomo
+  partner_match: domain
+  type: contract
+  channel: partner-built
+  relationship: processor-connection
+  direction: partner-built
+  evidence: https://github.com/api-evangelist/pomo/blob/main/openapi/pomo-ai-campaign-api-openapi.yml
+  contract_reference:
+    repo: pomo
+    spec_file: pomo-ai-campaign-api-openapi.yml
+    value: trend
+    property: schemas.AICampaignFromIntelligenceRequest.source_type
+    detected_by: detect-payment-method-edges.py
+    detected: '2026-10-12'
+templates: []
