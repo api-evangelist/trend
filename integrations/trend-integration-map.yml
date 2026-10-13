@@ -1,0 +1,30 @@
+# DERIVED by derive-integration-map.py (roadmap#949): each integration workflow, step by step,
+# resolved to spec file -> tag -> business capability (Turbo EA, CC BY 4.0) and the operation's
+# phrasing intent. Read from our own files; an unmapped link says why.
+slug: trend
+workflows:
+- file: trend-pomo-preconfig.yml
+  title: 'trend through pomo: start_ai_campaign_from_intelligence_job_api_ai_campaign_from_intelligence_job_post
+    preconfigured with trend'
+  partner: pomo
+  template: null
+  repos:
+  - pomo
+  steps:
+  - step: call-with-preset
+    repo: pomo
+    spec_file: pomo-ai-campaign-api-openapi.yml
+    operationId: start_ai_campaign_from_intelligence_job_api_ai_campaign_from_intelligence_job_post
+    tag: ai-campaign
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  connects:
+    pomo:
+      capabilities: []
+      tags:
+      - ai-campaign
+  intents: []
