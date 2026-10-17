@@ -228,67 +228,26 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ContentApprovalResponse:
+    AddContentRecordDto:
       type: object
       properties:
-        brandCredits:
-          type: number
-        creator:
-          type: object
-          properties:
-            name:
-              required: true
-              type: string
-            profilePicture:
-              required: false
-              type: string
-            tier:
-              required: true
-              type: object
-        campaign:
-          type: object
-        messageId:
+        contentPath:
           type: string
-        approvedContents:
-          type: array
-          items:
-            type: object
-        pendingContents:
-          type: array
-          items:
-            type: object
-      required:
-      - creator
-      - campaign
-      - messageId
-      - approvedContents
-      - pendingContents
-    ApproveContentRequestDto:
-      type: object
-      properties:
-        contentIds:
-          type: array
-          items:
-            type: string
-      required:
-      - contentIds
-    ContentPresignedUrlRequestDto:
-      type: object
-      properties:
-        collectionId:
+        isFree:
+          type: boolean
+        category:
           type: string
-        recordId:
-          type: string
+          enum:
+          - productPhotography
+          - lifestyleOrActionPhotography
+          - portraitStylePhotography
+          - actionOrProductInUseVideo
+          - unboxingExplanationVideo
+          - productReviewOrTestimonialVideo
+          - other
       required:
-      - collectionId
-      - recordId
-    RequestRevisionDto:
-      type: object
-      properties:
-        rejectionReason:
-          type: string
-      required:
-      - rejectionReason
+      - contentPath
+      - category
     ContentCollectionResponse:
       type: object
       properties:
@@ -324,26 +283,25 @@ components:
       - messageId
       - approvedContents
       - pendingContents
-    AddContentRecordDto:
+    ContentPresignedUrlRequestDto:
       type: object
       properties:
-        contentPath:
+        collectionId:
           type: string
-        isFree:
-          type: boolean
-        category:
+        recordId:
           type: string
-          enum:
-          - productPhotography
-          - lifestyleOrActionPhotography
-          - portraitStylePhotography
-          - actionOrProductInUseVideo
-          - unboxingExplanationVideo
-          - productReviewOrTestimonialVideo
-          - other
       required:
-      - contentPath
-      - category
+      - collectionId
+      - recordId
+    ApproveContentRequestDto:
+      type: object
+      properties:
+        contentIds:
+          type: array
+          items:
+            type: string
+      required:
+      - contentIds
     ContentUploadNotificationDto:
       type: object
       properties:
@@ -351,6 +309,48 @@ components:
           type: string
       required:
       - contentCollectionId
+    RequestRevisionDto:
+      type: object
+      properties:
+        rejectionReason:
+          type: string
+      required:
+      - rejectionReason
+    ContentApprovalResponse:
+      type: object
+      properties:
+        brandCredits:
+          type: number
+        creator:
+          type: object
+          properties:
+            name:
+              required: true
+              type: string
+            profilePicture:
+              required: false
+              type: string
+            tier:
+              required: true
+              type: object
+        campaign:
+          type: object
+        messageId:
+          type: string
+        approvedContents:
+          type: array
+          items:
+            type: object
+        pendingContents:
+          type: array
+          items:
+            type: object
+      required:
+      - creator
+      - campaign
+      - messageId
+      - approvedContents
+      - pendingContents
   securitySchemes:
     access-token:
       scheme: bearer

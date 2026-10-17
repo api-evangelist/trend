@@ -412,6 +412,111 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    IncrementDownloadDto:
+      type: object
+      properties:
+        count:
+          type: number
+          minimum: 0
+        creatorId:
+          type: string
+        partnershipId:
+          type: string
+        type:
+          type: string
+    UpdateDraftCampaignDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - image
+          - video
+          - social
+        category:
+          type: string
+          enum:
+          - pet
+          - fashion
+          - other
+          - trending
+          - food
+          - technology
+          - beverages
+          - beauty
+          - boxes
+          - adventure
+          - wellness
+          - home
+          - fitness
+          - travel
+          - sports
+        platform:
+          type: string
+          enum:
+          - instagram
+          - tiktok
+          - facebook
+          - youtube
+          - amazon
+          - generalUse
+        styleCategory:
+          type: array
+          items:
+            type: string
+            enum:
+            - productPhotography
+            - lifestyleOrActionPhotography
+            - portraitStylePhotography
+            - actionOrProductInUseVideo
+            - unboxingExplanationVideo
+            - productReviewOrTestimonialVideo
+            - other
+        gender:
+          type:
+          - string
+          - 'null'
+          enum:
+          - male
+          - female
+          - other
+          - null
+        name:
+          type: string
+        url:
+          type: string
+        value:
+          type: number
+        userFullName:
+          type: string
+        companyName:
+          type: string
+    InviteCreatorBodyDto:
+      type: object
+      properties:
+        rehireContentNeeds:
+          type: string
+        rehireWillBrandSendProduct:
+          type: boolean
+        rehireProductDescription:
+          type: string
+      required:
+      - rehireContentNeeds
+      - rehireWillBrandSendProduct
+    CampaignContentSubmissionsResponse:
+      type: object
+      properties:
+        submissions:
+          type: array
+          items:
+            type: object
+        approvals:
+          type: array
+          items:
+            type: object
+      required:
+      - submissions
+      - approvals
     SubmitCampaignDto:
       type: object
       properties:
@@ -488,114 +593,9 @@ components:
       - name
       - url
       - value
-    CampaignContentSubmissionsResponse:
-      type: object
-      properties:
-        submissions:
-          type: array
-          items:
-            type: object
-        approvals:
-          type: array
-          items:
-            type: object
-      required:
-      - submissions
-      - approvals
-    InviteCreatorBodyDto:
-      type: object
-      properties:
-        rehireContentNeeds:
-          type: string
-        rehireWillBrandSendProduct:
-          type: boolean
-        rehireProductDescription:
-          type: string
-      required:
-      - rehireContentNeeds
-      - rehireWillBrandSendProduct
     UpdateActiveCampaign:
       type: object
       properties:
-        category:
-          type: string
-          enum:
-          - pet
-          - fashion
-          - other
-          - trending
-          - food
-          - technology
-          - beverages
-          - beauty
-          - boxes
-          - adventure
-          - wellness
-          - home
-          - fitness
-          - travel
-          - sports
-        platform:
-          type: string
-          enum:
-          - instagram
-          - tiktok
-          - facebook
-          - youtube
-          - amazon
-          - generalUse
-        styleCategory:
-          type: array
-          items:
-            type: string
-            enum:
-            - productPhotography
-            - lifestyleOrActionPhotography
-            - portraitStylePhotography
-            - actionOrProductInUseVideo
-            - unboxingExplanationVideo
-            - productReviewOrTestimonialVideo
-            - other
-        gender:
-          type:
-          - string
-          - 'null'
-          enum:
-          - male
-          - female
-          - other
-          - null
-        name:
-          type: string
-        url:
-          type: string
-        value:
-          type: number
-        userFullName:
-          type: string
-        companyName:
-          type: string
-    IncrementDownloadDto:
-      type: object
-      properties:
-        count:
-          type: number
-          minimum: 0
-        creatorId:
-          type: string
-        partnershipId:
-          type: string
-        type:
-          type: string
-    UpdateDraftCampaignDto:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - image
-          - video
-          - social
         category:
           type: string
           enum:

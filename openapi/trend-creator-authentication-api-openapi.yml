@@ -116,34 +116,28 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SignUpResponse:
+    Address:
       type: object
       properties:
-        idToken:
+        line1:
           type: string
-          description: Authentication Token
-        expiresIn:
+        line2:
           type: string
-          description: Seconds until idToken expires
-        localId:
+        city:
           type: string
-          description: Firebase User ID
-        creator:
-          type: object
-        user:
-          $ref: '#/components/schemas/User'
-        email:
+        postalCode:
           type: string
-        refreshToken:
+        state:
+          type: string
+        country:
           type: string
       required:
-      - idToken
-      - expiresIn
-      - localId
-      - creator
-      - user
-      - email
-      - refreshToken
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
     TrendCreatorAuthResponse:
       type: object
       properties:
@@ -225,28 +219,6 @@ components:
       - phoneNumber
       - phoneNumberVerified
       - emailVerified
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
-    TrendAuthProfileResponse:
-      type: object
-      properties:
-        creator:
-          $ref: '#/components/schemas/Creator'
-        user:
-          $ref: '#/components/schemas/User'
-      required:
-      - creator
-      - user
     Creator:
       type: object
       properties:
@@ -340,28 +312,56 @@ components:
       - equipment
       - environment
       - levelId
-    Address:
+    TrendAuthProfileResponse:
       type: object
       properties:
-        line1:
+        creator:
+          $ref: '#/components/schemas/Creator'
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - creator
+      - user
+    SignUpResponse:
+      type: object
+      properties:
+        idToken:
           type: string
-        line2:
+          description: Authentication Token
+        expiresIn:
           type: string
-        city:
+          description: Seconds until idToken expires
+        localId:
           type: string
-        postalCode:
+          description: Firebase User ID
+        creator:
+          type: object
+        user:
+          $ref: '#/components/schemas/User'
+        email:
           type: string
-        state:
-          type: string
-        country:
+        refreshToken:
           type: string
       required:
-      - line1
-      - line2
-      - city
-      - postalCode
-      - state
-      - country
+      - idToken
+      - expiresIn
+      - localId
+      - creator
+      - user
+      - email
+      - refreshToken
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
   securitySchemes:
     access-token:
       scheme: bearer

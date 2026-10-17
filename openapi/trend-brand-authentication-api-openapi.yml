@@ -155,18 +155,6 @@ components:
       required:
       - brandId
       - newEmail
-    EmailPasswordDto:
-      type: object
-      properties:
-        password:
-          type: string
-        url:
-          type: string
-        email:
-          type: string
-      required:
-      - password
-      - email
     TrendBrandAuthResponse:
       type: object
       properties:
@@ -195,6 +183,18 @@ components:
       - customToken
       - email
       - refreshToken
+    EmailPasswordDto:
+      type: object
+      properties:
+        password:
+          type: string
+        url:
+          type: string
+        email:
+          type: string
+      required:
+      - password
+      - email
     BrandSchema:
       type: object
       properties: {}

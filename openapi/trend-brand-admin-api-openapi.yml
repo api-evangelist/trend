@@ -196,6 +196,36 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AddCreditsDto:
+      type: object
+      properties:
+        changeType:
+          enum:
+          - add-new
+          - refund
+          type: string
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
+    RemoveCreditsDto:
+      type: object
+      properties:
+        changeType:
+          type: string
+          enum:
+          - refunded
+          - remove
+        credits:
+          type: number
+          minimum: 1
+          maximum: 15000
+      required:
+      - changeType
+      - credits
     ApproveBrandDto:
       type: object
       properties:
@@ -217,36 +247,6 @@ components:
           type: string
         url:
           type: string
-    RemoveCreditsDto:
-      type: object
-      properties:
-        changeType:
-          type: string
-          enum:
-          - refunded
-          - remove
-        credits:
-          type: number
-          minimum: 1
-          maximum: 15000
-      required:
-      - changeType
-      - credits
-    AddCreditsDto:
-      type: object
-      properties:
-        changeType:
-          enum:
-          - add-new
-          - refund
-          type: string
-        credits:
-          type: number
-          minimum: 1
-          maximum: 15000
-      required:
-      - changeType
-      - credits
   securitySchemes:
     access-token:
       scheme: bearer

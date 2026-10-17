@@ -133,6 +133,83 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    JobTypeDto:
+      type: object
+      properties:
+        content:
+          type: boolean
+        social:
+          type: boolean
+      required:
+      - content
+      - social
+    SettingsDto:
+      type: object
+      properties:
+        ageRange:
+          type: string
+          enum:
+          - 18-24
+          - 25-31
+          - 32-44
+          - 45+
+        address:
+          $ref: '#/components/schemas/Address'
+        userId:
+          type: string
+        socialCategories:
+          type: array
+          items:
+            type: string
+        contentCategories:
+          type: array
+          items:
+            type: string
+        socials:
+          type: object
+        jobTypes:
+          type: object
+        username:
+          type: string
+        about:
+          type: string
+        equipment:
+          type: array
+          items:
+            type: string
+        environment:
+          type: array
+          items:
+            type: string
+        creatorId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        profilePicture:
+          type: string
+        overallRating:
+          type: number
+        totalReviews:
+          type: number
+        payPalEmail:
+          type: string
+      required:
+      - ageRange
+      - address
+      - userId
+      - socialCategories
+      - contentCategories
+      - socials
+      - jobTypes
+      - equipment
+      - environment
+      - creatorId
+      - firstName
+      - lastName
+      - profilePicture
+      - payPalEmail
     ProfileDto:
       type: object
       properties:
@@ -202,6 +279,22 @@ components:
       - jobTypes
       - equipment
       - environment
+    SocialProviderDto:
+      type: object
+      properties:
+        instagram:
+          type: string
+        youTube:
+          type: string
+        tikTok:
+          type: string
+        website:
+          type: string
+      required:
+      - instagram
+      - youTube
+      - tikTok
+      - website
     PublicProfileResponse:
       type: object
       properties:
@@ -296,83 +389,28 @@ components:
       - reviews
       - instagramStats
       - partnershipCreditCost
-    SettingsDto:
+    Address:
       type: object
       properties:
-        ageRange:
+        line1:
           type: string
-          enum:
-          - 18-24
-          - 25-31
-          - 32-44
-          - 45+
-        address:
-          $ref: '#/components/schemas/Address'
-        userId:
+        line2:
           type: string
-        socialCategories:
-          type: array
-          items:
-            type: string
-        contentCategories:
-          type: array
-          items:
-            type: string
-        socials:
-          type: object
-        jobTypes:
-          type: object
-        username:
+        city:
           type: string
-        about:
+        postalCode:
           type: string
-        equipment:
-          type: array
-          items:
-            type: string
-        environment:
-          type: array
-          items:
-            type: string
-        creatorId:
+        state:
           type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        profilePicture:
-          type: string
-        overallRating:
-          type: number
-        totalReviews:
-          type: number
-        payPalEmail:
+        country:
           type: string
       required:
-      - ageRange
-      - address
-      - userId
-      - socialCategories
-      - contentCategories
-      - socials
-      - jobTypes
-      - equipment
-      - environment
-      - creatorId
-      - firstName
-      - lastName
-      - profilePicture
-      - payPalEmail
-    JobTypeDto:
-      type: object
-      properties:
-        content:
-          type: boolean
-        social:
-          type: boolean
-      required:
-      - content
-      - social
+      - line1
+      - line2
+      - city
+      - postalCode
+      - state
+      - country
     UpdateProfileDto:
       type: object
       properties:
@@ -423,44 +461,6 @@ components:
           type: string
         profilePicture:
           type: string
-    SocialProviderDto:
-      type: object
-      properties:
-        instagram:
-          type: string
-        youTube:
-          type: string
-        tikTok:
-          type: string
-        website:
-          type: string
-      required:
-      - instagram
-      - youTube
-      - tikTok
-      - website
-    Address:
-      type: object
-      properties:
-        line1:
-          type: string
-        line2:
-          type: string
-        city:
-          type: string
-        postalCode:
-          type: string
-        state:
-          type: string
-        country:
-          type: string
-      required:
-      - line1
-      - line2
-      - city
-      - postalCode
-      - state
-      - country
   securitySchemes:
     access-token:
       scheme: bearer
